@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "380182697912",
+    "project_id": "streamliner-1",
+    "storage_bucket": "streamliner-1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380182697912:android:5b2c269c27caf25ae9614d",
+        "android_client_info": {
+          "package_name": "com.example.streamliner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEaG7uG3Pl5QmkJcmw-DBskkxvNlBbmGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
