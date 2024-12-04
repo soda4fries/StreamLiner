@@ -7,4 +7,31 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    //dark blue
+    <color name="blue_button">#164898</color>
+    <color name="blue_heading_general_module">#1A4C8E</color> //heading for login, sign up, password pages
+    <color name="blue_small_text_border">#1C4A98</color>
+    <color name="blue_sub_heading">#083167</color>
+    <color name="blue_block">#2452A0</color>
+    <color name="blue_heading">#1A4C8E</color>
+    <color name="blue_me_sections_smallText">#234F9B</color>
+    <color name="dark_blue_feedback_sections">#354270</color>
+    <color name="blue_others_CS">#215DAC</color> //blue for CS subject too. Most elements use this blue
+    <color name="blue_tabs">#0A3E81</color>
+    <color name="blue_quiz_submit_button">#007AFF</color>
+
+    //light blue
+    <color name="light_blue_chat_bubble">#BFDDFF</color>
+    <color name="light_blue_box">#CEE5FF</color>
+    <color name="light_blue_others">#ADC8EB</color>
+
+    <color name="red_text">#FE0C0C</color>
+    <color name="green_quiz_done">#14AE5C</color>
+
+    //subject colors
+    <color name="green_biology">#459662</color>
+    <color name="red_maths">#FF2F00</color>
+    <color name="orange_chemistry">#FFAA00</color>
+    <color name="purple_physics">#6D1E9B</color>
 </resources>
