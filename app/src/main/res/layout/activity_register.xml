@@ -7,4 +7,118 @@
     android:layout_height="match_parent"
     tools:context=".Register">
 
+    <ImageView
+        android:id="@+id/FrameRegister1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/FrameRegister1" />
+
+    <ImageView
+        android:id="@+id/FrameRegister2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/FrameRegister2" />
+
+    <TextView
+        android:id="@+id/TitleRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="100dp"
+        android:scrollbarTrackVertical="@color/darkBlue"
+        android:text="Lets Register Account"
+        android:textColor="@color/darkBlue"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/SubtitleRegister"
+        android:layout_width="299dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="20dp"
+        android:text="Hello user, hope you have a great journey"
+        android:textColor="@color/subtitleGrey"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/TitleRegister"
+        app:layout_constraintTop_toBottomOf="@+id/TitleRegister" />
+
+    <EditText
+        android:id="@+id/ETName"
+        android:layout_width="327dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/SubtitleRegister"
+        app:layout_constraintTop_toBottomOf="@+id/SubtitleRegister" />
+
+    <EditText
+        android:id="@+id/ETPhone"
+        android:layout_width="328dp"
+        android:layout_height="54dp"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="@+id/ETName"
+        app:layout_constraintStart_toStartOf="@+id/ETName"
+        app:layout_constraintTop_toBottomOf="@+id/ETName" />
+
+    <EditText
+        android:id="@+id/ETUsername"
+        android:layout_width="328dp"
+        android:layout_height="58dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/ETPhone"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ETPhone"
+        app:layout_constraintTop_toBottomOf="@+id/ETPhone" />
+
+    <EditText
+        android:id="@+id/ETPwd"
+        android:layout_width="325dp"
+        android:layout_height="64dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/ETUsername"
+        app:layout_constraintStart_toStartOf="@+id/ETUsername"
+        app:layout_constraintTop_toBottomOf="@+id/ETUsername" />
+
+    <Button
+        android:id="@+id/BTSignUp"
+        android:layout_width="219dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/darkBlue"
+        android:text="Sign Up"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/ETConfirmPwd"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="@+id/ETConfirmPwd"
+        app:layout_constraintTop_toBottomOf="@+id/ETConfirmPwd" />
+
+    <EditText
+        android:id="@+id/ETConfirmPwd"
+        android:layout_width="326dp"
+        android:layout_height="60dp"
+        android:ems="10"
+        android:hint="Confirmed Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/ETPwd"
+        app:layout_constraintStart_toStartOf="@+id/ETPwd"
+        app:layout_constraintTop_toBottomOf="@+id/ETPwd" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
