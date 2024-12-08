@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResetPwd">
+
+    <ImageView
+        android:id="@+id/FrameResetPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/FrameLogin" />
+
+    <TextView
+        android:id="@+id/TitleResetPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Create New Password"
+        android:textColor="@color/darkBlue"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/ETNewPwd"
+        android:layout_width="326dp"
+        android:layout_height="55dp"
+        android:ems="10"
+        android:hint="Enter new password"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="@+id/SubtitleNewPwd"
+        app:layout_constraintTop_toBottomOf="@+id/SubtitleNewPwd" />
+
+    <TextView
+        android:id="@+id/SubtitleNewPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="356dp"
+        android:text="New Password"
+        android:textColor="@color/subtitleGrey"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/SubtitleConfirmPassword"
+        android:layout_width="191dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:text="Confirmed Password"
+        android:textColor="@color/subtitleGrey"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/ETNewPwd"
+        app:layout_constraintTop_toBottomOf="@+id/ETNewPwd" />
+
+    <EditText
+        android:id="@+id/ETConfirmNewPwd"
+        android:layout_width="324dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Confirm new password"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/SubtitleConfirmPassword"
+        app:layout_constraintTop_toBottomOf="@+id/SubtitleConfirmPassword" />
+
+    <Button
+        android:id="@+id/BTContNewPwd"
+        android:layout_width="229dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/darkBlue"
+        android:text="Reset Password"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/ETConfirmNewPwd"
+        app:layout_constraintHorizontal_bias="0.474"
+        app:layout_constraintStart_toStartOf="@+id/ETConfirmNewPwd"
+        app:layout_constraintTop_toBottomOf="@+id/ETConfirmNewPwd" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

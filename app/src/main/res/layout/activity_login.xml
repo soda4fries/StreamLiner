@@ -9,32 +9,41 @@
     tools:context=".Login">
 
 
+    <ImageView
+        android:id="@+id/FrameLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/FrameLogin" />
+
     <EditText
-        android:id="@+id/ETPwd"
+        android:id="@+id/ETPwdLogin"
         android:layout_width="338dp"
         android:layout_height="68dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="text"
         android:textColorHint="@color/subtitleGrey"
-        app:layout_constraintEnd_toEndOf="@+id/ETUsername"
-        app:layout_constraintStart_toStartOf="@+id/ETUsername"
-        app:layout_constraintTop_toBottomOf="@+id/ETUsername" />
+        app:layout_constraintEnd_toEndOf="@+id/ETUsernameLogin"
+        app:layout_constraintStart_toStartOf="@+id/ETUsernameLogin"
+        app:layout_constraintTop_toBottomOf="@+id/ETUsernameLogin" />
 
     <Button
-        android:id="@+id/BTSignIn"
-        android:layout_width="169dp"
-        android:layout_height="48dp"
+        android:id="@+id/BTLogin"
+        android:layout_width="218dp"
+        android:layout_height="58dp"
         android:layout_marginTop="104dp"
         android:backgroundTint="@color/darkBlue"
         android:text="Sign In"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ETPwd" />
+        app:layout_constraintTop_toBottomOf="@+id/ETPwdLogin" />
 
     <EditText
-        android:id="@+id/ETUsername"
+        android:id="@+id/ETUsernameLogin"
         android:layout_width="333dp"
         android:layout_height="72dp"
         android:layout_marginTop="28dp"
@@ -42,24 +51,24 @@
         android:hint="Username"
         android:inputType="text"
         android:textColorHint="@color/subtitleGrey"
-        app:layout_constraintEnd_toEndOf="@+id/subtitle"
+        app:layout_constraintEnd_toEndOf="@+id/SubtitleLogin"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/subtitle"
-        app:layout_constraintTop_toBottomOf="@+id/subtitle" />
+        app:layout_constraintStart_toStartOf="@+id/SubtitleLogin"
+        app:layout_constraintTop_toBottomOf="@+id/SubtitleLogin" />
 
     <TextView
-        android:id="@+id/subtitle"
+        android:id="@+id/SubtitleLogin"
         android:layout_width="339dp"
         android:layout_height="82dp"
         android:layout_marginTop="40dp"
         android:text="Welcome back! Login with your account"
         android:textColor="#6F7172"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/Title"
-        app:layout_constraintTop_toBottomOf="@+id/Title" />
+        app:layout_constraintStart_toStartOf="@+id/TitleLogin"
+        app:layout_constraintTop_toBottomOf="@+id/TitleLogin" />
 
     <TextView
-        android:id="@+id/Title"
+        android:id="@+id/TitleLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
