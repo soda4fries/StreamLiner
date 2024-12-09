@@ -15,7 +15,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/FrameRegister1" />
+        app:srcCompat="@drawable/frameRegister1" />
 
     <ImageView
         android:id="@+id/FrameRegister2"
@@ -24,7 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/FrameRegister2" />
+        app:srcCompat="@drawable/frameRegister2" />
 
     <TextView
         android:id="@+id/TitleRegister"
@@ -101,12 +101,12 @@
         android:id="@+id/BTSignUp"
         android:layout_width="219dp"
         android:layout_height="53dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="@color/darkBlue"
         android:text="Sign Up"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/ETConfirmPwd"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="@+id/ETConfirmPwd"
         app:layout_constraintTop_toBottomOf="@+id/ETConfirmPwd" />
 
@@ -120,5 +120,17 @@
         app:layout_constraintEnd_toEndOf="@+id/ETPwd"
         app:layout_constraintStart_toStartOf="@+id/ETPwd"
         app:layout_constraintTop_toBottomOf="@+id/ETPwd" />
+
+    <TextView
+        android:id="@+id/TVGoToSignIn"
+        android:layout_width="233dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="60dp"
+        android:text="Have An Account? Sign In"
+        android:textColor="@color/darkBlue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BTSignUp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
