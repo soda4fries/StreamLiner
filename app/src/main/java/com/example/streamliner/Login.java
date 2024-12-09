@@ -18,12 +18,14 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_login);
 
-        Button btnSignIn=findViewById(R.id.BTSignIn);
+        Button BTSignIn=findViewById(R.id.BTSignIn);
+        TextView TVFgtPwd=findViewById(R.id.TVFgtPwd);
         TextView TVRegisterNow=findViewById(R.id.TVGoToRegister);
 
         //Navigate to the main app screen after login
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        BTSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Login.this, MainActivity.class);
@@ -34,7 +36,15 @@ public class Login extends AppCompatActivity {
         });
 
         //Navigate to Forget Password Activity
+        TVFgtPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Login.this, ForgetPwd.class);
+                startActivity(intent);
+                finish();
 
+            }
+        });
 
         //Navigate to Register Activity
         TVRegisterNow.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +64,6 @@ public class Login extends AppCompatActivity {
 
 
 
-        setContentView(R.layout.activity_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
