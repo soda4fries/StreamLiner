@@ -12,6 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -19,6 +21,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         Button BTSignIn=findViewById(R.id.BTSignIn);
         TextView TVFgtPwd=findViewById(R.id.TVFgtPwd);

@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/TitleFgtPwd" />
 
     <EditText
-        android:id="@+id/ETEmail"
+        android:id="@+id/ETEmailFgtPwd"
         android:layout_width="324dp"
         android:layout_height="60dp"
         android:ems="10"
@@ -60,8 +60,8 @@
         android:backgroundTint="@color/darkBlue"
         android:text="Send Code"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/ETEmail"
+        app:layout_constraintEnd_toEndOf="@+id/ETEmailFgtPwd"
         app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toStartOf="@+id/ETEmail"
-        app:layout_constraintTop_toBottomOf="@+id/ETEmail" />
+        app:layout_constraintStart_toStartOf="@+id/ETEmailFgtPwd"
+        app:layout_constraintTop_toBottomOf="@+id/ETEmailFgtPwd" />
 </androidx.constraintlayout.widget.ConstraintLayout>

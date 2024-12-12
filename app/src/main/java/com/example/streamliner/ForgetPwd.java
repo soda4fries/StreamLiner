@@ -20,7 +20,7 @@ public class ForgetPwd extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_forget_pwd);
 
-        EditText ETEmail=findViewById(R.id.ETEmail);
+        EditText ETEmail=findViewById(R.id.ETEmailFgtPwd);
         Button BTSendCode=findViewById(R.id.BTSendCode);
 
         BTSendCode.setOnClickListener(new View.OnClickListener() {

@@ -26,9 +26,9 @@
         android:hint="Password"
         android:inputType="text"
         android:textColorHint="@color/subtitleGrey"
-        app:layout_constraintEnd_toEndOf="@+id/ETUsernameLogin"
-        app:layout_constraintStart_toStartOf="@+id/ETUsernameLogin"
-        app:layout_constraintTop_toBottomOf="@+id/ETUsernameLogin" />
+        app:layout_constraintEnd_toEndOf="@+id/ETEmailLogin"
+        app:layout_constraintStart_toStartOf="@+id/ETEmailLogin"
+        app:layout_constraintTop_toBottomOf="@+id/ETEmailLogin" />
 
     <Button
         android:id="@+id/BTSignIn"
@@ -43,12 +43,12 @@
         app:layout_constraintTop_toBottomOf="@+id/ETPwdLogin" />
 
     <EditText
-        android:id="@+id/ETUsernameLogin"
+        android:id="@+id/ETEmailLogin"
         android:layout_width="333dp"
         android:layout_height="72dp"
         android:layout_marginTop="28dp"
         android:ems="10"
-        android:hint="Username"
+        android:hint="Email"
         android:inputType="text"
         android:textColorHint="@color/subtitleGrey"
         app:layout_constraintEnd_toEndOf="@+id/SubtitleLogin"

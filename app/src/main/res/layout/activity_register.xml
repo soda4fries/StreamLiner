@@ -75,11 +75,11 @@
         app:layout_constraintTop_toBottomOf="@+id/ETName" />
 
     <EditText
-        android:id="@+id/ETUsername"
+        android:id="@+id/ETEmail"
         android:layout_width="328dp"
         android:layout_height="58dp"
         android:ems="10"
-        android:hint="Username"
+        android:hint="Email"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="@+id/ETPhone"
         app:layout_constraintHorizontal_bias="1.0"
@@ -93,9 +93,9 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/ETUsername"
-        app:layout_constraintStart_toStartOf="@+id/ETUsername"
-        app:layout_constraintTop_toBottomOf="@+id/ETUsername" />
+        app:layout_constraintEnd_toEndOf="@+id/ETEmail"
+        app:layout_constraintStart_toStartOf="@+id/ETEmail"
+        app:layout_constraintTop_toBottomOf="@+id/ETEmail" />
 
     <Button
         android:id="@+id/BTSignUp"
