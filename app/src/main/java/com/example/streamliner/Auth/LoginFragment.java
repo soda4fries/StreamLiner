@@ -21,16 +21,21 @@ public class LoginFragment extends Fragment {
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         auth = FirebaseAuth.getInstance();
 
-        // Check if user is already logged in
-        if (auth.getCurrentUser() != null) {
-            navigateToChats();
-        }
-
+        // Move the navigation check to onStart()
         binding.loginButton.setOnClickListener(v -> loginUser());
         binding.registerLink.setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment));
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (auth.getCurrentUser() != null) {
+            navigateToChats();
+        }
     }
 
     private void loginUser() {
@@ -56,8 +61,10 @@ public class LoginFragment extends Fragment {
     }
 
     private void navigateToChats() {
-        Navigation.findNavController(binding.getRoot())
-                .navigate(R.id.action_loginFragment_to_chatsFragment);
+        if (getView() != null) {
+            Navigation.findNavController(getView())
+                    .navigate(R.id.action_loginFragment_to_chatsFragment);
+        }
     }
 
     @Override

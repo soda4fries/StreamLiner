@@ -1,10 +1,10 @@
-package com.example.streamliner.Chat;
+package com.example.streamliner.Chat.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.streamliner.R;
+
 import com.example.streamliner.Auth.Model.User;
 import com.example.streamliner.databinding.ItemUserBinding;
 

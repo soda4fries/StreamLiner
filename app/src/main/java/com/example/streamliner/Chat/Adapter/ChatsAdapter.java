@@ -1,4 +1,4 @@
-package com.example.streamliner.Chat;
+package com.example.streamliner.Chat.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

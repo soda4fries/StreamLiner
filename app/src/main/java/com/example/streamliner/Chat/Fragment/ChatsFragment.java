@@ -1,4 +1,4 @@
-package com.example.streamliner.Chat;
+package com.example.streamliner.Chat.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.streamliner.Chat.Adapter.ChatsAdapter;
 import com.example.streamliner.R;
 
 import com.example.streamliner.Chat.Model.Chat;

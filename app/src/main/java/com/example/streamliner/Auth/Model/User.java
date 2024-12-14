@@ -7,7 +7,7 @@ public class User {
     private String photoUrl;
     private long lastSeen;
 
-    public User() {} // Required for Firebase
+    public User() {}
 
     public User(String uid, String email, String displayName) {
         this.uid = uid;

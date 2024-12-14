@@ -1,4 +1,4 @@
-package com.example.streamliner.Chat;
+package com.example.streamliner.Chat.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.streamliner.Chat.Adapter.MessagesAdapter;
 import com.example.streamliner.Chat.Model.Message;
 import com.example.streamliner.databinding.FragmentChatBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,8 +40,6 @@ public class ChatFragment extends Fragment {
 
         return binding.getRoot();
     }
-
-    // Continuing ChatFragment.java
     private void setupRecyclerView() {
         adapter = new MessagesAdapter(messagesList, auth.getCurrentUser().getUid());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

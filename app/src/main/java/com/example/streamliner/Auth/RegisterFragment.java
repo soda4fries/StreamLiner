@@ -16,6 +16,8 @@ import com.example.streamliner.Auth.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+
 public class RegisterFragment extends Fragment {
     private FragmentRegisterBinding binding;
     private FirebaseAuth auth;
