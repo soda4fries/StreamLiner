@@ -1,0 +1,30 @@
+{
+    "title": "History Basics Quiz",
+    "description": "Test your knowledge of historical events and figures",
+    "topic": "History",
+    "timeLimit": 20,
+    "questions": [
+        {
+            "text": "Who was the first President of the United States?",
+            "options": [
+                "Abraham Lincoln",
+                "Thomas Jefferson",
+                "George Washington",
+                "John Adams"
+            ],
+            "correctOptionIndex": 2,
+            "points": 10
+        },
+        {
+            "text": "In which year did World War II end?",
+            "options": [
+                "1945",
+                "1939",
+                "1918",
+                "1950"
+            ],
+            "correctOptionIndex": 0,
+            "points": 10
+        }
+    ]
+}

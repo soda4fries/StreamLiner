@@ -1,0 +1,30 @@
+{
+    "title": "Math Basics Quiz",
+    "description": "Test your knowledge of basic mathematics",
+    "topic": "Mathematics",
+    "timeLimit": 20,
+    "questions": [
+        {
+            "text": "What is the value of 7 + 3 * 2?",
+            "options": [
+                "20",
+                "13",
+                "17",
+                "23"
+            ],
+            "correctOptionIndex": 1,
+            "points": 10
+        },
+        {
+            "text": "What is the square root of 144?",
+            "options": [
+                "12",
+                "14",
+                "16",
+                "18"
+            ],
+            "correctOptionIndex": 0,
+            "points": 10
+        }
+    ]
+}
