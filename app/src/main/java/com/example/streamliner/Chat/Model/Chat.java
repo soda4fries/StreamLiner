@@ -69,4 +69,5 @@ public class Chat {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
 }
