@@ -34,16 +34,51 @@ public class QuizAttempt {
     }
 
     // Getters and setters
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
-    public String getQuizId() { return quizId; }
-    public void setQuizId(String quizId) { this.quizId = quizId; }
-    public long getStartTime() { return startTime; }
-    public void setStartTime(long startTime) { this.startTime = startTime; }
-    public long getEndTime() { return endTime; }
-    public void setEndTime(long endTime) { this.endTime = endTime; }
-    public int getScore() { return score; }
-    public void setScore(int score) { this.score = score; }
-    public Map<String, Integer> getAnswers() { return answers; }
-    public void setAnswers(Map<String, Integer> answers) { this.answers = answers; }
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(String quizId) {
+        this.quizId = quizId;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public Map<String, Integer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Map<String, Integer> answers) {
+        this.answers = answers;
+    }
 }

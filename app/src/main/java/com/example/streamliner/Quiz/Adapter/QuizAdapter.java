@@ -15,12 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
-    private List<Quiz> quizzes;
     private final OnQuizClickListener listener;
-
-    public interface OnQuizClickListener {
-        void onQuizClick(Quiz quiz);
-    }
+    private List<Quiz> quizzes;
 
     public QuizAdapter(OnQuizClickListener listener) {
         this.quizzes = new ArrayList<>();
@@ -49,6 +45,10 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     @Override
     public int getItemCount() {
         return quizzes.size();
+    }
+
+    public interface OnQuizClickListener {
+        void onQuizClick(Quiz quiz);
     }
 
     static class QuizViewHolder extends RecyclerView.ViewHolder {

@@ -9,6 +9,11 @@ public class LeaderboardEntry {
         this.score = score;
     }
 
-    public String getUserName() { return userName; }
-    public int getScore() { return score; }
+    public String getUserName() {
+        return userName;
+    }
+
+    public int getScore() {
+        return score;
+    }
 }

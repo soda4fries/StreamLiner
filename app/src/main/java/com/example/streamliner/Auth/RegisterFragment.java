@@ -10,12 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.streamliner.Auth.Model.User;
 import com.example.streamliner.R;
 import com.example.streamliner.databinding.FragmentRegisterBinding;
-import com.example.streamliner.Auth.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-
 
 
 public class RegisterFragment extends Fragment {

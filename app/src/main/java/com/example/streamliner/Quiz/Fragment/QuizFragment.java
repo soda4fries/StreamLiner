@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class QuizFragment extends Fragment {
@@ -66,7 +65,7 @@ public class QuizFragment extends Fragment {
     }
 
     private void startTimer() {
-        timer = new CountDownTimer(currentQuiz.getTimeLimit() * 60 * 1000, 1000) {
+        timer = new CountDownTimer((long) currentQuiz.getTimeLimit() * 60 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 binding.timerText.setText(String.format("%02d:%02d",

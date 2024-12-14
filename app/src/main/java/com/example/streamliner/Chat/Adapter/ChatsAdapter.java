@@ -2,19 +2,18 @@ package com.example.streamliner.Chat.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.List;
+
 import com.example.streamliner.Chat.Model.Chat;
 import com.example.streamliner.databinding.ItemChatBinding;
+
+import java.util.List;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHolder> {
     private final List<Chat> chats;
     private final OnChatClickListener listener;
-
-    public interface OnChatClickListener {
-        void onChatClick(Chat chat);
-    }
 
     public ChatsAdapter(List<Chat> chats, OnChatClickListener listener) {
         this.chats = chats;
@@ -38,6 +37,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
     @Override
     public int getItemCount() {
         return chats.size();
+    }
+
+    public interface OnChatClickListener {
+        void onChatClick(Chat chat);
     }
 
     class ChatViewHolder extends RecyclerView.ViewHolder {

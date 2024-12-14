@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,7 +13,13 @@ import com.example.streamliner.Chat.Adapter.MessagesAdapter;
 import com.example.streamliner.Chat.Model.Message;
 import com.example.streamliner.databinding.FragmentChatBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.*;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +47,7 @@ public class ChatFragment extends Fragment {
 
         return binding.getRoot();
     }
+
     private void setupRecyclerView() {
         adapter = new MessagesAdapter(messagesList, auth.getCurrentUser().getUid());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

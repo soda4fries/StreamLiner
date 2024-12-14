@@ -2,22 +2,19 @@ package com.example.streamliner.Chat.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.streamliner.Auth.Model.User;
 import com.example.streamliner.databinding.ItemUserBinding;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
-    private List<User> users;
     private final OnUserClickListener listener;
-
-    public interface OnUserClickListener {
-        void onUserClick(User user);
-    }
+    private List<User> users;
 
     public UsersAdapter(List<User> users, OnUserClickListener listener) {
         this.users = new ArrayList<>(users);
@@ -46,6 +43,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     @Override
     public int getItemCount() {
         return users.size();
+    }
+
+    public interface OnUserClickListener {
+        void onUserClick(User user);
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
