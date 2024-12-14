@@ -21,10 +21,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
-
+EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +38,11 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
 
-        EditText ETName=findViewById(R.id.ETName);
-        EditText ETPhone=findViewById(R.id.ETPhone);
-        EditText ETEmail =findViewById(R.id.ETEmail);
-        EditText ETPassword=findViewById(R.id.ETPwd);
-        EditText ETConfirmPassword=findViewById(R.id.ETConfirmPwd);
+        ETName=findViewById(R.id.ETName);
+        ETPhone=findViewById(R.id.ETPhone);
+        ETEmail =findViewById(R.id.ETEmail);
+        ETPassword=findViewById(R.id.ETPwd);
+        ETConfirmPassword=findViewById(R.id.ETConfirmPwd);
 
 
         Button btnSignUp=findViewById(R.id.BTSignUp);
@@ -106,23 +112,61 @@ public class Register extends AppCompatActivity {
 
     private void registerUser(String textName, String textPhone, String textEmail, String textPassword, String textConfirmPassword) {
         FirebaseAuth auth=FirebaseAuth.getInstance();
+        //create user profile
         auth.createUserWithEmailAndPassword(textEmail,textPassword).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(Register.this,"User registered successfully",Toast.LENGTH_LONG).show();
                     FirebaseUser firebaseUser=auth.getCurrentUser();
-                    if(firebaseUser!=null) {
-                        firebaseUser.sendEmailVerification();
-                    }
 
-                    //Navigate to Login activity
-                    Intent intent=new Intent(Register.this, Login.class);
-                    startActivity(intent);
-                    finish(); //close register activity
+                    //Update display name of user
+                    UserProfileChangeRequest profileChangeRequest=new UserProfileChangeRequest.Builder().setDisplayName(textName).build();
+                    firebaseUser.updateProfile(profileChangeRequest);
+
+                    //Save user data into firebase realtime database
+                    ReadWriteUserDetails writeUserDetails=new ReadWriteUserDetails(textPhone,textEmail);
+
+                    //Extracting user reference from database
+                    DatabaseReference referenceProfile= FirebaseDatabase.getInstance().getReference("Registered users");
+
+                    referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(Register.this,"User registered successfully.",Toast.LENGTH_LONG).show();
+
+                                //Navigate to Login activity
+                                Intent intent=new Intent(Register.this, Login.class);
+                                startActivity(intent);
+                                finish(); //close register activity
+                            }else{
+                                Toast.makeText(Register.this,"User registered failed.Please try again",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+                    //firebaseUser.sendEmailVerification();
+
+
+
                 }else{
-                    Toast.makeText(Register.this,"Registration failed:"+task.getException().getMessage(),Toast.LENGTH_LONG).show();
-                    Log.e("RegisterError",task.getException().toString());
+                   // Toast.makeText(Register.this,"Registration failed:"+task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                   // Log.e("RegisterError",task.getException().toString());
+                    try{
+                        throw task.getException();
+                    }catch(FirebaseAuthInvalidCredentialsException e){
+                        ETPassword.setError("Your email is invalid or already in use.");
+                        ETPassword.requestFocus();
+
+                    }catch(FirebaseAuthUserCollisionException e){
+                        ETPassword.setError("User is already registered with this email. Use another email.");
+                        ETPassword.requestFocus();
+
+                    } catch (Exception e) {
+                        Log.e("RegisterError",e.getMessage());
+                        Toast.makeText(Register.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
