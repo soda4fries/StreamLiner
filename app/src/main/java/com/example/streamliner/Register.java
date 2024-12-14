@@ -65,9 +65,9 @@ EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
                     Toast.makeText(Register.this,"Enter phone number",Toast.LENGTH_LONG).show();
                     ETPhone.setError("Phone number is required");
                     ETPhone.requestFocus();
-                }else if(textPhone.length()!=10){
+                }else if(textPhone.length()!=10 && textPhone.length() != 11){
                     Toast.makeText(Register.this,"Please re-enter your phone no.",Toast.LENGTH_LONG).show();
-                    ETPhone.setError("Phone number should be 10 digits");
+                    ETPhone.setError("Phone number should be 10 or 11 digits");
                     ETPhone.requestFocus();
                 } else if(TextUtils.isEmpty(textEmail)){
                     Toast.makeText(Register.this,"Enter email",Toast.LENGTH_LONG).show();
@@ -96,7 +96,6 @@ EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
                     //all fields are fulfil the requirements, then register the user
                     registerUser(textName,textPhone,textEmail,textPassword,textConfirmPassword);
                 }
-
 
             }
         });
