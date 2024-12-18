@@ -2,9 +2,11 @@ package com.example.streamliner;
 
 import android.os.Bundle;
 
+import com.example.streamliner.ui.timer.TimeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -49,15 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 setTitle("Me");
             }
 
-            // 如果不是顶级目的地，显示返回按钮逻辑
-            boolean isTopLevelDestination = appBarConfiguration.getTopLevelDestinations().contains(destination.getId());
-//            if (!isTopLevelDestination) {
-//                // 显示返回按钮 (可以自定义实现)
-//                showCustomBackButton();
-//            } else {
-//                // 隐藏返回按钮
-//                hideCustomBackButton();
-//            }
+
+
         });
         NavigationUI.setupWithNavController(binding.navView, navController);
     }

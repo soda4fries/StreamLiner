@@ -15,12 +15,24 @@
         android:id="@+id/navigation_time"
         android:name="com.example.streamliner.ui.timer.TimeFragment"
         android:label="@string/title_time"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_time_to_navigation_schedule"
+            app:destination="@id/navigation_schedule" />
+        <action
+            android:id="@+id/action_timeFragment_to_ScheduleFragmentWithJava"
+            app:destination="@id/navigation_schedule" />
+        <action
+            android:id="@+id/action_timeFragment_to_TimerFragment"
+            app:destination="@id/navigation_timer" />
+    </fragment>
+
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.streamliner.ui.dashboard.DashboardFragment"
         android:label="learn"
         tools:layout="@layout/fragment_dashboard" />
+
     <fragment
         android:id="@+id/navigation_chat"
         android:name="com.example.streamliner.ui.chat.ChatFragment"
@@ -32,4 +44,17 @@
         android:name="com.example.streamliner.ui.notifications.NotificationsFragment"
         android:label="Me"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_schedule"
+        android:name="com.example.streamliner.ui.timer.schedule.ScheduleFragmentWithJava"
+        android:label="Schedule"
+        tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/navigation_timer"
+        android:name="com.example.streamliner.ui.timer.countdown.TimerFragment"
+        android:label="Timer"
+        tools:layout="@layout/fragment_timer" />
+
 </navigation>

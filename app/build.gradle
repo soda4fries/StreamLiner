@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.streamliner"
-        minSdk 24
+        minSdk 26
         //noinspection OldTargetApi
         targetSdk 34
         versionCode 1
@@ -44,5 +44,18 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
     implementation 'com.github.skydoves:colorpickerview:2.2.4'
+
+    // Room dependencies
+    implementation("androidx.room:room-runtime:2.6.0")  // Room core library
+    annotationProcessor("androidx.room:room-compiler:2.6.0") // Room annotation processor
+
+    // For Kotlin, you can add room-ktx
+    // implementation "androidx.room:room-ktx:2.6.0"
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+    implementation(libs.colorpickerview)
+
 }
 
