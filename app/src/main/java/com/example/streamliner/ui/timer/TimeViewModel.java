@@ -1,16 +1,16 @@
-package com.example.streamliner.ui.notifications;
+package com.example.streamliner.ui.timer;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class TimeViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public TimeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is Me fragment");
+        mText.setValue("This is time fragment");
     }
 
     public LiveData<String> getText() {

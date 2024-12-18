@@ -12,14 +12,24 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_time"
+        android:name="com.example.streamliner.ui.timer.TimeFragment"
+        android:label="@string/title_time"
+        tools:layout="@layout/fragment_home" />
+    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.streamliner.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="learn"
         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.example.streamliner.ui.chat.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.streamliner.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="Me"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
