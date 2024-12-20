@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -45,6 +46,7 @@ EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
         ETConfirmPassword=findViewById(R.id.ETConfirmPwd);
 
 
+        TextView TVGoToSignIn=findViewById(R.id.TVGoToSignIn);
         Button btnSignUp=findViewById(R.id.BTSignUp);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +102,15 @@ EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
             }
         });
 
+        //Navigate to Login Activity
+        TVGoToSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Register.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -147,11 +158,7 @@ EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
 
                     //firebaseUser.sendEmailVerification();
 
-
-
                 }else{
-                   // Toast.makeText(Register.this,"Registration failed:"+task.getException().getMessage(),Toast.LENGTH_LONG).show();
-                   // Log.e("RegisterError",task.getException().toString());
                     try{
                         throw task.getException();
                     }catch(FirebaseAuthInvalidCredentialsException e){
