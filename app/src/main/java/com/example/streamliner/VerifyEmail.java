@@ -2,9 +2,11 @@ package com.example.streamliner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,19 +27,26 @@ public class VerifyEmail extends AppCompatActivity {
 
 
         //Get email passed from Forget Password Activity
-        String email=getIntent().getStringExtra("EMAIL");
+        String email=getIntent().getStringExtra("email");
+        String correctCode=getIntent().getStringExtra("verificationCode");
 
         BTContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code=ETCode.getText().toString();
+                String enteredcode=ETCode.getText().toString();
 
                 //verify the code
-                if(!code.isEmpty()){
-                    //Navigate to Reset Password Activity
+                if(TextUtils.isEmpty(enteredcode)){
+                    ETCode.setError("Code is required");
+                    ETCode.requestFocus();
+                    return;
+                }else if(enteredcode.equals(correctCode)){
+                    //Code is correct,proceed to Reset Password Activity
                     Intent intent=new Intent(VerifyEmail.this,ResetPwd.class);
                     startActivity(intent);
                     finish();
+                }else{
+                    Toast.makeText(VerifyEmail.this,"Invalid code",Toast.LENGTH_LONG).show();
                 }
             }
         });

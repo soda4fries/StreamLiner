@@ -91,9 +91,7 @@ EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
                     Toast.makeText(Register.this,"Please enter same password",Toast.LENGTH_SHORT).show();
                     ETConfirmPassword.setError("Password confirmation is required");
                     ETConfirmPassword.requestFocus();
-                    //Clear the entered passwords
-                    ETPassword.clearComposingText();
-                    ETConfirmPassword.clearComposingText();
+
                 }else{
                     //all fields are fulfil the requirements, then register the user
                     registerUser(textName,textPhone,textEmail,textPassword,textConfirmPassword);
