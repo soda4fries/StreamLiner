@@ -9,12 +9,12 @@ public class Course {
     private String subject;
     private List<String> fields;
     private List<String> learningOutcomes;
-    private List<String> quizzes;
-    private List<String> practices;
+    private List<Quiz> quizzes;
+    private List<Practice> practices;
 
     public Course() {}
 
-    public Course(String name, String description, String subject, List<String> fields, List<String> learningOutcomes, List<String> quizzes, List<String> practices) {
+    public Course(String name, String description, String subject, List<String> fields, List<String> learningOutcomes, List<Quiz> quizzes, List<Practice> practices) {
         this.name = name;
         this.description = description;
         this.subject = subject;
@@ -48,11 +48,11 @@ public class Course {
 
     public void setLearningOutcomes(List<String> learningOutcomes) { this.learningOutcomes = learningOutcomes; }
 
-    public List<String> getQuizzes() { return quizzes; }
+    public List<Quiz> getQuizzes() { return quizzes; }
 
-    public void setQuizzes(List<String> quizzes) { this.quizzes = quizzes; }
+    public void setQuizzes(List<Quiz> quizzes) { this.quizzes = quizzes; }
 
-    public List<String> getPractices() { return practices; }
+    public List<Practice> getPractices() { return practices; }
 
-    public void setPractices(List<String> practices) { this.practices = practices; }
+    public void setPractices(List<Practice> practices) { this.practices = practices; }
 }

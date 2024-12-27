@@ -3,6 +3,7 @@ package com.example.streamliner;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -16,7 +17,9 @@ import com.example.streamliner.databinding.ActivityMainBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,32 +28,65 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*Button btnAddCourse = findViewById(R.id.btnAddCourse);
+        String courseId = "-OF2yaOybWi9flRHkvI2";
+
         // Initialize Firebase reference
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference coursesRef = database.getReference("Courses");
+        //DatabaseReference quizRef = coursesRef.child(courseId).child("quizzes");
 
-        /*Button btnAddCourse = findViewById(R.id.btnAddCourse);
+            btnAddCourse.setOnClickListener(v -> {
+                // Ensure courseId is set correctly before proceeding
+                if (courseId.isEmpty()) {
+                    Toast.makeText(this, "Course ID is not set!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        btnAddCourse.setOnClickListener(v -> {
-            // Create a Course object
-            Course course = new Course();
-            course.setName("Discrete Mathematics");
-            course.setSubject("Mathematics");
-            course.setDescription("Explore the mathematics of logic, sets, graphs, and algorithms essential for computer science.");
-            course.setField(Arrays.asList("Discrete Math"));
-            course.setLearningOutcomes(Arrays.asList(
-                    "Logic, set theory, and combinatorics.",
-                    "Graph theory and algorithms.",
-                    "Boolean algebra and its applications."
-            ));
-            course.setQuizzes(Arrays.asList("Logic and Set Theory Quiz", "Combinatorics Quiz", "Graph Theory Quiz"));
-            course.setPractices(Arrays.asList("Boolean Expressions Practice", "Graph Traversal Practice", "Counting and Permutations Practice"));
+                // Reference to the specific course's quizzes node
+                DatabaseReference quizRef = coursesRef.child(courseId).child("quizzes");
 
-            // Push the course object to Firebase
-            coursesRef.push().setValue(course)
-                    .addOnSuccessListener(aVoid -> Log.d("Firebase", "Course added successfully!"))
-                    .addOnFailureListener(e -> Log.e("Firebase", "Error adding course", e));
-        });*/
+                // Prepare quiz data
+                // Quiz 1: Has title and a list of questions
+                List<Question> quiz1Questions = new ArrayList<>();
+                quiz1Questions.add(new Question("What is a linear transformation?",
+                        Arrays.asList("A transformation that preserves addition and scalar multiplication", "A transformation that changes the determinant of a matrix", "A transformation that modifies the rank of a matrix"), 0));
+
+                quiz1Questions.add(new Question("What is the matrix representation of a linear transformation?",
+                        Arrays.asList("A matrix of zeros", "A matrix that maps vectors from one space to another", "A diagonal matrix"), 1));
+
+                quiz1Questions.add(new Question("What is the result of applying a linear transformation to the zero vector?",
+                        Arrays.asList("A non-zero vector", "The zero vector", "A scalar"), 1));
+
+                quiz1Questions.add(new Question("What does it mean if a linear transformation is invertible?",
+                        Arrays.asList("It maps different vectors to the same vector", "It has a determinant of 0", "It has an inverse transformation"), 2));
+
+                quiz1Questions.add(new Question("Which of the following is not a property of linear transformations?",
+                        Arrays.asList("Additivity", "Scalar multiplication", "Non-linearity"), 2));
+
+                Quiz quiz1 = new Quiz("Linear Transformations Quiz", quiz1Questions);
+
+                // Quiz 2: Only title
+                Quiz quiz2 = new Quiz("Matrix Operations Quiz", new ArrayList<>());
+
+                // Quiz 3: Only title
+                Quiz quiz3 = new Quiz("Eigenvalues and Eigenvectors Quiz", new ArrayList<>());
+
+                // Add quizzes to a list
+                List<Quiz> quizList = new ArrayList<>();
+                quizList.add(quiz1);
+                quizList.add(quiz2);
+                quizList.add(quiz3);
+
+                // Push quizzes to Firebase
+                for (Quiz quiz : quizList) {
+                    quizRef.push().setValue(quiz)
+                            .addOnSuccessListener(aVoid ->
+                                    Toast.makeText(this, "Quiz added successfully!", Toast.LENGTH_SHORT).show())
+                            .addOnFailureListener(e ->
+                                    Toast.makeText(this, "Failed to add quiz: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                }
+            });*/
 
         if (savedInstanceState == null) {
             // Add search fragment
