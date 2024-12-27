@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class Feedback extends Fragment {
     private Button btnFeedback;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mFeedbackDatabase;
+    private FirebaseFirestore mFirestore;
 
 
     @Nullable
@@ -37,12 +37,13 @@ public class Feedback extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_feedback, container, false);
+
         ratingBar=view.findViewById(R.id.RateBarFeedback);
         etFeedback=view.findViewById(R.id.ETFeedback);
         btnFeedback=view.findViewById(R.id.BtnFeedback);
 
         mAuth=FirebaseAuth.getInstance();
-        mFeedbackDatabase= FirebaseDatabase.getInstance().getReference("Feedback");
+        mFirestore= FirebaseFirestore.getInstance();
 
         btnFeedback.setOnClickListener(v -> submitFeedBack());
 
@@ -64,22 +65,30 @@ public class Feedback extends Fragment {
         FirebaseUser currentUser=mAuth.getCurrentUser();
         if(currentUser!=null){
             String userID=currentUser.getUid();
-            DatabaseReference feedbackRef=mFeedbackDatabase.push();
 
-            Map<String, Object>feedbackData=new HashMap<>();
-            feedbackData.put("userId",userID);
-            feedbackData.put("feedback",textFeedback);
-            feedbackData.put("rating",rating);
+            // Create a Map to store feedback data
+            Map<String, Object> feedbackData = new HashMap<>();
+            feedbackData.put("userId", userID);
+            feedbackData.put("feedback", textFeedback);
+            feedbackData.put("rating", rating);
+            feedbackData.put("timestamp", FieldValue.serverTimestamp());  // Adds a timestamp
 
-            feedbackRef.setValue(feedbackData).addOnCompleteListener(task -> {
-                if(task.isSuccessful()){
-                    Toast.makeText(getContext(),"Feedback submitted successfully.",Toast.LENGTH_LONG).show();
-                    etFeedback.setText(" ");
-                    ratingBar.setRating(0);
-                }else{
-                    Toast.makeText(getContext(),"Failed to submit feedback.",Toast.LENGTH_LONG).show();
-                }
-            });
+            // Store feedback in Firestore
+            mFirestore.collection("feedback")
+                    .add(feedbackData)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "Feedback submitted successfully.", Toast.LENGTH_LONG).show();
+                            etFeedback.setText(" ");
+                            ratingBar.setRating(0);
+                        } else {
+                            Toast.makeText(getContext(), "Failed to submit feedback.", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), "Error submitting feedback: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
+
         }
     }
 }
