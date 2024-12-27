@@ -29,8 +29,12 @@ public class FilterResultsActivity extends AppCompatActivity {
     private FilterResultsAdapter adapter;
     private TextView resultsTitle;
     private DatabaseReference databaseRef;
-    private List<Course> coursesList;
+    private List<Course> coursesList, displayedCourses;
     private ProgressBar loadingProgressBar;
+    private TextView moreCourses;
+    private int currentIndex = 0;
+    private static final int COURSES_PER_PAGE = 5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +48,18 @@ public class FilterResultsActivity extends AppCompatActivity {
         resultsRecyclerView = findViewById(R.id.resultsRecyclerView);
         resultsTitle = findViewById(R.id.resultsTitle);
         loadingProgressBar = findViewById(R.id.loadingProgressBar);
+        moreCourses = findViewById(R.id.moreCourses);
 
         // Setup RecyclerView
         coursesList = new ArrayList<>();
-        adapter = new FilterResultsAdapter(coursesList);
+        displayedCourses = new ArrayList<>();
+        adapter = new FilterResultsAdapter(displayedCourses);
+
         resultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         resultsRecyclerView.setAdapter(adapter);
+
+        // Setup More Courses click listener
+        moreCourses.setOnClickListener(v -> loadMoreCourses());
 
         // Handle incoming intent
         String searchQuery = getIntent().getStringExtra("searchQuery");
@@ -75,11 +85,11 @@ public class FilterResultsActivity extends AppCompatActivity {
 
     private void searchCoursesByKeyword(String keyword) {
         loadingProgressBar.setVisibility(View.VISIBLE);
-        coursesList.clear();
 
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                coursesList.clear();
                 for (DataSnapshot courseSnapshot : dataSnapshot.getChildren()) {
                     Course course = courseSnapshot.getValue(Course.class);
                     if (course != null) {
@@ -89,7 +99,7 @@ public class FilterResultsActivity extends AppCompatActivity {
                         }
                     }
                 }
-                adapter.notifyDataSetChanged();
+                loadMoreCourses();
                 loadingProgressBar.setVisibility(View.GONE);
 
                 if (coursesList.isEmpty()) {
@@ -109,11 +119,11 @@ public class FilterResultsActivity extends AppCompatActivity {
 
     private void loadCoursesForSubjects(List<String> subjects) {
         loadingProgressBar.setVisibility(View.VISIBLE);
-        coursesList.clear();
 
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                coursesList.clear();
                 for (DataSnapshot courseSnapshot : dataSnapshot.getChildren()) {
                     Course course = courseSnapshot.getValue(Course.class);
                     if (course != null) {
@@ -123,7 +133,7 @@ public class FilterResultsActivity extends AppCompatActivity {
                         }
                     }
                 }
-                adapter.notifyDataSetChanged();
+                loadMoreCourses();
                 loadingProgressBar.setVisibility(View.GONE);
 
                 if (coursesList.isEmpty()) {
@@ -139,6 +149,26 @@ public class FilterResultsActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void loadMoreCourses() {
+        int endIndex = Math.min(currentIndex + COURSES_PER_PAGE, coursesList.size());
+        for (int i = currentIndex; i < endIndex; i++) {
+            displayedCourses.add(coursesList.get(i));
+        }
+        adapter.notifyDataSetChanged();
+        currentIndex = endIndex;
+
+        if (currentIndex >= coursesList.size()) {
+            moreCourses.setEnabled(false);
+            moreCourses.setAlpha(0.5f);
+            Toast.makeText(this, "No more courses available", Toast.LENGTH_SHORT).show();
+        }
+
+        if (coursesList.size() <= COURSES_PER_PAGE) {
+            moreCourses.setEnabled(false);
+            moreCourses.setAlpha(0.5f);
+        }
     }
 
     private void showNoResultsMessage() {

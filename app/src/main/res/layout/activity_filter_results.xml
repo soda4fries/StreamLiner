@@ -36,17 +36,33 @@
             android:textColor="@color/blue_tabs"/>
     </LinearLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/resultsRecyclerView"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp"
-            android:clipToPadding="false"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/resultsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"/>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <ProgressBar
             android:id="@+id/loadingProgressBar"
@@ -54,32 +70,34 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone"/>
-    </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="More courses"
-            android:textSize="16sp"
-            android:layout_gravity="center"
-            android:textColor="@color/subtitle"/>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/goToMyCoursesButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/goto_my_courses_underlined"
-            android:textColor="@color/blue_tabs"
-            android:textSize="18sp"
-            android:layout_gravity="center"
-            android:padding="8dp"
-            android:layout_marginTop="8dp"/>
+            <TextView
+                android:id="@+id/moreCourses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more_courses"
+                android:textSize="17sp"
+                android:layout_gravity="center"
+                android:textColor="@color/course_desc"/>
+
+            <TextView
+                android:id="@+id/goToMyCoursesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/goto_my_courses_underlined"
+                android:textColor="@color/blue_tabs"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
