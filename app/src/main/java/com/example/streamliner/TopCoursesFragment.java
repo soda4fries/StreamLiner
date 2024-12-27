@@ -52,6 +52,7 @@ public class TopCoursesFragment extends Fragment {
         coursesList = new ArrayList<>();
         displayedCourses = new ArrayList<>();
         adapter = new FilterResultsAdapter(displayedCourses);
+
         coursesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         coursesRecyclerView.setAdapter(adapter);
 
@@ -75,7 +76,7 @@ public class TopCoursesFragment extends Fragment {
                     Course course = courseSnapshot.getValue(Course.class);
                     if (course != null) {
                         course.setId(courseSnapshot.getKey());
-                        if (count % 3 == 0 ) {
+                        if (count % 2 == 0 ) {
                             coursesList.add(course);
                         }
                         count++;
@@ -98,7 +99,7 @@ public class TopCoursesFragment extends Fragment {
         int endIndex = Math.min(currentIndex + COURSES_PER_PAGE, coursesList.size());
         for (int i = currentIndex; i < endIndex; i++) {
             displayedCourses.add(coursesList.get(i));
-            Log.d("displayedCourses", "courses: " + coursesList.get(i));
+            //Log.d("displayedCourses", "courses: " + coursesList.get(i));
         }
         adapter.notifyDataSetChanged();
         currentIndex = endIndex;
@@ -108,6 +109,9 @@ public class TopCoursesFragment extends Fragment {
             moreCourses.setAlpha(0.5f);
             Toast.makeText(getContext(), "No more courses available", Toast.LENGTH_SHORT).show();
         }
+        else {
+            moreCourses.setEnabled(true);
+            moreCourses.setAlpha(1.0f);
+        }
     }
-
 }
