@@ -79,6 +79,8 @@ public class ResetPwd extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(ResetPwd.this, "Password reset email sent", Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(ResetPwd.this,Login.class);
+                    startActivity(intent);
                     finish();
                 } else {
                     Toast.makeText(ResetPwd.this, "Error in sending password reset email", Toast.LENGTH_LONG).show();
