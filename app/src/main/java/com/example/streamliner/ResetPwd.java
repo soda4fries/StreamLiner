@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ResetPwd extends AppCompatActivity {
 
-    FirebaseAuth authProfile=FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +29,12 @@ public class ResetPwd extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_reset_pwd);
 
-        authProfile=FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser=authProfile.getCurrentUser();
-
 
         EditText ETNewPwd=findViewById(R.id.ETNewPwd);
         EditText ETConfirmPwd=findViewById(R.id.ETConfirmNewPwd);
         Button BTResetPwd=findViewById(R.id.BTResetPwd);
+
+        String email=getIntent().getStringExtra("email");
 
         BTResetPwd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +56,7 @@ public class ResetPwd extends AppCompatActivity {
                     ETConfirmPwd.requestFocus();
 
                 }else{
-                    changePassword(firebaseUser,newPwd);
+                    changePassword(email,newPwd);
                 }
 
             }
@@ -72,8 +70,22 @@ public class ResetPwd extends AppCompatActivity {
     }
 
 
-    private void changePassword(FirebaseUser firebaseUser,String newPassword){
-        firebaseUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+    private void changePassword(String email,String newPassword){
+        FirebaseAuth auth=FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser=auth.getCurrentUser();
+
+        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(ResetPwd.this, "Password reset email sent", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    Toast.makeText(ResetPwd.this, "Error in sending password reset email", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        /*firebaseUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -90,5 +102,7 @@ public class ResetPwd extends AppCompatActivity {
                 }
             }
         });
+
+         */
     }
 }
