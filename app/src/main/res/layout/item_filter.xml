@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="3dp"
+    android:background="@color/blue_others_CS">
 
-    <CheckBox
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/subjectCheckBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@color/black"/>
+        app:buttonTint="@drawable/checked_checkbox"
+        app:checkedIconTint="@color/black"
+        android:textSize="17sp"/>
 
 </LinearLayout>

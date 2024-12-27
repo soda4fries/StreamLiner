@@ -1,5 +1,6 @@
 package com.example.streamliner;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
 
         void bind(final String subject) {
             checkBox.setText(subject);
+            checkBox.setTextColor(Color.WHITE);
             checkBox.setChecked(selectedSubjects.contains(subject));
             checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {

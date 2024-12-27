@@ -68,14 +68,14 @@ public class TopCoursesFragment extends Fragment {
                 long count = 0;
                 for (DataSnapshot courseSnapshot : dataSnapshot.getChildren()) {
                     count++;
-                    if (count == 1 || count == 5 || count == 9 || count == 13 || count == childrenCount) {
+                    if (count % 3 == 0 || count == childrenCount) {
                         Course course = courseSnapshot.getValue(Course.class);
                         if (course != null) {
                             course.setId(courseSnapshot.getKey());
                             coursesList.add(course);
                         }
                     }
-                    if (count == 13) break; // Stop after the 5th course
+                    if (coursesList.size() == 4) break; // Stop after the coursesList has a size of 4
                 }
                 adapter.notifyDataSetChanged();
 
