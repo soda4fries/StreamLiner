@@ -3,4 +3,11 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="button_apply_filter">Apply Filter</string>
+    <string name="button_clear">Clear</string>
+    <string name="hint_filter">Filter search by...</string>
+    <string name="back_button_desc">Go Back</string>
+    <string name="goto_my_courses_underlined"><u>Go To My Courses</u></string>
+    <string name="button_add_course">Add To My Course</string>
+    <string name="learning_outcomes">What you will learn:</string>
 </resources>
