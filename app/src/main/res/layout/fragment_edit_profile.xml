@@ -57,7 +57,7 @@
         android:inputType="textEmailAddress" />
 
     <Button
-        android:id="@+id/BtnEdit"
+        android:id="@+id/BtnSave"
         android:layout_width="200dp"
         android:layout_height="62dp"
         android:layout_gravity="center"

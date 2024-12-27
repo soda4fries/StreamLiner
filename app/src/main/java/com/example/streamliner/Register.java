@@ -29,6 +29,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Register extends AppCompatActivity {
 EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
@@ -45,9 +49,9 @@ EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
         ETPassword=findViewById(R.id.ETPwd);
         ETConfirmPassword=findViewById(R.id.ETConfirmPwd);
 
-
         TextView TVGoToSignIn=findViewById(R.id.TVGoToSignIn);
         Button btnSignUp=findViewById(R.id.BTSignUp);
+
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +98,7 @@ EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
 
                 }else{
                     //all fields are fulfil the requirements, then register the user
-                    registerUser(textName,textPhone,textEmail,textPassword,textConfirmPassword);
+                    registerUser(textName,textPhone,textEmail,textPassword);
                 }
 
             }
@@ -118,8 +122,9 @@ EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
         });
     }
 
-    private void registerUser(String textName, String textPhone, String textEmail, String textPassword, String textConfirmPassword) {
+    private void registerUser(String textName, String textPhone, String textEmail, String textPassword) {
         FirebaseAuth auth=FirebaseAuth.getInstance();
+        FirebaseFirestore firestore=FirebaseFirestore.getInstance();
         //create user profile
         auth.createUserWithEmailAndPassword(textEmail,textPassword).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -132,30 +137,30 @@ EditText ETName,ETPhone,ETEmail,ETPassword,ETConfirmPassword;
                     UserProfileChangeRequest profileChangeRequest=new UserProfileChangeRequest.Builder().setDisplayName(textName).build();
                     firebaseUser.updateProfile(profileChangeRequest);
 
-                    //Save user data into firebase realtime database
-                    ReadWriteUserDetails writeUserDetails=new ReadWriteUserDetails(textPhone,textEmail);
+                    // Save user data into Firestore
+                    Map<String, Object> userDetails = new HashMap<>();
+                    userDetails.put("name", textName);
+                    userDetails.put("phone", textPhone);
+                    userDetails.put("email", textEmail);
 
-                    //Extracting user reference from database
-                    DatabaseReference referenceProfile= FirebaseDatabase.getInstance().getReference("Registered users");
+                    // Firestore 'users' collection, document ID is user's UID
+                    firestore.collection("users").document(firebaseUser.getUid())
+                            .set(userDetails)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(Register.this, "User registered successfully.", Toast.LENGTH_LONG).show();
+                                        // Navigate to Login activity
+                                        Intent intent = new Intent(Register.this, Login.class);
+                                        startActivity(intent);
+                                        finish(); // Close Register activity
+                                    } else {
+                                        Toast.makeText(Register.this, "User registered failed.Please try again", Toast.LENGTH_LONG).show();
+                                    }
+                                }
 
-                    referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(Register.this,"User registered successfully.",Toast.LENGTH_LONG).show();
-
-                                //Navigate to Login activity
-                                Intent intent=new Intent(Register.this, Login.class);
-                                startActivity(intent);
-                                finish(); //close register activity
-                            }else{
-                                Toast.makeText(Register.this,"User registered failed.Please try again",Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
-                    //firebaseUser.sendEmailVerification();
-
+                            });
                 }else{
                     try{
                         throw task.getException();
