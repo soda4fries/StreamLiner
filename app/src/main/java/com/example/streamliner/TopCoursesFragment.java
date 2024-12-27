@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,15 +28,14 @@ public class TopCoursesFragment extends Fragment {
 
     //private TopCoursesViewModel mViewModel;
 
-    /*public static TopCoursesFragment newInstance() {
-        return new TopCoursesFragment();
-    }*/
-
     private RecyclerView coursesRecyclerView;
     private FilterResultsAdapter adapter;
-    private List<Course> coursesList;
+    private List<Course> coursesList, displayedCourses;
     private DatabaseReference databaseRef;
     private ProgressBar loadingProgressBar;
+    private TextView moreCourses;
+    private int currentIndex = 0;
+    private static final int COURSES_PER_PAGE = 4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,43 +43,46 @@ public class TopCoursesFragment extends Fragment {
 
         coursesRecyclerView = view.findViewById(R.id.coursesRecyclerView);
         loadingProgressBar = view.findViewById(R.id.loadingProgressBar);
+        moreCourses = view.findViewById(R.id.moreCourses);
 
         // Initialize Firebase
         databaseRef = FirebaseDatabase.getInstance().getReference("Courses");
 
         // Initialize course list and adapter
         coursesList = new ArrayList<>();
-        adapter = new FilterResultsAdapter(coursesList);
+        displayedCourses = new ArrayList<>();
+        adapter = new FilterResultsAdapter(displayedCourses);
         coursesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         coursesRecyclerView.setAdapter(adapter);
 
+        // Set up More Courses click listener
+        moreCourses.setOnClickListener(v -> loadMoreCourses());
+
         // Load top courses
-        loadTopCourses();
+        loadAllCourses();
 
         return view;
     }
 
-    private void loadTopCourses() {
+    private void loadAllCourses() {
         loadingProgressBar.setVisibility(View.VISIBLE);
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 coursesList.clear();
-                long childrenCount = dataSnapshot.getChildrenCount();
-                long count = 0;
+                int count = 0;
                 for (DataSnapshot courseSnapshot : dataSnapshot.getChildren()) {
-                    count++;
-                    if (count % 3 == 0 || count == childrenCount) {
-                        Course course = courseSnapshot.getValue(Course.class);
-                        if (course != null) {
-                            course.setId(courseSnapshot.getKey());
+                    Course course = courseSnapshot.getValue(Course.class);
+                    if (course != null) {
+                        course.setId(courseSnapshot.getKey());
+                        if (count % 3 == 0 ) {
                             coursesList.add(course);
                         }
+                        count++;
                     }
-                    if (coursesList.size() == 4) break; // Stop after the coursesList has a size of 4
                 }
-                adapter.notifyDataSetChanged();
-
+                Log.d("courseSize", "courses: " + coursesList.size());
+                loadMoreCourses();
                 loadingProgressBar.setVisibility(View.GONE);
             }
 
@@ -90,6 +94,20 @@ public class TopCoursesFragment extends Fragment {
         });
     }
 
-    //add click listener for view more courses
+    private void loadMoreCourses() {
+        int endIndex = Math.min(currentIndex + COURSES_PER_PAGE, coursesList.size());
+        for (int i = currentIndex; i < endIndex; i++) {
+            displayedCourses.add(coursesList.get(i));
+            Log.d("displayedCourses", "courses: " + coursesList.get(i));
+        }
+        adapter.notifyDataSetChanged();
+        currentIndex = endIndex;
+
+        if (currentIndex >= coursesList.size()) {
+            moreCourses.setEnabled(false);
+            moreCourses.setAlpha(0.5f);
+            Toast.makeText(getContext(), "No more courses available", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }
