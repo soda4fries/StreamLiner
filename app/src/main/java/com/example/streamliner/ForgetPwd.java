@@ -16,6 +16,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ForgetPwd extends AppCompatActivity {
 private FirebaseAuth authProfile;
 private String verificationCode;
@@ -64,10 +70,35 @@ private String verificationCode;
     }
 
     private void sendEmail(String email,String code){
-        // Use an email-sending service to send the code
-        // For example, use Firebase Functions, SendGrid, or your backend API
+        // Create Retrofit instance
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.sendgrid.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        Toast.makeText(ForgetPwd.this,"Verification code sent to "+email,Toast.LENGTH_LONG).show();
+        SendGridService service = retrofit.create(SendGridService.class);
+
+        EmailRequest emailRequest = new EmailRequest(
+                email,
+                "Password Reset Verification Code",
+                "Your verification code is: " + code,
+                "thamjingqin@gmail.com" // Replace with the verified sender email
+        );
+
+        service.sendEmail(emailRequest).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(ForgetPwd.this, "Verification code sent to " + email, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(ForgetPwd.this, "Failed to send email", Toast.LENGTH_LONG).show();
+                }
+            }@Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(ForgetPwd.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
 }

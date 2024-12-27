@@ -22,4 +22,13 @@
         android:name="com.example.streamliner.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/viewProfile"
+        android:name="com.example.streamliner.ViewProfile"
+        android:label="ViewProfile" />
+    <fragment
+        android:id="@+id/feedback"
+        android:name="com.example.streamliner.Feedback"
+        android:label="fragment_feedback"
+        tools:layout="@layout/fragment_feedback" />
 </navigation>
