@@ -47,14 +47,23 @@
         android:hint="Phone Number"
         android:inputType="phone" />
 
-    <EditText
-        android:id="@+id/ETProfileEmail"
-        android:layout_width="334dp"
+
+    <TextView
+        android:id="@+id/TVEmailEditProfile"
+        android:layout_width="333dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
         android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:gravity="center_vertical"
+        android:text=" Email"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="333dp"
+        android:layout_height="2dp"
+        android:layout_gravity="center"
+        android:background="?android:attr/listDivider" />
 
     <Button
         android:id="@+id/BtnSave"

@@ -2,7 +2,6 @@ package com.example.streamliner;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -15,19 +14,14 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ViewProfile extends Fragment {
 
     private TextView tvName, tvBirthday,tvPhoneNo,tvEmail;
-    private Button btnEdit;
-    private FirebaseAuth auth;
-    private FirebaseFirestore db;
+    private Button btnEditProfile;
+    private FirebaseUser firebaseUser;
+    private FirebaseFirestore firestore;
 
 
     @Nullable
@@ -36,28 +30,46 @@ public class ViewProfile extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_view_profile,container,false);
 
+        firestore=FirebaseFirestore.getInstance();
+        firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+
         tvName=view.findViewById(R.id.TVName);
         tvBirthday=view.findViewById(R.id.TVBirthday);
-        tvEmail=view.findViewById(R.id.TVEmail);
         tvPhoneNo=view.findViewById(R.id.TVPhoneNo);
+        tvEmail=view.findViewById(R.id.TVEmailViewProfile);
 
-        auth=FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+        // Fetch user data if the user is logged in
+        if (firebaseUser != null) {
+            fetchUserData(firebaseUser.getUid());
+        }
 
-        loadProfile();
-
-        btnEdit.setOnClickListener(v -> editProfile());
 
         return view;
     }
 
-    private  void loadProfile(){
+    private  void fetchUserData(String userId){
+        firestore.collection("users").document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String name = documentSnapshot.getString("name");
+                        String birthday = documentSnapshot.getString("birthday");
+                        String phone = documentSnapshot.getString("phone");
+                        String email = documentSnapshot.getString("email");
 
+                        // Set the profile data in the TextViews
+                        tvName.setText(name);
+                        tvBirthday.setText(birthday!=null ? birthday:"No birthday");
+                        tvPhoneNo.setText(phone);
+                        tvEmail.setText(email);
+                    } else {
+                        Toast.makeText(getContext(), "User not found", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Failed to fetch user data", Toast.LENGTH_SHORT).show();
+                });
     }
 
-    private void editProfile(){
 
-
-
-    }
 }
