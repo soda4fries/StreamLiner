@@ -101,7 +101,9 @@ public class VideosFragment extends Fragment {
 
         loadingProgressBar.setVisibility(View.VISIBLE);
         databaseRef = FirebaseDatabase.getInstance().getReference()
-                .child("Courses").child(courseId).child("videos");
+                .child("Courses")
+                .child(courseId)
+                .child("videos");
 
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override

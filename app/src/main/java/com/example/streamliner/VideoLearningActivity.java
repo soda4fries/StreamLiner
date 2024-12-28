@@ -62,8 +62,8 @@ public class VideoLearningActivity extends AppCompatActivity {
     private void setupViewPager() {
         LearningPagerAdapter pagerAdapter = new LearningPagerAdapter(this);
         pagerAdapter.addFragment(VideosFragment.newInstance(courseId), "Videos");
-        pagerAdapter.addFragment(new Fragment(), "Practice");  // Placeholder
-        pagerAdapter.addFragment(new Fragment(), "Quiz");      // Placeholder
+        pagerAdapter.addFragment(PracticesFragment.newInstance(courseId), "Practice");
+        pagerAdapter.addFragment(QuizzesFragment.newInstance(courseId), "Quiz");
 
         viewPager.setAdapter(pagerAdapter);
 
@@ -85,7 +85,7 @@ public class VideoLearningActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                // Change text size and color for the selected tab
+                // Change color for the selected tab
                 TextView tabTextView = (TextView) ((LinearLayout) tab.view).getChildAt(1);
                 if (tabTextView != null) {
                     //tabTextView.setTextSize(18); // Set text size for selected tab
@@ -95,7 +95,7 @@ public class VideoLearningActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                // Change text size and color for unselected tab
+                // Change color for unselected tab
                 TextView tabTextView = (TextView) ((LinearLayout) tab.view).getChildAt(1);
                 if (tabTextView != null) {
                     //tabTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15); // Reset text size
