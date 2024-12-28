@@ -48,7 +48,7 @@ public class QuizActivity extends AppCompatActivity implements QuestionFragment.
         DatabaseReference questionsRef = FirebaseDatabase.getInstance().getReference()
                 .child("Courses")
                 .child(courseId)
-                .child("practices")
+                .child("quizzes")
                 .child(String.valueOf(quizId))
                 .child("questions");
 
