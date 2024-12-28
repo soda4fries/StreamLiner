@@ -59,8 +59,10 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
 
             enrolledCourseCard.setOnClickListener(v -> {
                 Context context = itemView.getContext();
-                Intent intent = new Intent(context, CourseDetailsActivity.class);
+                Intent intent = new Intent(context, VideoLearningActivity.class);
                 intent.putExtra("courseId", course.getId());
+                intent.putExtra("courseName", course.getName());
+                intent.putExtra("courseDescription", course.getDescription());
                 context.startActivity(intent);
             });
         }
