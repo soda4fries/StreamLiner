@@ -95,7 +95,7 @@ public class PracticesFragment extends Fragment {
             public void onPracticeClick(Practice practice, int position) {
                 Intent intent = new Intent(getContext(), PracticeActivity.class);
                 intent.putExtra("courseId", courseId);
-                //intent.putExtra("practiceId", practiceId);
+                intent.putExtra("practiceId", practiceList.indexOf(practice));
                 intent.putExtra("practiceTitle", practice.getTitle());
                 startActivity(intent);
             }
