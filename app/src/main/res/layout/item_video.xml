@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/thumbnailIV"
-        android:layout_width="122dp"
-        android:layout_height="72dp"
+        android:layout_width="140dp"
+        android:layout_height="85dp"
         android:scaleType="centerCrop"/>
 
     <TextView
@@ -18,8 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginStart="16dp"
-        android:textSize="17sp"
+        android:textSize="18sp"
         android:textColor="@color/dark_gray"
+        android:textStyle="bold"
         android:maxLines="2"
         android:ellipsize="end"/>
 
