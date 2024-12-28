@@ -37,6 +37,10 @@ public class LearningOutcomesAdapter extends RecyclerView.Adapter<LearningOutcom
         return learningOutcomes.size();
     }
 
+    public void setLearningOutcomes(List<String> learningOutcomes) {
+        this.learningOutcomes = learningOutcomes;
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView outcomeText;
         ImageView tickIcon;

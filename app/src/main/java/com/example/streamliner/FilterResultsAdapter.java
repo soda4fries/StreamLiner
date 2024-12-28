@@ -58,8 +58,6 @@ public class FilterResultsAdapter extends RecyclerView.Adapter<FilterResultsAdap
             viewButton.setOnClickListener(v -> {
                 Context context = itemView.getContext();
                 Intent intent = new Intent(context, CourseDetailsActivity.class);
-                //intent.putExtra("courseTitle", course.getName());
-                //intent.putExtra("courseSubject", course.getSubject());
                 intent.putExtra("courseId", course.getId());
                 context.startActivity(intent);
             });
