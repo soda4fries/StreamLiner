@@ -86,8 +86,9 @@ public class QuizzesFragment extends Fragment {
         adapter = new QuizAdapter(quizList, new QuizAdapter.OnQuizClickListener() {
             @Override
             public void onQuizClick(Quiz quiz, int position) {
-                Intent intent = new Intent(getContext(), PracticeActivity.class);
+                Intent intent = new Intent(getContext(), QuizActivity.class);
                 intent.putExtra("courseId", courseId);
+                intent.putExtra("quizId", quizList.indexOf(quiz));
                 intent.putExtra("quizTitle", quiz.getTitle());
                 startActivity(intent);
             }
