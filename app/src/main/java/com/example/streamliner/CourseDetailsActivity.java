@@ -35,9 +35,10 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private Button addToMyCourseButton;
     private DatabaseReference databaseRef;
     private LearningOutcomesAdapter learningOutcomesAdapter;
-    private List<String> learningOutcomesList, fieldsList;
+    private List<String> learningOutcomesList;
     private ProgressBar loadingProgressBar;
     private String courseId;
+    private Course currentCourse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,73 +58,39 @@ public class CourseDetailsActivity extends AppCompatActivity {
         loadingProgressBar = findViewById(R.id.loadingProgressBar);
 
         // Setup RecyclerViews
-        learningOutcomesList = new ArrayList<>();
-        fieldsList = new ArrayList<>();
-
-        learningOutcomesAdapter = new LearningOutcomesAdapter(learningOutcomesList);
+        learningOutcomesAdapter = new LearningOutcomesAdapter(new ArrayList<>());
         learningOutcomesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         learningOutcomesRecyclerView.setAdapter(learningOutcomesAdapter);
 
         // Get course ID from intent
         courseId = getIntent().getStringExtra("courseId");
-        if (courseId != null) {
-            loadCourseDetails(courseId);
+        if (courseId == null) {
+            Toast.makeText(this, "Error: Course ID not found", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
-
-        // Setup "Add to my course" button
-        addToMyCourseButton.setOnClickListener(v -> addToMyCourse());
 
         // Setup back button
         findViewById(R.id.backButton).setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+
+        // Setup  click listener for Add to My Course button
+        addToMyCourseButton.setOnClickListener(v -> addCourseToUserList());
+
+        // Load course details
+        loadCourseDetails();
     }
 
-    private void loadCourseDetails(String courseId) {
+    private void loadCourseDetails() {
         loadingProgressBar.setVisibility(View.VISIBLE);
 
         databaseRef.child(courseId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Get course name
-                String name = dataSnapshot.child("name").getValue(String.class);
-                courseTitle.setText(name);
-
-                // Get course subject
-                String subject = dataSnapshot.child("subject").getValue(String.class);
-                courseSubject.setText("Subject: " + subject);
-
-                // Get course description
-                String description = dataSnapshot.child("description").getValue(String.class);
-                courseDescription.setText(description);
-
-                // Get course field(s)
-                fieldsList.clear();
-                DataSnapshot fieldsSnapshot = dataSnapshot.child("field");
-                for (DataSnapshot fieldSnapshot : fieldsSnapshot.getChildren()) {
-                    String field = fieldSnapshot.getValue(String.class);
-                    if (field != null) {
-                        fieldsList.add(field);
-                    }
+                currentCourse = dataSnapshot.getValue(Course.class);
+                if (currentCourse != null) {
+                    currentCourse.setId(courseId);
+                    updateUI(dataSnapshot);
                 }
-
-                if(fieldsList.size() == 1) {
-                    courseFields.setText(fieldsList.get(0));
-                }
-                else {
-                    courseFields.setText(fieldsList.get(0) + ", " + fieldsList.get(1));
-                }
-
-                // Get learning outcomes
-                learningOutcomesList.clear();
-                DataSnapshot learningOutcomesSnapshot = dataSnapshot.child("learningOutcomes");
-                for (DataSnapshot outcomeSnapshot : learningOutcomesSnapshot.getChildren()) {
-                    String outcome = outcomeSnapshot.getValue(String.class);
-                    if (outcome != null) {
-                        //Log.d("LearningOutcomes", "Outcome: " + outcome);
-                        learningOutcomesList.add(outcome);
-                    }
-                }
-                learningOutcomesAdapter.notifyDataSetChanged();
-
                 loadingProgressBar.setVisibility(View.GONE);
             }
 
@@ -137,12 +104,70 @@ public class CourseDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void addToMyCourse() {
-        // TODO: Implement the logic to add the course to the user's courses
-        // This might involve updating a user's courses in Firebase
-        Toast.makeText(this, "Course added to My Courses", Toast.LENGTH_SHORT).show();
-        addToMyCourseButton.setEnabled(false);
-        addToMyCourseButton.setText("Added to My Courses");
+    private void updateUI(DataSnapshot dataSnapshot) {
+        // Update course name
+        courseTitle.setText(currentCourse.getName());
+
+        // Get course subject
+        courseSubject.setText("Subject: " + currentCourse.getSubject());
+
+        // Get course description
+        courseDescription.setText(currentCourse.getDescription());
+
+        // Get course field(s)
+        if(currentCourse.getField().size() == 1) {
+            courseFields.setText(currentCourse.getField().get(0));
+        }
+        else {
+            courseFields.setText(currentCourse.getField().get(0) + ", " + currentCourse.getField().get(1));
+        }
+
+        // Get learning outcomes
+        learningOutcomesList = new ArrayList<>();
+        DataSnapshot learningOutcomesSnapshot = dataSnapshot.child("learningOutcomes");
+        for (DataSnapshot outcomeSnapshot : learningOutcomesSnapshot.getChildren()) {
+            String outcome = outcomeSnapshot.getValue(String.class);
+            if (outcome != null) {
+                //Log.d("LearningOutcomes", "Outcome: " + outcome);
+                learningOutcomesList.add(outcome);
+            }
+        }
+        learningOutcomesAdapter.setLearningOutcomes(learningOutcomesList);
+        learningOutcomesAdapter.notifyDataSetChanged();
+    }
+
+    private void addCourseToUserList() {
+        DatabaseReference userCoursesRef = FirebaseDatabase.getInstance().getReference()
+                .child("test").child("userCourses");
+
+        // Check if course already exists in user's list
+        userCoursesRef.orderByChild("id").equalTo(courseId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (!dataSnapshot.exists()) {
+                            // Course doesn't exist in user's list, add it
+                            userCoursesRef.child(courseId).setValue(currentCourse)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(CourseDetailsActivity.this,
+                                                "Course added successfully", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(CourseDetailsActivity.this,
+                                                "Failed to add course: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    });
+                        } else {
+                            Toast.makeText(CourseDetailsActivity.this,
+                                    "Course already in your list", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(CourseDetailsActivity.this,
+                                "Error checking course: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
