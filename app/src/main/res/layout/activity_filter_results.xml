@@ -87,7 +87,7 @@
                 android:textColor="@color/course_desc"/>
 
             <TextView
-                android:id="@+id/goToMyCoursesButton"
+                android:id="@+id/goToMyCourses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/goto_my_courses_underlined"

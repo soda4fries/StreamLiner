@@ -1,5 +1,6 @@
 package com.example.streamliner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -81,6 +82,9 @@ public class FilterResultsActivity extends AppCompatActivity {
 
         // Setup back button
         findViewById(R.id.backButton).setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+
+        // Setup Go To My Courses button
+        setupGoToMyCoursesButton();
     }
 
     private void searchCoursesByKeyword(String keyword) {
@@ -173,5 +177,13 @@ public class FilterResultsActivity extends AppCompatActivity {
 
     private void showNoResultsMessage() {
         Toast.makeText(this, "No courses found", Toast.LENGTH_SHORT).show();
+    }
+
+    private void setupGoToMyCoursesButton() {
+        TextView goToMyCoursesTV = findViewById(R.id.goToMyCourses);
+        goToMyCoursesTV.setOnClickListener(v -> {
+            Intent intent = new Intent(FilterResultsActivity.this, EnrolledCoursesActivity.class);
+            startActivity(intent);
+        });
     }
 }
