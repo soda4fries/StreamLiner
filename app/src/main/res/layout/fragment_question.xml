@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:padding="12dp"
             android:layout_marginBottom="8dp"/>
 
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:padding="12dp"
             android:layout_marginBottom="8dp"/>
 
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:padding="12dp"
             android:layout_marginBottom="8dp"/>
     </RadioGroup>
@@ -62,25 +62,17 @@
             android:id="@+id/previousButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Previous"
+            android:text="@string/button_previous"
             android:backgroundTint="@color/blue_tabs"
             android:layout_marginEnd="16dp"/>
-        <!--
+
         <Button
             android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next"/>-->
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/nextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:strokeColor="@color/blue_others_CS"
-            app:strokeWidth="2dp"
-            android:backgroundTint="@android:color/transparent"
-            android:textColor="@color/blue_others_CS"
-            android:text="Next"/>
+            android:backgroundTint="@color/green_biology"
+            android:textColor="@color/white"
+            android:text="@string/button_next"/>
         
     </LinearLayout>
 </LinearLayout>
