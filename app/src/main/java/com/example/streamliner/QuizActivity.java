@@ -2,6 +2,9 @@ package com.example.streamliner;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -27,6 +30,9 @@ public class QuizActivity extends AppCompatActivity implements QuestionFragment.
     private int currentQuestionIndex = 0;
     private int[] userAnswers;
     private String quizTitle;
+    private TextView titleTV;
+    private Button submitAllButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,15 @@ public class QuizActivity extends AppCompatActivity implements QuestionFragment.
             getSupportActionBar().setTitle(quizTitle);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        titleTV = findViewById(R.id.titleTV);
+        submitAllButton = findViewById(R.id.submitAllButton);
+
+        // Set quiz title
+        titleTV.setText(quizTitle);
+
+        // Setup back button
+        findViewById(R.id.backButton).setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         loadQuestions();
     }
@@ -82,7 +97,7 @@ public class QuizActivity extends AppCompatActivity implements QuestionFragment.
 
     private void showQuestion(int position) {
         QuestionFragment fragment = QuestionFragment.newInstance(
-                questions.get(position), position, questions.size());
+                questions.get(position), position, questions.size(), "quiz");
         fragment.setListener(this);
 
         getSupportFragmentManager()
@@ -117,46 +132,50 @@ public class QuizActivity extends AppCompatActivity implements QuestionFragment.
         // Calculate score
         int correctAnswers = 0;
         for (int i = 0; i < questions.size(); i++) {
-            if (userAnswers[i] == questions.get(i).getCorrectIndex()) {
+            if (userAnswers[i] != -1 && userAnswers[i] == questions.get(i).getCorrectIndex()) {
                 correctAnswers++;
             }
         }
         int mark = (correctAnswers * 100) / questions.size();
 
-        // Save completion status and score
-        DatabaseReference userQuizRef = FirebaseDatabase.getInstance().getReference()
-                .child("test")
-                .child("userQuizzes");
-                /*.child(courseId)
-                .child("quizzes")
-                .child(String.valueOf(quizId));*/
-
         // Get the current date in "dd-MM-yyyy" format
         String currentDate = new java.text.SimpleDateFormat("dd-MM-yyyy", java.util.Locale.getDefault())
                 .format(new java.util.Date());
 
-        DatabaseReference quizMarkEntryRef = userQuizRef.push();
+        submitAllButton.setVisibility(View.VISIBLE);
 
-        quizMarkEntryRef.child("title").setValue(quizTitle);
-        quizMarkEntryRef.child("completed").setValue(true);
-        quizMarkEntryRef.child("mark").setValue(mark);
-        quizMarkEntryRef.child("date").setValue(currentDate)
-                        .addOnCompleteListener(task -> {
+        submitAllButton.setOnClickListener(v -> {
+            // Save completion status and score
+            DatabaseReference userQuizRef = FirebaseDatabase.getInstance().getReference()
+                    .child("test")
+                    .child("userQuizzes");
+                /*.child(courseId)
+                .child("quizzes")
+                .child(String.valueOf(quizId));*/
+
+            DatabaseReference quizMarkEntryRef = userQuizRef.push();
+
+            quizMarkEntryRef.child("title").setValue(quizTitle);
+            quizMarkEntryRef.child("completed").setValue(true);
+            quizMarkEntryRef.child("mark").setValue(mark);
+            quizMarkEntryRef.child("date").setValue(currentDate)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, "Data stored successfully!",
+                                    Toast.LENGTH_SHORT).show();
                             finish();
-                        });
+                        } else {
+                            Toast.makeText(this, "Failed to store data!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
 
-                /*.addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this,
-                                "Practice completed! Score: " + mark + "%",
-                                Toast.LENGTH_LONG).show();
-                        finish();
-                    } else {
-                        Toast.makeText(this,
-                                "Error saving results",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });*/
+        /*SubmitButtonFragment submitButtonFragment = SubmitButtonFragment.newInstance(quizTitle, true, mark, currentDate);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.submitButtonContainer, submitButtonFragment)
+                .commit();*/
     }
 
     @Override
@@ -164,4 +183,6 @@ public class QuizActivity extends AppCompatActivity implements QuestionFragment.
         getOnBackPressedDispatcher().onBackPressed();
         return true;
     }
+
+    public void showAnswerFeedback(boolean isCorrect) {}
 }
