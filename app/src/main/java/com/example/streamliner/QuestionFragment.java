@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +29,7 @@ public class QuestionFragment extends Fragment {
     private Question currentQuestion;
     private int currentPosition;
     private int totalQuestions;
+    private String type; // type of activity calling the fragment. Either practice or quiz
     private OnQuestionInteractionListener listener;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -58,14 +60,16 @@ public class QuestionFragment extends Fragment {
         void onNextClicked();
         void onAnswerSelected(int answerIndex);
         void onSubmitClicked();
+        void showAnswerFeedback(boolean isCorrect);
     }
 
-    public static QuestionFragment newInstance(Question question, int position, int total) {
+    public static QuestionFragment newInstance(Question question, int position, int total, String type) {
         QuestionFragment fragment = new QuestionFragment();
         Bundle args = new Bundle();
         args.putParcelable("question", question);
         args.putInt("position", position);
         args.putInt("total", total);
+        args.putString("type", type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -88,6 +92,7 @@ public class QuestionFragment extends Fragment {
             //Log.e("currentQuestion", currentQuestion.getTitle());
             currentPosition = getArguments().getInt("position");
             totalQuestions = getArguments().getInt("total");
+            type = getArguments().getString("type");
             setupQuestion();
         }
 
@@ -95,37 +100,60 @@ public class QuestionFragment extends Fragment {
     }
 
     private void setupQuestion() {
+        String title = Integer.toString(currentPosition + 1) + ". " + currentQuestion.getTitle();
+        questionTitleTV.setText(title);
+        if (currentQuestion.getTitle() == null) {
+            Log.e("questionTitle", "null");
+        }
 
-        //Log.e("questionTitle", currentQuestion.getTitle());
         List<String> answers = currentQuestion.getAnswers();
-        Log.e("questionTitle", currentQuestion.getAnswers().get(0));
+        //Log.e("questionTitle", currentQuestion.getAnswers().get(0));
 
         answer1RB.setText(answers.get(0));
         answer2RB.setText(answers.get(1));
         answer3RB.setText(answers.get(2));
 
-        questionTitleTV.setText(currentQuestion.getTitle());
-        if (currentQuestion.getTitle() == null) {
-            Log.e("questionTitle", "null");
-        }
-
-        // Handle navigation button states
+        // Enable Previous button after the first question
         previousButton.setEnabled(currentPosition > 0);
-        if (currentPosition == totalQuestions - 1) {
-            nextButton.setText("Submit");
-        }
 
         answersRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (listener != null) {
-                if (checkedId == answer1RB.getId()) {
-                    listener.onAnswerSelected(0);
-                } else if (checkedId == answer2RB.getId()) {
-                    listener.onAnswerSelected(1);
-                } else if (checkedId == answer3RB.getId()) {
-                    listener.onAnswerSelected(2);
+                if (type.equals("quiz")) { // QuizActivity
+                    if (checkedId == answer1RB.getId()) {
+                        listener.onAnswerSelected(0);
+                    } else if (checkedId == answer2RB.getId()) {
+                        listener.onAnswerSelected(1);
+                    } else if (checkedId == answer3RB.getId()) {
+                        listener.onAnswerSelected(2);
+                    }
+                }
+                else { // PracticeActivity, type = practice -> show feedback when user clicks an answer
+                    int selectedAnswer = -1;
+                    if (checkedId == answer1RB.getId()) selectedAnswer = 0;
+                    else if (checkedId == answer2RB.getId()) selectedAnswer = 1;
+                    else if (checkedId == answer3RB.getId()) selectedAnswer = 2;
+
+                    if (selectedAnswer != -1) {
+                        listener.onAnswerSelected(selectedAnswer);
+                        boolean isCorrect = selectedAnswer == currentQuestion.getCorrectIndex();
+                        ((PracticeActivity) requireActivity()).showAnswerFeedback(isCorrect);
+                    }
                 }
             }
         });
+
+        // Handle state once user has answered the last question
+        if (currentPosition == totalQuestions - 1) {
+            if (type.equals("practice")) {
+                nextButton.setText("Submit");
+            }
+            else {
+                nextButton.setEnabled(false);
+                nextButton.setAlpha(0.5f);
+                listener.onSubmitClicked();
+            }
+        }
+
 
         previousButton.setOnClickListener(v -> {
             if (listener != null) {
