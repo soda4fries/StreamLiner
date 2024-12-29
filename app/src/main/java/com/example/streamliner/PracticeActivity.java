@@ -2,6 +2,7 @@ package com.example.streamliner;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +27,7 @@ public class PracticeActivity extends AppCompatActivity implements QuestionFragm
     private List<Question> questions;
     private int currentQuestionIndex = 0;
     private int[] userAnswers;
+    private TextView titleTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,12 @@ public class PracticeActivity extends AppCompatActivity implements QuestionFragm
             getSupportActionBar().setTitle(practiceTitle);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        titleTV = findViewById(R.id.titleTV);
+        titleTV.setText(practiceTitle);
+
+        // Setup back button
+        findViewById(R.id.backButton).setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         loadQuestions();
     }
@@ -81,7 +89,7 @@ public class PracticeActivity extends AppCompatActivity implements QuestionFragm
 
     private void showQuestion(int position) {
         QuestionFragment fragment = QuestionFragment.newInstance(
-                questions.get(position), position, questions.size());
+                questions.get(position), position, questions.size(), "practice");
         fragment.setListener(this);
 
         getSupportFragmentManager()
@@ -109,6 +117,8 @@ public class PracticeActivity extends AppCompatActivity implements QuestionFragm
     @Override
     public void onAnswerSelected(int answerIndex) {
         userAnswers[currentQuestionIndex] = answerIndex;
+        boolean isCorrect = answerIndex == questions.get(currentQuestionIndex).getCorrectIndex();
+        showAnswerFeedback(isCorrect);
     }
 
     @Override
@@ -116,7 +126,7 @@ public class PracticeActivity extends AppCompatActivity implements QuestionFragm
         // Calculate score
         int correctAnswers = 0;
         for (int i = 0; i < questions.size(); i++) {
-            if (userAnswers[i] == questions.get(i).getCorrectIndex()) {
+            if (userAnswers[i] != -1 && userAnswers[i] == questions.get(i).getCorrectIndex()) {
                 correctAnswers++;
             }
         }
@@ -150,5 +160,13 @@ public class PracticeActivity extends AppCompatActivity implements QuestionFragm
     public boolean onSupportNavigateUp() {
         getOnBackPressedDispatcher().onBackPressed();
         return true;
+    }
+
+    public void showAnswerFeedback(boolean isCorrect) {
+        AnswerFeedbackFragment feedbackFragment = AnswerFeedbackFragment.newInstance(isCorrect);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.feedbackContainer, feedbackFragment)
+                .commit();
     }
 }
