@@ -1,7 +1,9 @@
 package com.example.streamliner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -38,6 +40,7 @@ public class EnrolledCoursesActivity extends AppCompatActivity {
         // Initialize views
         coursesRecyclerView = findViewById(R.id.coursesRecyclerView);
         loadingProgressBar = findViewById(R.id.loadingProgressBar);
+        Button viewMarksButton = findViewById(R.id.viewMarksButton);
 
         /*
         // Set up toolbar with back button
@@ -54,6 +57,11 @@ public class EnrolledCoursesActivity extends AppCompatActivity {
 
         // Initialize Firebase
         databaseRef = FirebaseDatabase.getInstance().getReference();
+
+        viewMarksButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MarksActivity.class);
+            startActivity(intent);
+        });
 
         // Setup back button
         findViewById(R.id.backButton).setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
