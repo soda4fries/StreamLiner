@@ -26,6 +26,7 @@ public class QuizActivity extends AppCompatActivity implements QuestionFragment.
     private List<Question> questions;
     private int currentQuestionIndex = 0;
     private int[] userAnswers;
+    private String quizTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class QuizActivity extends AppCompatActivity implements QuestionFragment.
 
         courseId = getIntent().getStringExtra("courseId");
         quizId = getIntent().getIntExtra("quizId", 0);
-        String quizTitle = getIntent().getStringExtra("quizTitle");
+        quizTitle = getIntent().getStringExtra("quizTitle");
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(quizTitle);
@@ -120,22 +121,34 @@ public class QuizActivity extends AppCompatActivity implements QuestionFragment.
                 correctAnswers++;
             }
         }
-        int score = (correctAnswers * 100) / questions.size();
+        int mark = (correctAnswers * 100) / questions.size();
 
         // Save completion status and score
-        DatabaseReference userPracticeRef = FirebaseDatabase.getInstance().getReference()
+        DatabaseReference userQuizRef = FirebaseDatabase.getInstance().getReference()
                 .child("test")
-                .child("userCourses")
-                .child(courseId)
+                .child("userQuizzes");
+                /*.child(courseId)
                 .child("quizzes")
-                .child(String.valueOf(quizId));
+                .child(String.valueOf(quizId));*/
 
-        userPracticeRef.child("completed").setValue(true);
-        userPracticeRef.child("score").setValue(score)
-                .addOnCompleteListener(task -> {
+        // Get the current date in "dd-MM-yyyy" format
+        String currentDate = new java.text.SimpleDateFormat("dd-MM-yyyy", java.util.Locale.getDefault())
+                .format(new java.util.Date());
+
+        DatabaseReference quizMarkEntryRef = userQuizRef.push();
+
+        quizMarkEntryRef.child("title").setValue(quizTitle);
+        quizMarkEntryRef.child("completed").setValue(true);
+        quizMarkEntryRef.child("mark").setValue(mark);
+        quizMarkEntryRef.child("date").setValue(currentDate)
+                        .addOnCompleteListener(task -> {
+                            finish();
+                        });
+
+                /*.addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this,
-                                "Practice completed! Score: " + score + "%",
+                                "Practice completed! Score: " + mark + "%",
                                 Toast.LENGTH_LONG).show();
                         finish();
                     } else {
@@ -143,7 +156,7 @@ public class QuizActivity extends AppCompatActivity implements QuestionFragment.
                                 "Error saving results",
                                 Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
     }
 
     @Override
