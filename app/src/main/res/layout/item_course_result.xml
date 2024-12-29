@@ -43,7 +43,7 @@
             android:id="@+id/viewButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="view"
+            android:text="@string/button_view"
             android:padding="2dp"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"

@@ -53,7 +53,7 @@
             android:id="@+id/startButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start"
+            android:text="@string/button_start"
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:backgroundTint="@color/blue_tabs" />
