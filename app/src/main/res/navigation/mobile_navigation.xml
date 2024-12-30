@@ -23,12 +23,63 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
-        android:id="@+id/viewProfile"
-        android:name="com.example.streamliner.ViewProfile"
-        android:label="ViewProfile" />
-    <fragment
         android:id="@+id/feedback"
         android:name="com.example.streamliner.Feedback"
         android:label="fragment_feedback"
         tools:layout="@layout/fragment_feedback" />
+    <fragment
+        android:id="@+id/viewProfile"
+        android:name="com.example.streamliner.ViewProfile"
+        android:label="fragment_view_profile"
+        tools:layout="@layout/fragment_view_profile" />
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.example.streamliner.EditProfile"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/loginPage"
+        android:name="com.example.streamliner.LoginPage"
+        android:label="fragment_login_page"
+        tools:layout="@layout/fragment_login_page" />
+    <fragment
+        android:id="@+id/registerPage"
+        android:name="com.example.streamliner.RegisterPage"
+        android:label="fragment_register_page"
+        tools:layout="@layout/fragment_register_page" />
+    <fragment
+        android:id="@+id/forgetPassword"
+        android:name="com.example.streamliner.ForgetPassword"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password" />
+    <fragment
+        android:id="@+id/resetPassword"
+        android:name="com.example.streamliner.ResetPassword"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password" />
+    <fragment
+        android:id="@+id/verifyEmailPage"
+        android:name="com.example.streamliner.VerifyEmailPage"
+        android:label="fragment_verify_email_page"
+        tools:layout="@layout/fragment_verify_email_page" />
+    <fragment
+        android:id="@+id/splashScreen1"
+        android:name="com.example.streamliner.SplashScreen1"
+        android:label="fragment_splash_screen1"
+        tools:layout="@layout/fragment_splash_screen1" />
+    <fragment
+        android:id="@+id/splashScreen2"
+        android:name="com.example.streamliner.SplashScreen2"
+        android:label="fragment_splash_screen2"
+        tools:layout="@layout/fragment_splash_screen2" />
+    <fragment
+        android:id="@+id/splashScreen3"
+        android:name="com.example.streamliner.SplashScreen3"
+        android:label="fragment_splash_screen3"
+        tools:layout="@layout/fragment_splash_screen3" />
+    <fragment
+        android:id="@+id/splashScreen4"
+        android:name="com.example.streamliner.SplashScreen4"
+        android:label="fragment_splash_screen4"
+        tools:layout="@layout/fragment_splash_screen4" />
 </navigation>

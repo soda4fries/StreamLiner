@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".LoginPage">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/framelogin" />
+
+    <Button
+        android:id="@+id/BTSignIn"
+        android:layout_width="218dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="90dp"
+        android:backgroundTint="@color/darkBlue"
+        android:text="Sign In"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ETPwdLogin" />
+
+    <EditText
+        android:id="@+id/ETEmailLogin"
+        android:layout_width="333dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="text"
+        android:textColorHint="@color/subtitleGrey"
+        app:layout_constraintEnd_toEndOf="@+id/SubtitleLogin"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/SubtitleLogin"
+        app:layout_constraintTop_toBottomOf="@+id/SubtitleLogin" />
+
+    <TextView
+        android:id="@+id/SubtitleLogin"
+        android:layout_width="339dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="40dp"
+        android:text="Welcome back! Login with your account"
+        android:textColor="#6F7172"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/TitleLogin"
+        app:layout_constraintTop_toBottomOf="@+id/TitleLogin" />
+
+    <TextView
+        android:id="@+id/TitleLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="100dp"
+        android:text="Lets Sign You In"
+        android:textColor="#1A4C8E"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/TVGoToRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Don't Have An Account? Register Now"
+        android:textColor="@color/darkBlue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BTSignIn" />
+
+    <TextView
+        android:id="@+id/TVFgtPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="28dp"
+        android:text="Forgot Password"
+        android:textColor="@color/darkBlue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ETPwdLogin" />
+
+    <EditText
+        android:id="@+id/ETPwdLogin"
+        android:layout_width="332dp"
+        android:layout_height="67dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/subtitleGrey"
+        app:layout_constraintEnd_toEndOf="@+id/ETEmailLogin"
+        app:layout_constraintStart_toStartOf="@+id/ETEmailLogin"
+        app:layout_constraintTop_toBottomOf="@+id/ETEmailLogin" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
