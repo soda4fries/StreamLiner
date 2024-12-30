@@ -118,5 +118,6 @@ public class LoginPage extends Fragment {
                 }
             }
         });
+
     }
 }

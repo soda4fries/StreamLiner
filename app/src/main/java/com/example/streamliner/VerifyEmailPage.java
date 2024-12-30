@@ -69,7 +69,6 @@ public class VerifyEmailPage extends Fragment {
         });
 
 
-
         return view;
     }
 }

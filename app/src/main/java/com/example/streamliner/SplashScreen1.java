@@ -11,5 +11,4 @@ import android.view.ViewGroup;
 public class SplashScreen1 extends Fragment {
 
 
-
 }

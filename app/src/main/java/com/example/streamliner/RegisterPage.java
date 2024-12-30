@@ -148,6 +148,7 @@ public class RegisterPage extends Fragment {
                 }
             }
         });
+
     }
 
 }

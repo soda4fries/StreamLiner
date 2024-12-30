@@ -79,5 +79,6 @@ public class ResetPassword extends Fragment {
                 Toast.makeText(getContext(), "Error in sending password reset email", Toast.LENGTH_LONG).show();
             }
         });
+
     }
 }
