@@ -75,20 +75,14 @@ public class LoginPage extends Fragment {
 
         // Navigate to Forget Password Fragment
         TVFgtPwd.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment, new ForgetPassword()) //need to change
-                    .addToBackStack(null)
-                    .commit();
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_loginPage_to_forgetPassword);
         });
 
         // Navigate to Register Fragment
         TVRegisterNow.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment, new RegisterPage())
-                    .addToBackStack(null)
-                    .commit();
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_loginPage_to_registerPage);
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.main), (v, insets) -> {
@@ -107,7 +101,7 @@ public class LoginPage extends Fragment {
                 Toast.makeText(getContext(), "You are logged in now", Toast.LENGTH_LONG).show();
                 //navigate to me page
                 navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-                    navController.navigate(R.id.action_loginPage_to_mePage);
+                navController.navigate(R.id.action_loginPage_to_mePage);
 
             } else {
                 try {

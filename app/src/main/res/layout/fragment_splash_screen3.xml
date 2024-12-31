@@ -95,15 +95,15 @@
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
-        android:layout_height="120dp" />
+        android:layout_height="90dp" />
 
     <Button
         android:id="@+id/Screen3Next"
         android:layout_width="148dp"
         android:layout_height="64dp"
         android:layout_gravity="center|right"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="50dp"
         android:backgroundTint="@color/darkBlue"
         android:text="Next"
         android:textSize="24sp"

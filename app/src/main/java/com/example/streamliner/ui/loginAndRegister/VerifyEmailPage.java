@@ -3,6 +3,8 @@ package com.example.streamliner.ui.loginAndRegister;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -58,12 +60,8 @@ public class VerifyEmailPage extends Fragment {
                     bundle.putString("email", email);
                     resetPasswordFragment.setArguments(bundle);
 
-                    // Use FragmentManager to replace the current Fragment
-                    requireActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.nav_host_fragment, resetPasswordFragment)
-                            .addToBackStack(null)
-                            .commit();
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                    navController.navigate(R.id.action_verifyEmailPage_to_resetPassword);
                 } else {
                     Toast.makeText(requireContext(), "Invalid code", Toast.LENGTH_LONG).show();
                 }

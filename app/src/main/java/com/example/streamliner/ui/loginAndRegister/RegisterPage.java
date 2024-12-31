@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.streamliner.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -87,11 +89,8 @@ public class RegisterPage extends Fragment {
 
         // Navigate to LoginFragment
         TVGoToSignIn.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment, new LoginPage())
-                    .addToBackStack(null)
-                    .commit();
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_registerPage_to_loginPage);
         });
 
         return view;

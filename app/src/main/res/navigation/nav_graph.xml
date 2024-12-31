@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/loginPage">
+    app:startDestination="@+id/splashScreen1">
 
     <fragment
         android:id="@+id/feedback"
@@ -35,12 +35,19 @@
         <action
             android:id="@+id/action_loginPage_to_mePage"
             app:destination="@id/mePage" />
+        <action
+            android:id="@+id/action_loginPage_to_registerPage"
+            app:destination="@id/registerPage" />
     </fragment>
     <fragment
         android:id="@+id/registerPage"
         android:name="com.example.streamliner.ui.loginAndRegister.RegisterPage"
         android:label="fragment_register_page"
-        tools:layout="@layout/fragment_register_page" />
+        tools:layout="@layout/fragment_register_page" >
+        <action
+            android:id="@+id/action_registerPage_to_loginPage"
+            app:destination="@id/loginPage" />
+    </fragment>
     <fragment
         android:id="@+id/forgetPassword"
         android:name="com.example.streamliner.ui.loginAndRegister.ForgetPassword"
@@ -54,7 +61,11 @@
         android:id="@+id/resetPassword"
         android:name="com.example.streamliner.ui.loginAndRegister.ResetPassword"
         android:label="fragment_reset_password"
-        tools:layout="@layout/fragment_reset_password" />
+        tools:layout="@layout/fragment_reset_password" >
+        <action
+            android:id="@+id/action_resetPassword_to_loginPage"
+            app:destination="@id/loginPage" />
+    </fragment>
     <fragment
         android:id="@+id/verifyEmailPage"
         android:name="com.example.streamliner.ui.loginAndRegister.VerifyEmailPage"

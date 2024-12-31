@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -69,12 +71,8 @@ public class ForgetPassword extends Fragment {
             VerifyEmailPage verifyEmailFragment = new VerifyEmailPage();
             verifyEmailFragment.setArguments(bundle);
 
-            // Replace the current fragment with VerifyEmailFragment
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.nav_host_fragment, verifyEmailFragment)
-                    .addToBackStack(null)
-                    .commit();
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_forgetPassword_to_verifyEmailPage);
         });
 
         return view;
