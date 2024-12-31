@@ -32,6 +32,7 @@ public class LoginPage extends Fragment {
 
     private EditText ETEmailLogin, ETPasswordLogin;
     private FirebaseAuth authProfile;
+    NavController navController ;
 
     @Nullable
     @Override
@@ -50,6 +51,7 @@ public class LoginPage extends Fragment {
 
         // Navigate to the main app screen after login
         BTSignIn.setOnClickListener(v -> {
+
             String textEmail = ETEmailLogin.getText().toString();
             String textPassword = ETPasswordLogin.getText().toString();
 
@@ -66,6 +68,7 @@ public class LoginPage extends Fragment {
                 ETPasswordLogin.setError("Password is required");
                 ETPasswordLogin.requestFocus();
             } else {
+
                 loginUser(textEmail, textPassword);
             }
         });
@@ -98,13 +101,13 @@ public class LoginPage extends Fragment {
     }
 
     private void loginUser(String email, String password) {
-        authProfile.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+
+       authProfile.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(getContext(), "You are logged in now", Toast.LENGTH_LONG).show();
-
-                // Navigate to MePage
-                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.action_loginPage_to_mePage);
+                //navigate to me page
+                navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                    navController.navigate(R.id.action_loginPage_to_mePage);
 
             } else {
                 try {
