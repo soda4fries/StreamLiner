@@ -10,6 +10,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -72,7 +74,7 @@ public class LoginPage extends Fragment {
         TVFgtPwd.setOnClickListener(v -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_activity_main, new ForgetPassword()) //need to change
+                    .replace(R.id.nav_host_fragment, new ForgetPassword()) //need to change
                     .addToBackStack(null)
                     .commit();
         });
@@ -81,7 +83,7 @@ public class LoginPage extends Fragment {
         TVRegisterNow.setOnClickListener(v -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_activity_main, new RegisterPage())
+                    .replace(R.id.nav_host_fragment, new RegisterPage())
                     .addToBackStack(null)
                     .commit();
         });
@@ -100,9 +102,10 @@ public class LoginPage extends Fragment {
             if (task.isSuccessful()) {
                 Toast.makeText(getContext(), "You are logged in now", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                requireActivity().finish();
+                // Navigate to MePage
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_loginPage_to_mePage);
+
             } else {
                 try {
                     throw task.getException();

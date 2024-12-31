@@ -40,7 +40,7 @@ public class Feedback extends Fragment {
 
         ratingBar=view.findViewById(R.id.RateBarFeedback);
         etFeedback=view.findViewById(R.id.ETFeedback);
-        btnFeedback=view.findViewById(R.id.BtnFeedback);
+        btnFeedback=view.findViewById(R.id.BtnSubmitFeedback);
 
         mAuth=FirebaseAuth.getInstance();
         mFirestore= FirebaseFirestore.getInstance();

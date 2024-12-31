@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +45,9 @@ public class ViewProfile extends Fragment {
             fetchUserData(firebaseUser.getUid());
         }
 
+        Button btnEdit = view.findViewById(R.id.BtnEdit);
+        btnEdit.setOnClickListener(v -> navigateToEditProfile());
+
 
         return view;
     }
@@ -69,6 +74,12 @@ public class ViewProfile extends Fragment {
                 .addOnFailureListener(e -> {
                     Toast.makeText(getContext(), "Failed to fetch user data", Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    private void navigateToEditProfile() {
+        // Navigate to the Edit Profile screen
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.action_viewProfile_to_editProfile);
     }
 
 

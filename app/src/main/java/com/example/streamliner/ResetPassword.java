@@ -73,7 +73,7 @@ public class ResetPassword extends Fragment {
                 // Navigate to LoginFragment
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.nav_host_fragment_activity_main, new LoginPage())
+                        .replace(R.id.nav_host_fragment, new LoginPage())
                         .commit();
             } else {
                 Toast.makeText(getContext(), "Error in sending password reset email", Toast.LENGTH_LONG).show();

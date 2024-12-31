@@ -89,7 +89,7 @@ public class RegisterPage extends Fragment {
         TVGoToSignIn.setOnClickListener(v -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_activity_main, new LoginPage())
+                    .replace(R.id.nav_host_fragment, new LoginPage())
                     .addToBackStack(null)
                     .commit();
         });
@@ -129,7 +129,7 @@ public class RegisterPage extends Fragment {
                                 // Navigate to LoginFragment
                                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                                 fragmentManager.beginTransaction()
-                                        .replace(R.id.nav_host_fragment_activity_main, new LoginPage())
+                                        .replace(R.id.nav_host_fragment, new LoginPage())
                                         .commit();
                             } else {
                                 Toast.makeText(getContext(), "User registration failed. Try again.", Toast.LENGTH_LONG).show();

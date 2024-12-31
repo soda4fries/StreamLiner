@@ -12,7 +12,7 @@
         android:layout_height="250dp">
 
         <ImageView
-            android:id="@+id/IVProfilePic"
+            android:id="@+id/ViewProfilePic"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerInParent="true"
@@ -81,7 +81,7 @@
         android:background="?android:attr/listDivider" />
 
     <Button
-        android:id="@+id/BtnSave"
+        android:id="@+id/BtnEdit"
         android:layout_width="200dp"
         android:layout_height="62dp"
         android:layout_gravity="center"

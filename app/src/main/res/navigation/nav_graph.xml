@@ -3,25 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/mePage">
 
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.streamliner.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_time"
-        android:name="com.example.streamliner.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
-        android:id="@+id/navigation_learn"
-        android:name="com.example.streamliner.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/feedback"
         android:name="com.example.streamliner.Feedback"
@@ -31,7 +14,11 @@
         android:id="@+id/viewProfile"
         android:name="com.example.streamliner.ViewProfile"
         android:label="fragment_view_profile"
-        tools:layout="@layout/fragment_view_profile" />
+        tools:layout="@layout/fragment_view_profile" >
+        <action
+            android:id="@+id/action_viewProfile_to_editProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
     <fragment
         android:id="@+id/editProfile"
         android:name="com.example.streamliner.EditProfile"
@@ -41,7 +28,14 @@
         android:id="@+id/loginPage"
         android:name="com.example.streamliner.LoginPage"
         android:label="fragment_login_page"
-        tools:layout="@layout/fragment_login_page" />
+        tools:layout="@layout/fragment_login_page" >
+        <action
+            android:id="@+id/action_loginPage_to_forgetPassword"
+            app:destination="@id/forgetPassword" />
+        <action
+            android:id="@+id/action_loginPage_to_mePage"
+            app:destination="@id/mePage" />
+    </fragment>
     <fragment
         android:id="@+id/registerPage"
         android:name="com.example.streamliner.RegisterPage"
@@ -51,7 +45,11 @@
         android:id="@+id/forgetPassword"
         android:name="com.example.streamliner.ForgetPassword"
         android:label="fragment_forget_password"
-        tools:layout="@layout/fragment_forget_password" />
+        tools:layout="@layout/fragment_forget_password" >
+        <action
+            android:id="@+id/action_forgetPassword_to_verifyEmailPage"
+            app:destination="@id/verifyEmailPage" />
+    </fragment>
     <fragment
         android:id="@+id/resetPassword"
         android:name="com.example.streamliner.ResetPassword"
@@ -61,25 +59,56 @@
         android:id="@+id/verifyEmailPage"
         android:name="com.example.streamliner.VerifyEmailPage"
         android:label="fragment_verify_email_page"
-        tools:layout="@layout/fragment_verify_email_page" />
+        tools:layout="@layout/fragment_verify_email_page" >
+        <action
+            android:id="@+id/action_verifyEmailPage_to_resetPassword"
+            app:destination="@id/resetPassword" />
+    </fragment>
     <fragment
         android:id="@+id/splashScreen1"
         android:name="com.example.streamliner.SplashScreen1"
         android:label="fragment_splash_screen1"
-        tools:layout="@layout/fragment_splash_screen1" />
+        tools:layout="@layout/fragment_splash_screen1" >
+        <action
+            android:id="@+id/action_splashScreen1_to_splashScreen2"
+            app:destination="@id/splashScreen2" />
+    </fragment>
     <fragment
         android:id="@+id/splashScreen2"
         android:name="com.example.streamliner.SplashScreen2"
         android:label="fragment_splash_screen2"
-        tools:layout="@layout/fragment_splash_screen2" />
+        tools:layout="@layout/fragment_splash_screen2" >
+        <action
+            android:id="@+id/action_splashScreen2_to_splashScreen3"
+            app:destination="@id/splashScreen3" />
+    </fragment>
     <fragment
         android:id="@+id/splashScreen3"
         android:name="com.example.streamliner.SplashScreen3"
         android:label="fragment_splash_screen3"
-        tools:layout="@layout/fragment_splash_screen3" />
+        tools:layout="@layout/fragment_splash_screen3" >
+        <action
+            android:id="@+id/action_splashScreen3_to_splashScreen4"
+            app:destination="@id/splashScreen4" />
+    </fragment>
     <fragment
         android:id="@+id/splashScreen4"
         android:name="com.example.streamliner.SplashScreen4"
         android:label="fragment_splash_screen4"
         tools:layout="@layout/fragment_splash_screen4" />
+    <fragment
+        android:id="@+id/mePage"
+        android:name="com.example.streamliner.MePage"
+        android:label="fragment_me_page"
+        tools:layout="@layout/fragment_me_page" >
+        <action
+            android:id="@+id/action_mePage_to_viewProfile"
+            app:destination="@id/viewProfile" />
+        <action
+            android:id="@+id/action_mePage_to_feedback"
+            app:destination="@id/feedback" />
+        <action
+            android:id="@+id/action_mePage_to_loginPage"
+            app:destination="@id/loginPage" />
+    </fragment>
 </navigation>

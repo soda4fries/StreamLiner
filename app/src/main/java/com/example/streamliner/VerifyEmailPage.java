@@ -59,7 +59,7 @@ public class VerifyEmailPage extends Fragment {
                     // Use FragmentManager to replace the current Fragment
                     requireActivity().getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.nav_host_fragment_activity_main, resetPasswordFragment)
+                            .replace(R.id.nav_host_fragment, resetPasswordFragment)
                             .addToBackStack(null)
                             .commit();
                 } else {

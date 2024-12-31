@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MePage">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <ImageView
+            android:id="@+id/MePageProfilePic"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:foreground="@drawable/baseline_account_circle_24" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/BtnMyCourses"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/darkBlue"
+        android:text="My Courses"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/BtnMyMarks"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/darkBlue"
+        android:text="My Marks"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/BtnViewProfile"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/darkBlue"
+        android:text="View Profile"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/BtnFeedback"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/darkBlue"
+        android:text="Feedback"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/BtnLogOut"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/darkBlue"
+        android:text="Log Out"
+        android:textSize="20sp"/>
+
+</LinearLayout>

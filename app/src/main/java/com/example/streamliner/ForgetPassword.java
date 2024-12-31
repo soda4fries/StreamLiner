@@ -73,7 +73,7 @@ public class ForgetPassword extends Fragment {
             // Replace the current fragment with VerifyEmailFragment
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.nav_host_fragment_activity_main, verifyEmailFragment)
+                    .replace(R.id.nav_host_fragment, verifyEmailFragment)
                     .addToBackStack(null)
                     .commit();
         });
@@ -106,6 +106,7 @@ public class ForgetPassword extends Fragment {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "Verification code sent to " + email, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Please check your spam folder",Toast.LENGTH_LONG).show();
                 } else {
                     Log.e("EmailError", "Failed to send email: " + response.errorBody());
                     Toast.makeText(getContext(), "Failed to send email", Toast.LENGTH_LONG).show();
