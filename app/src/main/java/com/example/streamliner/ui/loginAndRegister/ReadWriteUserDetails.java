@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.ui.loginAndRegister;
 
 //Not in use ady
 public class ReadWriteUserDetails {

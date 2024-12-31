@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.ui.loginAndRegister;
 
 import java.util.ArrayList;
 import java.util.List;

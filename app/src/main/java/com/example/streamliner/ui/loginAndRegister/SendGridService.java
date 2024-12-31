@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.ui.loginAndRegister;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

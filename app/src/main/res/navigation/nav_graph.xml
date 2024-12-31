@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/feedback"
-        android:name="com.example.streamliner.Feedback"
+        android:name="com.example.streamliner.ui.mePage.Feedback"
         android:label="fragment_feedback"
         tools:layout="@layout/fragment_feedback" />
     <fragment
         android:id="@+id/viewProfile"
-        android:name="com.example.streamliner.ViewProfile"
+        android:name="com.example.streamliner.ui.mePage.ViewProfile"
         android:label="fragment_view_profile"
         tools:layout="@layout/fragment_view_profile" >
         <action
@@ -21,12 +21,12 @@
     </fragment>
     <fragment
         android:id="@+id/editProfile"
-        android:name="com.example.streamliner.EditProfile"
+        android:name="com.example.streamliner.ui.mePage.EditProfile"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/loginPage"
-        android:name="com.example.streamliner.LoginPage"
+        android:name="com.example.streamliner.ui.loginAndRegister.LoginPage"
         android:label="fragment_login_page"
         tools:layout="@layout/fragment_login_page" >
         <action
@@ -38,12 +38,12 @@
     </fragment>
     <fragment
         android:id="@+id/registerPage"
-        android:name="com.example.streamliner.RegisterPage"
+        android:name="com.example.streamliner.ui.loginAndRegister.RegisterPage"
         android:label="fragment_register_page"
         tools:layout="@layout/fragment_register_page" />
     <fragment
         android:id="@+id/forgetPassword"
-        android:name="com.example.streamliner.ForgetPassword"
+        android:name="com.example.streamliner.ui.loginAndRegister.ForgetPassword"
         android:label="fragment_forget_password"
         tools:layout="@layout/fragment_forget_password" >
         <action
@@ -52,12 +52,12 @@
     </fragment>
     <fragment
         android:id="@+id/resetPassword"
-        android:name="com.example.streamliner.ResetPassword"
+        android:name="com.example.streamliner.ui.loginAndRegister.ResetPassword"
         android:label="fragment_reset_password"
         tools:layout="@layout/fragment_reset_password" />
     <fragment
         android:id="@+id/verifyEmailPage"
-        android:name="com.example.streamliner.VerifyEmailPage"
+        android:name="com.example.streamliner.ui.loginAndRegister.VerifyEmailPage"
         android:label="fragment_verify_email_page"
         tools:layout="@layout/fragment_verify_email_page" >
         <action
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashScreen1"
-        android:name="com.example.streamliner.SplashScreen1"
+        android:name="com.example.streamliner.ui.splashScreen.SplashScreen1"
         android:label="fragment_splash_screen1"
         tools:layout="@layout/fragment_splash_screen1" >
         <action
@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashScreen2"
-        android:name="com.example.streamliner.SplashScreen2"
+        android:name="com.example.streamliner.ui.splashScreen.SplashScreen2"
         android:label="fragment_splash_screen2"
         tools:layout="@layout/fragment_splash_screen2" >
         <action
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashScreen3"
-        android:name="com.example.streamliner.SplashScreen3"
+        android:name="com.example.streamliner.ui.splashScreen.SplashScreen3"
         android:label="fragment_splash_screen3"
         tools:layout="@layout/fragment_splash_screen3" >
         <action
@@ -93,12 +93,12 @@
     </fragment>
     <fragment
         android:id="@+id/splashScreen4"
-        android:name="com.example.streamliner.SplashScreen4"
+        android:name="com.example.streamliner.ui.splashScreen.SplashScreen4"
         android:label="fragment_splash_screen4"
         tools:layout="@layout/fragment_splash_screen4" />
     <fragment
         android:id="@+id/mePage"
-        android:name="com.example.streamliner.MePage"
+        android:name="com.example.streamliner.ui.mePage.MePage"
         android:label="fragment_me_page"
         tools:layout="@layout/fragment_me_page" >
         <action

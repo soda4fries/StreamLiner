@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.ui.loginAndRegister;
 
 import android.os.Bundle;
 
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.streamliner.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 import retrofit2.Retrofit;
@@ -23,8 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgetPassword extends Fragment {
     private FirebaseAuth authProfile;

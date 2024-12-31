@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     android:orientation="vertical"
-    tools:context=".EditProfile">
+    tools:context=".ui.mePage.EditProfile">
 
     <RelativeLayout
         android:layout_width="match_parent"
