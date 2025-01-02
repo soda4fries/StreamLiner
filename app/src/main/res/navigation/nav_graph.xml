@@ -4,10 +4,10 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
-    <!-- Existing fragments -->
+
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.streamliner.Auth.LoginFragment"
+        android:name="com.example.streamliner.Auth.Fragment.LoginFragment"
         android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.streamliner.Auth.RegisterFragment"
+        android:name="com.example.streamliner.Auth.Fragment.RegisterFragment"
         android:label="RegisterFragment">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
@@ -33,7 +33,7 @@
             app:popUpToInclusive="true" />
     </fragment>
 
-    <!-- Quiz Module Fragments -->
+
     <fragment
         android:id="@+id/quizListFragment"
         android:name="com.example.streamliner.Quiz.Fragment.QuizListFragment"
@@ -68,7 +68,7 @@
             app:argType="integer" />
     </fragment>
 
-    <!-- Existing Chat Module Fragments -->
+
     <fragment
         android:id="@+id/chatsFragment"
         android:name="com.example.streamliner.Chat.Fragment.ChatsFragment"

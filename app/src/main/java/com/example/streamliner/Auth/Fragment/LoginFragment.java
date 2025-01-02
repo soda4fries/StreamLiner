@@ -1,4 +1,4 @@
-package com.example.streamliner.Auth;
+package com.example.streamliner.Auth.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
