@@ -6,12 +6,12 @@
     android:background="@color/white">
 
     <FrameLayout
-        android:id="@+id/searchContainer"
+        android:id="@+id/fragmentContainer1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <FrameLayout
-        android:id="@+id/coursesContainer"
+        android:id="@+id/fragmentContainer2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>

@@ -1,25 +1,11 @@
 package com.example.streamliner;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.streamliner.courseDiscovery.SearchFragment;
+import com.example.streamliner.courseDiscovery.TopCoursesFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.streamliner.databinding.ActivityMainBinding;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,14 +75,13 @@ public class MainActivity extends AppCompatActivity {
             });*/
 
         if (savedInstanceState == null) {
-            // Add search fragment
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.searchContainer, new SearchFragment())
-                    .commit();
-
-            // Add top courses fragment
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.coursesContainer, new TopCoursesFragment())
+            TopCoursesFragment fragment = TopCoursesFragment.newInstance(0);
+            // Add search fragment and top courses fragment
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer1, new SearchFragment())
+                    .replace(R.id.fragmentContainer2, fragment)
+                    .addToBackStack("SearchAndTopCoursesFragments")
                     .commit();
         }
     }
