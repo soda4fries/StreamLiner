@@ -1,7 +1,10 @@
-package com.example.streamliner;
+package com.example.streamliner.courseDiscovery;
+
+import com.example.streamliner.studyMaterials.Practice;
+import com.example.streamliner.studyMaterials.Quiz;
+import com.example.streamliner.studyMaterials.Video;
 
 import java.util.List;
-import java.util.Map;
 
 public class Course {
     private String id;
@@ -12,10 +15,12 @@ public class Course {
     private List<String> learningOutcomes;
     private List<Quiz> quizzes;
     private List<Practice> practices;
+    private List<Video> videos;
 
     public Course() {}
 
-    public Course(String name, String description, String subject, List<String> fields, List<String> learningOutcomes, List<Quiz> quizzes, List<Practice> practices) {
+    public Course(String name, String description, String subject, List<String> fields, List<String> learningOutcomes,
+                  List<Quiz> quizzes, List<Practice> practices, List<Video> videos) {
         this.name = name;
         this.description = description;
         this.subject = subject;
@@ -23,6 +28,7 @@ public class Course {
         this.learningOutcomes = learningOutcomes;
         this.quizzes = quizzes;
         this.practices = practices;
+        this.videos = videos;
     }
 
     // Getters and Setters
@@ -56,4 +62,8 @@ public class Course {
     public List<Practice> getPractices() { return practices; }
 
     public void setPractices(List<Practice> practices) { this.practices = practices; }
+
+    public List<Video> getVideos () { return videos; }
+    public void setVideos(List<Video> videos) { this.videos = videos; }
+
 }

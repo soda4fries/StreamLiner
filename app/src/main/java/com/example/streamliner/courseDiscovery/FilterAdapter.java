@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.courseDiscovery;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.streamliner.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/white"
-    tools:context=".SearchFragment">
+    tools:context=".courseDiscovery.SearchFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

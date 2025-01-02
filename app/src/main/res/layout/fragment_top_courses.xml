@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/white"
-    tools:context=".TopCoursesFragment">
+    tools:context=".courseDiscovery.TopCoursesFragment">
 
     <TextView
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <TextView
-        android:id="@+id/moreCourses"
+        android:id="@+id/moreCoursesTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/more_courses"

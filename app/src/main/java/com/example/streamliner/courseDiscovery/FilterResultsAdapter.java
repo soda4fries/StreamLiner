@@ -1,7 +1,5 @@
-package com.example.streamliner;
+package com.example.streamliner.courseDiscovery;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +7,21 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.streamliner.R;
+import com.example.streamliner.courseEnrollment.CourseDetailsFragment;
 
 import java.util.List;
 
 public class FilterResultsAdapter extends RecyclerView.Adapter<FilterResultsAdapter.CourseViewHolder> {
     private List<Course> courses;
+    private Fragment fragment;
 
-    public FilterResultsAdapter(List<Course> courses) {
+    public FilterResultsAdapter(List<Course> courses, Fragment fragment) {
         this.courses = courses;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -39,7 +43,8 @@ public class FilterResultsAdapter extends RecyclerView.Adapter<FilterResultsAdap
         return courses.size();
     }
 
-    static class CourseViewHolder extends RecyclerView.ViewHolder {
+    // Make it not static
+    public class CourseViewHolder extends RecyclerView.ViewHolder {
         private final TextView titleText;
         private final TextView descriptionText;
         private final Button viewButton;
@@ -56,10 +61,18 @@ public class FilterResultsAdapter extends RecyclerView.Adapter<FilterResultsAdap
             descriptionText.setText(course.getDescription());
 
             viewButton.setOnClickListener(v -> {
-                Context context = itemView.getContext();
+                CourseDetailsFragment fragment = CourseDetailsFragment.newInstance(course.getId());
+
+                FilterResultsAdapter.this.fragment.requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer1, fragment)
+                        .addToBackStack(null)
+                        .commit();
+
+                /*Context context = itemView.getContext();
                 Intent intent = new Intent(context, CourseDetailsActivity.class);
                 intent.putExtra("courseId", course.getId());
-                context.startActivity(intent);
+                context.startActivity(intent);*/
             });
         }
     }

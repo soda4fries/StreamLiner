@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.courseDiscovery;
 
 import android.os.Bundle;
 
@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.streamliner.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,17 +34,33 @@ public class TopCoursesFragment extends Fragment {
     private List<Course> coursesList, displayedCourses;
     private DatabaseReference databaseRef;
     private ProgressBar loadingProgressBar;
-    private TextView moreCourses;
-    private int currentIndex = 0;
+    private TextView moreCoursesTV;
+    private int currentIndex;
     private static final int COURSES_PER_PAGE = 4;
+
+    public TopCoursesFragment() {
+        // Required empty public constructor
+    }
+
+    public static TopCoursesFragment newInstance(int currentIndex) {
+        TopCoursesFragment fragment = new TopCoursesFragment();
+        Bundle args = new Bundle();
+        args.putInt("currentIndex", currentIndex);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_top_courses, container, false);
 
+        if (getArguments() != null) {
+            currentIndex = getArguments().getInt("currentIndex");
+        }
+
         coursesRecyclerView = view.findViewById(R.id.coursesRecyclerView);
         loadingProgressBar = view.findViewById(R.id.loadingProgressBar);
-        moreCourses = view.findViewById(R.id.moreCourses);
+        moreCoursesTV = view.findViewById(R.id.moreCoursesTV);
 
         // Initialize Firebase
         databaseRef = FirebaseDatabase.getInstance().getReference("Courses");
@@ -51,13 +68,13 @@ public class TopCoursesFragment extends Fragment {
         // Initialize course list and adapter
         coursesList = new ArrayList<>();
         displayedCourses = new ArrayList<>();
-        adapter = new FilterResultsAdapter(displayedCourses);
+        adapter = new FilterResultsAdapter(displayedCourses, this);
 
         coursesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         coursesRecyclerView.setAdapter(adapter);
 
         // Set up More Courses click listener
-        moreCourses.setOnClickListener(v -> loadMoreCourses());
+        moreCoursesTV.setOnClickListener(v -> loadMoreCourses());
 
         // Load top courses
         loadAllCourses();
@@ -67,6 +84,7 @@ public class TopCoursesFragment extends Fragment {
 
     private void loadAllCourses() {
         loadingProgressBar.setVisibility(View.VISIBLE);
+
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -96,6 +114,7 @@ public class TopCoursesFragment extends Fragment {
     }
 
     private void loadMoreCourses() {
+        Log.d("FRargs", "currentIndex: " + currentIndex);
         int endIndex = Math.min(currentIndex + COURSES_PER_PAGE, coursesList.size());
         for (int i = currentIndex; i < endIndex; i++) {
             displayedCourses.add(coursesList.get(i));
@@ -105,13 +124,13 @@ public class TopCoursesFragment extends Fragment {
         currentIndex = endIndex;
 
         if (currentIndex >= coursesList.size()) {
-            moreCourses.setEnabled(false);
-            moreCourses.setAlpha(0.5f);
+            moreCoursesTV.setEnabled(false);
+            moreCoursesTV.setAlpha(0.5f);
             Toast.makeText(getContext(), "No more courses available", Toast.LENGTH_SHORT).show();
         }
         else {
-            moreCourses.setEnabled(true);
-            moreCourses.setAlpha(1.0f);
+            moreCoursesTV.setEnabled(true);
+            moreCoursesTV.setAlpha(1.0f);
         }
     }
 }

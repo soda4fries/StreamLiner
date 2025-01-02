@@ -1,13 +1,8 @@
-package com.example.streamliner;
-
-import androidx.lifecycle.ViewModelProvider;
+package com.example.streamliner.courseDiscovery;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +15,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.streamliner.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +31,10 @@ public class SearchFragment extends Fragment {
     private FilterAdapter filterAdapter;
     private List<String> subjects;
     private View filtersContainer;
+
+    public SearchFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,18 +105,37 @@ public class SearchFragment extends Fragment {
             searchEditText.setText("");
 
             // Start FilterResultsActivity
-            Intent intent = new Intent(getActivity(), FilterResultsActivity.class);
+            /*Intent intent = new Intent(getActivity(), FilterResultsActivity.class);
             intent.putExtra("searchQuery", searchQuery);
-            startActivity(intent);
+            startActivity(intent);*/
+
+            // Start FilterResultsFragment
+            FilterResultsFragment fragment = FilterResultsFragment.newInstance(searchQuery, new ArrayList<String>(), 0);
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer1, fragment)
+                    .remove(requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragmentContainer2))
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 
     private void applyFilters() {
         List<String> selectedSubjects = filterAdapter.getSelectedSubjects();
         if (!selectedSubjects.isEmpty()) {
-            Intent intent = new Intent(getActivity(), FilterResultsActivity.class);
+            FilterResultsFragment fragment = FilterResultsFragment.newInstance("", new ArrayList<>(selectedSubjects), 0);
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer1, fragment)
+                    .remove(requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragmentContainer2))
+                    .addToBackStack(null)
+                    .commit();
+
+            /*Intent intent = new Intent(getActivity(), FilterResultsActivity.class);
             intent.putStringArrayListExtra("selectedSubjects", new ArrayList<>(selectedSubjects));
-            startActivity(intent);
+            startActivity(intent);*/
         }
         searchEditText.clearFocus();
         hideKeyboard();
