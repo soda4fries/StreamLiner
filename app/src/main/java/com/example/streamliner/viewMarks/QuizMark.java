@@ -1,6 +1,4 @@
-package com.example.streamliner;
-
-import java.util.List;
+package com.example.streamliner.viewMarks;
 
 public class QuizMark {
     // Variables for View Quiz Marks
