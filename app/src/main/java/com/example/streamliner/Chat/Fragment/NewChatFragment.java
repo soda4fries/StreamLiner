@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.streamliner.Auth.Model.User;
+import com.example.streamliner.Authentication.Model.User;
 import com.example.streamliner.Chat.Adapter.UsersAdapter;
 import com.example.streamliner.Chat.Model.Chat;
 import com.example.streamliner.R;

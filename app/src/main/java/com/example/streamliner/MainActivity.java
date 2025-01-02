@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.streamliner.databinding.ActivityMainBinding;
+import com.google.firebase.FirebaseApp;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -30,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home,
-                R.id.navigation_time,
-                R.id.navigation_dashboard,
+                R.id.navigation_learn,
                 R.id.navigation_chat,
-                R.id.navigation_notifications
+                R.id.navigation_quiz,
+                R.id.navigation_me
         ).build();
 
         NavigationUI.setupWithNavController(bottomNav, navController);
@@ -66,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
     private void updateTitle(int destinationId) {
         if (destinationId == R.id.navigation_home) {
             setTitle("Home");
-        } else if (destinationId == R.id.navigation_time) {
-            setTitle("Time");
-        } else if (destinationId == R.id.navigation_dashboard) {
+        } else if (destinationId == R.id.navigation_learn) {
             setTitle("Learn");
         } else if (destinationId == R.id.navigation_chat) {
             setTitle("Chat");
-        } else if (destinationId == R.id.navigation_notifications) {
+        } else if (destinationId == R.id.navigation_quiz) {
+            setTitle("Quiz");
+        } else if (destinationId == R.id.navigation_me) {
             setTitle("Me");
         }
     }

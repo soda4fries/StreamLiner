@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.streamliner.Auth.Model.User;
+import com.example.streamliner.Authentication.Model.User;
 import com.example.streamliner.Quiz.Adapter.LeaderboardAdapter;
 import com.example.streamliner.Quiz.Model.LeaderboardEntry;
 import com.example.streamliner.databinding.FragmentQuizResultBinding;

@@ -15,23 +15,6 @@
         android:theme="@style/Theme.StreamLiner"
         tools:targetApi="31">
         <activity
-            android:name=".ForgetPwd"
-            android:exported="false" />
-        <activity
-            android:name=".ResetPwd"
-            android:exported="false" />
-        <activity
-            android:name=".VerifyEmail"
-            android:exported="false" />
-        <activity
-            android:name=".Register"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
-            android:exported="false">
-
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">

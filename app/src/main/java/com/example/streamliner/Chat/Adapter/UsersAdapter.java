@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.streamliner.Auth.Model.User;
+import com.example.streamliner.Authentication.Model.User;
 import com.example.streamliner.databinding.ItemUserBinding;
 
 import java.util.ArrayList;
