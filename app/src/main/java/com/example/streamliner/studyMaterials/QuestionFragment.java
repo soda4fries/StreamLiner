@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.studyMaterials;
 
 import android.os.Bundle;
 
@@ -13,14 +13,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.util.List;
-import java.util.Objects;
+import com.example.streamliner.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link QuestionFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
 public class QuestionFragment extends Fragment {
     private TextView questionTitleTV;
     private RadioGroup answersRadioGroup;
@@ -32,29 +28,10 @@ public class QuestionFragment extends Fragment {
     private String type; // type of activity calling the fragment. Either practice or quiz
     private OnQuestionInteractionListener listener;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    /*private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }*/
-
     public QuestionFragment() {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public interface OnQuestionInteractionListener {
         void onPreviousClicked();
         void onNextClicked();
@@ -107,7 +84,6 @@ public class QuestionFragment extends Fragment {
         }
 
         List<String> answers = currentQuestion.getAnswers();
-        //Log.e("questionTitle", currentQuestion.getAnswers().get(0));
 
         answer1RB.setText(answers.get(0));
         answer2RB.setText(answers.get(1));
@@ -136,7 +112,8 @@ public class QuestionFragment extends Fragment {
                     if (selectedAnswer != -1) {
                         listener.onAnswerSelected(selectedAnswer);
                         boolean isCorrect = selectedAnswer == currentQuestion.getCorrectIndex();
-                        ((PracticeActivity) requireActivity()).showAnswerFeedback(isCorrect);
+                        ((PracticeFragment) requireActivity().getSupportFragmentManager()
+                                .findFragmentById(R.id.fragmentContainer1)).showAnswerFeedback(isCorrect);
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.studyMaterials;
 
 import android.os.Bundle;
 
@@ -12,32 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AnswerFeedbackFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.streamliner.R;
+
 public class AnswerFeedbackFragment extends Fragment {
     private static final String ARG_IS_CORRECT = "isCorrect";
     private TextView feedbackTV;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    /*private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }*/
 
     public AnswerFeedbackFragment() {
         // Required empty public constructor

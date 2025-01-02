@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.studyMaterials;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

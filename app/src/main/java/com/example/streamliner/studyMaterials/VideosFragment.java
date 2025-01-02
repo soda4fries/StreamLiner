@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.studyMaterials;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.streamliner.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,11 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link VideosFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class VideosFragment extends Fragment {
     private RecyclerView videosRecyclerView;
     private VideoAdapter adapter;
@@ -36,20 +32,6 @@ public class VideosFragment extends Fragment {
     private DatabaseReference databaseRef;
     private ProgressBar loadingProgressBar;
     private String courseId;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    /*private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }*/
 
     public VideosFragment() {
         // Required empty public constructor

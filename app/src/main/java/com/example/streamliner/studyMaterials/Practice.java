@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.studyMaterials;
 
 import android.os.Parcel;
 import android.os.Parcelable;

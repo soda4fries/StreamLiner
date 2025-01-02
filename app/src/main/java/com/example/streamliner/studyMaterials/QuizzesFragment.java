@@ -1,6 +1,5 @@
-package com.example.streamliner;
+package com.example.streamliner.studyMaterials;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.streamliner.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,11 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link QuizzesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class QuizzesFragment extends Fragment {
     private static final String TAG = "QuizFragment";
     private RecyclerView quizzesRecyclerView;
@@ -37,24 +32,6 @@ public class QuizzesFragment extends Fragment {
     private DatabaseReference databaseRef;
     private ProgressBar loadingProgressBar;
     private String courseId;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    /*private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }*/
 
     public QuizzesFragment() {
         // Required empty public constructor
@@ -86,16 +63,23 @@ public class QuizzesFragment extends Fragment {
         adapter = new QuizAdapter(quizList, new QuizAdapter.OnQuizClickListener() {
             @Override
             public void onQuizClick(Quiz quiz, int position) {
-                Intent intent = new Intent(getContext(), QuizActivity.class);
+                QuizFragment fragment = QuizFragment.newInstance(courseId, quizList.indexOf(quiz), quiz.getTitle());
+
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer1, fragment)
+                        .addToBackStack(null)
+                        .commit();
+
+                /*Intent intent = new Intent(getContext(), QuizActivity.class);
                 intent.putExtra("courseId", courseId);
                 intent.putExtra("quizId", quizList.indexOf(quiz));
                 intent.putExtra("quizTitle", quiz.getTitle());
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
         // Setup RecyclerView
-        Log.d(TAG, "Setup RecycleView");
         quizzesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         quizzesRecyclerView.setAdapter(adapter);
 

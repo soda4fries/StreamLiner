@@ -1,6 +1,5 @@
-package com.example.streamliner;
+package com.example.streamliner.studyMaterials;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.streamliner.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -93,16 +93,23 @@ public class PracticesFragment extends Fragment {
         adapter = new PracticeAdapter(practiceList, new PracticeAdapter.OnPracticeClickListener() {
             @Override
             public void onPracticeClick(Practice practice, int position) {
-                Intent intent = new Intent(getContext(), PracticeActivity.class);
+                PracticeFragment fragment = PracticeFragment.newInstance(courseId, practiceList.indexOf(practice), practice.getTitle());
+
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer1, fragment)
+                        .addToBackStack(null)
+                        .commit();
+
+                /*Intent intent = new Intent(getContext(), PracticeActivity.class);
                 intent.putExtra("courseId", courseId);
                 intent.putExtra("practiceId", practiceList.indexOf(practice));
                 intent.putExtra("practiceTitle", practice.getTitle());
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
         // Setup RecyclerView
-        Log.d(TAG, "Setup RecycleView");
         practicesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         practicesRecyclerView.setAdapter(adapter);
 
