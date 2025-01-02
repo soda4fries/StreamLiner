@@ -5,30 +5,46 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/splashScreen1">
 
+    <!-- Splash Screens -->
     <fragment
-        android:id="@+id/feedback"
-        android:name="com.example.streamliner.ui.mePage.Feedback"
-        android:label="fragment_feedback"
-        tools:layout="@layout/fragment_feedback" />
-    <fragment
-        android:id="@+id/viewProfile"
-        android:name="com.example.streamliner.ui.mePage.ViewProfile"
-        android:label="fragment_view_profile"
-        tools:layout="@layout/fragment_view_profile" >
+        android:id="@+id/splashScreen1"
+        android:name="com.example.streamliner.splashScreen.SplashScreen1"
+        android:label="fragment_splash_screen1"
+        tools:layout="@layout/fragment_splash_screen1">
         <action
-            android:id="@+id/action_viewProfile_to_editProfile"
-            app:destination="@id/editProfile" />
+            android:id="@+id/action_splashScreen1_to_splashScreen2"
+            app:destination="@id/splashScreen2" />
     </fragment>
     <fragment
-        android:id="@+id/editProfile"
-        android:name="com.example.streamliner.ui.mePage.EditProfile"
-        android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        android:id="@+id/splashScreen2"
+        android:name="com.example.streamliner.splashScreen.SplashScreen2"
+        android:label="fragment_splash_screen2"
+        tools:layout="@layout/fragment_splash_screen2">
+        <action
+            android:id="@+id/action_splashScreen2_to_splashScreen3"
+            app:destination="@id/splashScreen3" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreen3"
+        android:name="com.example.streamliner.splashScreen.SplashScreen3"
+        android:label="fragment_splash_screen3"
+        tools:layout="@layout/fragment_splash_screen3">
+        <action
+            android:id="@+id/action_splashScreen3_to_splashScreen4"
+            app:destination="@id/splashScreen4" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreen4"
+        android:name="com.example.streamliner.splashScreen.SplashScreen4"
+        android:label="fragment_splash_screen4"
+        tools:layout="@layout/fragment_splash_screen4" />
+
+    <!-- Authentication -->
     <fragment
         android:id="@+id/loginPage"
-        android:name="com.example.streamliner.ui.loginAndRegister.LoginPage"
+        android:name="com.example.streamliner.Authentication.LoginPage"
         android:label="fragment_login_page"
-        tools:layout="@layout/fragment_login_page" >
+        tools:layout="@layout/fragment_login_page">
         <action
             android:id="@+id/action_loginPage_to_forgetPassword"
             app:destination="@id/forgetPassword" />
@@ -38,80 +54,101 @@
         <action
             android:id="@+id/action_loginPage_to_registerPage"
             app:destination="@id/registerPage" />
+        <action
+            android:id="@+id/action_loginPage_to_chatsFragment"
+            app:destination="@id/chatsFragment"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/registerPage"
-        android:name="com.example.streamliner.ui.loginAndRegister.RegisterPage"
+        android:name="com.example.streamliner.Authentication.RegisterPage"
         android:label="fragment_register_page"
-        tools:layout="@layout/fragment_register_page" >
+        tools:layout="@layout/fragment_register_page">
         <action
             android:id="@+id/action_registerPage_to_loginPage"
             app:destination="@id/loginPage" />
+        <action
+            android:id="@+id/action_registerPage_to_chatsFragment"
+            app:destination="@id/chatsFragment"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/forgetPassword"
-        android:name="com.example.streamliner.ui.loginAndRegister.ForgetPassword"
+        android:name="com.example.streamliner.Authentication.ForgetPassword"
         android:label="fragment_forget_password"
-        tools:layout="@layout/fragment_forget_password" >
+        tools:layout="@layout/fragment_forget_password">
         <action
             android:id="@+id/action_forgetPassword_to_verifyEmailPage"
             app:destination="@id/verifyEmailPage" />
     </fragment>
     <fragment
-        android:id="@+id/resetPassword"
-        android:name="com.example.streamliner.ui.loginAndRegister.ResetPassword"
-        android:label="fragment_reset_password"
-        tools:layout="@layout/fragment_reset_password" >
-        <action
-            android:id="@+id/action_resetPassword_to_loginPage"
-            app:destination="@id/loginPage" />
-    </fragment>
-    <fragment
         android:id="@+id/verifyEmailPage"
-        android:name="com.example.streamliner.ui.loginAndRegister.VerifyEmailPage"
+        android:name="com.example.streamliner.Authentication.VerifyEmailPage"
         android:label="fragment_verify_email_page"
-        tools:layout="@layout/fragment_verify_email_page" >
+        tools:layout="@layout/fragment_verify_email_page">
         <action
             android:id="@+id/action_verifyEmailPage_to_resetPassword"
             app:destination="@id/resetPassword" />
     </fragment>
     <fragment
-        android:id="@+id/splashScreen1"
-        android:name="com.example.streamliner.ui.splashScreen.SplashScreen1"
-        android:label="fragment_splash_screen1"
-        tools:layout="@layout/fragment_splash_screen1" >
+        android:id="@+id/resetPassword"
+        android:name="com.example.streamliner.Authentication.ResetPassword"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password">
         <action
-            android:id="@+id/action_splashScreen1_to_splashScreen2"
-            app:destination="@id/splashScreen2" />
+            android:id="@+id/action_resetPassword_to_loginPage"
+            app:destination="@id/loginPage" />
+    </fragment>
+
+    <!-- Main Navigation -->
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.streamliner.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.streamliner.ui.dashboard.DashboardFragment"
+        android:label="learn"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.streamliner.ui.notifications.NotificationsFragment"
+        android:label="Me"
+        tools:layout="@layout/fragment_notifications" />
+
+    <!-- Timer and Schedule -->
+    <fragment
+        android:id="@+id/navigation_time"
+        android:name="com.example.streamliner.timer.TimeFragment"
+        android:label="@string/title_time"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_time_to_navigation_schedule"
+            app:destination="@id/navigation_schedule" />
+        <action
+            android:id="@+id/action_timeFragment_to_TimerFragment"
+            app:destination="@id/navigation_timer" />
     </fragment>
     <fragment
-        android:id="@+id/splashScreen2"
-        android:name="com.example.streamliner.ui.splashScreen.SplashScreen2"
-        android:label="fragment_splash_screen2"
-        tools:layout="@layout/fragment_splash_screen2" >
-        <action
-            android:id="@+id/action_splashScreen2_to_splashScreen3"
-            app:destination="@id/splashScreen3" />
-    </fragment>
+        android:id="@+id/navigation_schedule"
+        android:name="com.example.streamliner.timer.schedule.ScheduleFragmentWithJava"
+        android:label="Schedule"
+        tools:layout="@layout/fragment_schedule" />
     <fragment
-        android:id="@+id/splashScreen3"
-        android:name="com.example.streamliner.ui.splashScreen.SplashScreen3"
-        android:label="fragment_splash_screen3"
-        tools:layout="@layout/fragment_splash_screen3" >
-        <action
-            android:id="@+id/action_splashScreen3_to_splashScreen4"
-            app:destination="@id/splashScreen4" />
-    </fragment>
-    <fragment
-        android:id="@+id/splashScreen4"
-        android:name="com.example.streamliner.ui.splashScreen.SplashScreen4"
-        android:label="fragment_splash_screen4"
-        tools:layout="@layout/fragment_splash_screen4" />
+        android:id="@+id/navigation_timer"
+        android:name="com.example.streamliner.timer.countdown.TimerFragment"
+        android:label="Timer"
+        tools:layout="@layout/fragment_timer" />
+
+    <!-- Profile and Feedback -->
     <fragment
         android:id="@+id/mePage"
-        android:name="com.example.streamliner.ui.mePage.MePage"
+        android:name="com.example.streamliner.mePage.MePage"
         android:label="fragment_me_page"
-        tools:layout="@layout/fragment_me_page" >
+        tools:layout="@layout/fragment_me_page">
         <action
             android:id="@+id/action_mePage_to_viewProfile"
             app:destination="@id/viewProfile" />
@@ -122,42 +159,27 @@
             android:id="@+id/action_mePage_to_loginPage"
             app:destination="@id/loginPage" />
     </fragment>
-</navigation><?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
-
-
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.streamliner.Auth.Fragment.LoginFragment"
-        android:label="LoginFragment">
+        android:id="@+id/viewProfile"
+        android:name="com.example.streamliner.mePage.ViewProfile"
+        android:label="fragment_view_profile"
+        tools:layout="@layout/fragment_view_profile">
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_chatsFragment"
-            app:destination="@id/chatsFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_viewProfile_to_editProfile"
+            app:destination="@id/editProfile" />
     </fragment>
-
     <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.streamliner.Auth.Fragment.RegisterFragment"
-        android:label="RegisterFragment">
-        <action
-            android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_registerFragment_to_chatsFragment"
-            app:destination="@id/chatsFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
+        android:id="@+id/editProfile"
+        android:name="com.example.streamliner.mePage.EditProfile"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/feedback"
+        android:name="com.example.streamliner.mePage.Feedback"
+        android:label="fragment_feedback"
+        tools:layout="@layout/fragment_feedback" />
 
-
+    <!-- Quiz -->
     <fragment
         android:id="@+id/quizListFragment"
         android:name="com.example.streamliner.Quiz.Fragment.QuizListFragment"
@@ -166,7 +188,6 @@
             android:id="@+id/action_quizListFragment_to_quizFragment"
             app:destination="@id/quizFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.example.streamliner.Quiz.Fragment.QuizFragment"
@@ -179,7 +200,6 @@
             app:destination="@id/quizResultFragment"
             app:popUpTo="@id/quizListFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/quizResultFragment"
         android:name="com.example.streamliner.Quiz.Fragment.QuizResultFragment"
@@ -192,7 +212,7 @@
             app:argType="integer" />
     </fragment>
 
-
+    <!-- Chat -->
     <fragment
         android:id="@+id/chatsFragment"
         android:name="com.example.streamliner.Chat.Fragment.ChatsFragment"
@@ -204,7 +224,6 @@
             android:id="@+id/action_chatsFragment_to_newChatFragment"
             app:destination="@id/newChatFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.streamliner.Chat.Fragment.ChatFragment"
@@ -216,7 +235,6 @@
             android:name="chatType"
             app:argType="string" />
     </fragment>
-
     <fragment
         android:id="@+id/newChatFragment"
         android:name="com.example.streamliner.Chat.Fragment.NewChatFragment"
@@ -225,5 +243,4 @@
             android:id="@+id/action_newChatFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
     </fragment>
-
 </navigation>
