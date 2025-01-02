@@ -13,27 +13,6 @@
         android:theme="@style/Theme.StreamLiner"
         tools:targetApi="31">
         <activity
-            android:name=".MarksActivity"
-            android:exported="false" />
-        <activity
-            android:name=".QuizActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PracticeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VideoLearningActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EnrolledCoursesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FilterResultsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CourseDetailsActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
