@@ -23,11 +23,17 @@
 
     //light blue
     <color name="light_blue_chat_bubble">#BFDDFF</color>
-    <color name="light_blue_box">#CEE5FF</color>
+    <color name="light_blue_box">#E3F0FF</color>
     <color name="light_blue_others">#ADC8EB</color>
 
     <color name="red_text">#FE0C0C</color>
     <color name="green_quiz_done">#14AE5C</color>
+    <color name="star_rating">#FFDD04</color>
+    <color name="star_background">#E9E9E9</color>
+    <color name="star_secondary">#F3F396</color>
+    <color name="subtitle">#ACACAC</color>
+    <color name="dark_gray">#49454F</color>
+    <color name="course_desc">#919191</color>
 
     //subject colors
     <color name="green_biology">#459662</color>

@@ -6,4 +6,20 @@
     <string name="title_notifications">Notifications</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_apply_filter">Apply Filter</string>
+    <string name="button_clear">CLEAR</string>
+    <string name="hint_filter">Filter search by...</string>
+    <string name="back_button_desc">Go Back</string>
+    <string name="goto_my_courses_underlined"><u>Go To My Courses</u></string>
+    <string name="button_add_course">Add To My Course</string>
+    <string name="learning_outcomes">What you will learn:</string>
+    <string name="top_courses"><b>Top Courses</b></string>
+    <string name="more_courses">More Courses</string>
+    <string name="my_courses">My Courses</string>
+    <string name="button_submit_all">Submit All and Finish</string>
+    <string name="button_next">Next</string>
+    <string name="button_previous">Previous</string>
+    <string name="my_marks">My Marks</string>
+    <string name="button_view">view</string>
+    <string name="button_start">Start</string>
 </resources>

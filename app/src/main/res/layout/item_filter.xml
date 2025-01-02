@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="3dp"
+    android:background="@color/blue_others_CS">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/subjectCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:buttonTint="@drawable/checked_checkbox"
+        app:checkedIconTint="@color/black"
+        android:textSize="17sp"/>
+
+</LinearLayout>
