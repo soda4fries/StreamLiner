@@ -50,7 +50,7 @@ public class QuizFragment extends Fragment implements QuestionFragment.OnQuestio
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_quiz, container, false);
+        View view = inflater.inflate(R.layout.fragment_quiz_aisyah, container, false);
 
         // Get quiz details from arguments
         if (getArguments() != null) {
