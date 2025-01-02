@@ -1,22 +1,24 @@
-package com.example.streamliner.ui.timer;
+package com.example.streamliner.ui.timer.countdown;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.streamliner.R;
 
 import java.util.Locale;
 
-public class TimerActivity extends AppCompatActivity {
+public class TimerFragment extends Fragment {
 
     private NumberPicker hourPicker, minutePicker, secondPicker;
     private TextView timerTextView;
@@ -24,25 +26,29 @@ public class TimerActivity extends AppCompatActivity {
     private ImageView iconImageView;
     private CountDownTimer countDownTimer;
     private boolean isRunning = false;
-    private long timeConsumed= 0;
     private long timeLeftInMillis = 0;
     private MediaPlayer alarmSound;
 
+    public TimerFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timer);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the fragment layout
+        View view = inflater.inflate(R.layout.activity_timer, container, false);
 
         // Initialize UI elements
-        hourPicker = findViewById(R.id.hourPicker);
-        minutePicker = findViewById(R.id.minutePicker);
-        secondPicker = findViewById(R.id.secondPicker);
-        timerTextView = findViewById(R.id.timerTextView);
-        startButton = findViewById(R.id.startButton);
-        iconImageView = findViewById(R.id.iconImageView);
+        hourPicker = view.findViewById(R.id.hourPicker);
+        minutePicker = view.findViewById(R.id.minutePicker);
+        secondPicker = view.findViewById(R.id.secondPicker);
+        timerTextView = view.findViewById(R.id.timerTextView);
+        startButton = view.findViewById(R.id.startButton);
+        iconImageView = view.findViewById(R.id.iconImageView);
 
         // Initialize alarm sound
-        alarmSound = MediaPlayer.create(this, R.raw.alarm);
+        alarmSound = MediaPlayer.create(getContext(), R.raw.alarm);
 
         // Configure NumberPickers
         hourPicker.setMinValue(0);
@@ -52,23 +58,22 @@ public class TimerActivity extends AppCompatActivity {
         secondPicker.setMinValue(0);
         secondPicker.setMaxValue(59);
 
-        // Start/Pause Pomodoro Timer functionality
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isRunning) {
-                    pauseTimer();
+        // Start/Pause Timer functionality
+        startButton.setOnClickListener(v -> {
+            if (isRunning) {
+                pauseTimer();
+            } else {
+                // Validate if time is selected
+                if (isTimeValid()) {
+                    startTimer();
                 } else {
-                    // Validate if time is selected
-                    if (isTimeValid()) {
-                        startTimer();
-                    } else {
-                        // Show toast notification for invalid time selection
-                        Toast.makeText(TimerActivity.this, "Invalid! Please enter a time.", Toast.LENGTH_SHORT).show();
-                    }
+                    // Show toast notification for invalid time selection
+                    Toast.makeText(getContext(), "Invalid! Please enter a time.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        return view;
     }
 
     private boolean isTimeValid() {
@@ -87,24 +92,21 @@ public class TimerActivity extends AppCompatActivity {
             int minutes = minutePicker.getValue();
             int seconds = secondPicker.getValue();
 
-           long totalTime = (hours * 3600 + minutes * 60 + seconds) * 1000L;
-//            long leftTime = totalTime-timeLeftInMillis;
-//            if (leftTime == 0) return;
-            if(timeLeftInMillis==0){
-                timeLeftInMillis=totalTime;
+            long totalTime = (hours * 3600 + minutes * 60 + seconds) * 1000L;
+            if (timeLeftInMillis == 0) {
+                timeLeftInMillis = totalTime;
             }
 
             countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     timeLeftInMillis = millisUntilFinished;
-
                     updateTimerText();
                 }
 
                 @Override
                 public void onFinish() {
-                    timeLeftInMillis=0;
+                    timeLeftInMillis = 0;
                     isRunning = false;
                     startButton.setText("Start");
 
@@ -114,7 +116,7 @@ public class TimerActivity extends AppCompatActivity {
             }.start();
 
             isRunning = true;
-            startButton.setText("Pause ");
+            startButton.setText("Pause");
         }
     }
 
@@ -123,7 +125,7 @@ public class TimerActivity extends AppCompatActivity {
             countDownTimer.cancel();
         }
         isRunning = false;
-        startButton.setText("Resume ");
+        startButton.setText("Resume");
     }
 
     private void updateTimerText() {
@@ -140,7 +142,7 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         if (isRunning) {
             pauseTimer();
@@ -148,7 +150,7 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         if (!isRunning && timeLeftInMillis > 0) {
             startTimer();
@@ -156,8 +158,8 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         if (alarmSound != null) {
             alarmSound.release();
         }

@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Description"
+        android:hint="Course Description"
         android:inputType="textMultiLine"
         android:minHeight="48dp" />
 
@@ -44,6 +44,8 @@
         android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
+        <!--        init -->
+
         <Button
             android:id="@+id/deleteButton"
             android:layout_width="0dp"
@@ -62,4 +64,4 @@
 
     </LinearLayout>
 
-</LinearLayout> 
+</LinearLayout>
