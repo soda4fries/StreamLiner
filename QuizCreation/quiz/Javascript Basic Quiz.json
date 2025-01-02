@@ -1,0 +1,30 @@
+{
+    "title": "JavaScript Basics Quiz",
+    "description": "Test your knowledge of JavaScript fundamentals",
+    "topic": "Programming",
+    "timeLimit": 30,
+    "questions": [
+        {
+            "text": "What is the output of `typeof null` in JavaScript?",
+            "options": [
+                "null",
+                "undefined",
+                "object",
+                "string"
+            ],
+            "correctOptionIndex": 2,
+            "points": 10
+        },
+        {
+            "text": "Which of the following is not a JavaScript data type?",
+            "options": [
+                "Number",
+                "Boolean",
+                "Character",
+                "Object"
+            ],
+            "correctOptionIndex": 2,
+            "points": 10
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "title": "Geography Basics Quiz",
+    "description": "Test your knowledge of world geography",
+    "topic": "Geography",
+    "timeLimit": 25,
+    "questions": [
+        {
+            "text": "Which is the largest continent by area?",
+            "options": [
+                "Africa",
+                "Asia",
+                "Europe",
+                "Antarctica"
+            ],
+            "correctOptionIndex": 1,
+            "points": 10
+        },
+        {
+            "text": "What is the capital of France?",
+            "options": [
+                "Madrid",
+                "Berlin",
+                "Paris",
+                "Rome"
+            ],
+            "correctOptionIndex": 2,
+            "points": 10
+        }
+    ]
+}

@@ -8,7 +8,9 @@
             android:viewportHeight="24">
             <path
                 android:fillColor="#000000"
-                android:pathData="M4,4H20C21.1,4 22,4.9 22,6V16C22,17.1 21.1,18 20,18H6L4,20V6C4,4.9 4.9,4 6,4Z"/>
+                android:pathData="M12,2V22M2,12H22"
+                android:strokeWidth="4"
+                android:strokeColor="#000000"/>
         </vector>
     </item>
 </selector>
