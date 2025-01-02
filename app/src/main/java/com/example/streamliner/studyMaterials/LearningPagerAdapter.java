@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.studyMaterials;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
