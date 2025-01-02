@@ -1,6 +1,8 @@
     package com.example.streamliner;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 
 import com.example.streamliner.courseDiscovery.SearchFragment;
 import com.example.streamliner.courseDiscovery.TopCoursesFragment;
@@ -15,6 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    private NavController navController;
+    private BottomNavigationView bottomNav;
     private NavController navController;
     private BottomNavigationView bottomNav;
 
