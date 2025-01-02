@@ -1,25 +1,28 @@
-package com.example.streamliner;
+package com.example.streamliner.courseEnrollment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.streamliner.R;
+import com.example.streamliner.studyMaterials.StudyMaterialsFragment;
+import com.example.streamliner.courseDiscovery.Course;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
 public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCoursesAdapter.CourseViewHolder> {
     private List<Course> courses;
+    private Fragment fragment;
 
-    public EnrolledCoursesAdapter(List<Course> courses) {
+    public EnrolledCoursesAdapter(List<Course> courses, Fragment fragment) {
         this.courses = courses;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -41,7 +44,7 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
         return courses.size();
     }
 
-    static class CourseViewHolder extends RecyclerView.ViewHolder {
+    public class CourseViewHolder extends RecyclerView.ViewHolder {
         private final TextView titleText;
         private final TextView descriptionText;
         private MaterialCardView enrolledCourseCard;
@@ -58,12 +61,20 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
             descriptionText.setText(course.getDescription());
 
             enrolledCourseCard.setOnClickListener(v -> {
-                Context context = itemView.getContext();
+                StudyMaterialsFragment fragment = StudyMaterialsFragment.newInstance(course.getId(), course.getName(), course.getDescription());
+
+                EnrolledCoursesAdapter.this.fragment.requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer1, fragment)
+                        .addToBackStack(null)
+                        .commit();
+
+                /*Context context = itemView.getContext();
                 Intent intent = new Intent(context, VideoLearningActivity.class);
                 intent.putExtra("courseId", course.getId());
                 intent.putExtra("courseName", course.getName());
                 intent.putExtra("courseDescription", course.getDescription());
-                context.startActivity(intent);
+                context.startActivity(intent);*/
             });
         }
     }
