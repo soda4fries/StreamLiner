@@ -136,7 +136,7 @@ public class TimeFragment extends Fragment {
         btnTimetable.setOnClickListener(v -> {
             // Navigate to the ScheduleFragment using NavController
             NavHostFragment.findNavController(this)
-                    .navigate(R.id.action_timeFragment_to_ScheduleFragmentWithJava);
+                    .navigate(R.id.action_navigation_time_to_navigation_schedule);
         });
 
         // Set click listener for the Timer button
