@@ -14,8 +14,8 @@ import com.example.streamliner.R;
 import java.util.List;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
-    private List<Quiz> quizzes;
-    private OnQuizClickListener listener;
+    private final List<Quiz> quizzes;
+    private final OnQuizClickListener listener;
 
     public interface OnQuizClickListener {
         void onQuizClick(Quiz quiz, int position);
@@ -37,7 +37,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     @Override
     public void onBindViewHolder(@NonNull QuizViewHolder holder, int position) {
         Quiz quiz = quizzes.get(position);
-        holder.practiceTV.setText("Quiz " + Integer.toString(position + 1));
+        holder.practiceTV.setText("Quiz " + (position + 1));
         holder.titleTV.setText(quiz.getTitle());
 
         if (quiz.getQuestions() != null) {

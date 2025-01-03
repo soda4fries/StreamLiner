@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterViewHolder> {
-    private List<String> subjects;
-    private List<String> selectedSubjects;
+    private final List<String> subjects;
+    private final List<String> selectedSubjects;
 
     public FilterAdapter(List<String> subjects) {
         this.subjects = subjects;

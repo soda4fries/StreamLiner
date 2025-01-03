@@ -13,7 +13,7 @@ import com.example.streamliner.R;
 import java.util.List;
 
 public class MarksAdapter extends RecyclerView.Adapter<MarksAdapter.MarkViewHolder> {
-    private List<QuizMark> marks;
+    private final List<QuizMark> marks;
 
     public MarksAdapter(List<QuizMark> marks) {
         this.marks = marks;

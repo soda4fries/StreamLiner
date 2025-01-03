@@ -17,8 +17,8 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 
 public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCoursesAdapter.CourseViewHolder> {
-    private List<Course> courses;
-    private Fragment fragment;
+    private final List<Course> courses;
+    private final Fragment fragment;
 
     public EnrolledCoursesAdapter(List<Course> courses, Fragment fragment) {
         this.courses = courses;
@@ -47,7 +47,7 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
     public class CourseViewHolder extends RecyclerView.ViewHolder {
         private final TextView titleText;
         private final TextView descriptionText;
-        private MaterialCardView enrolledCourseCard;
+        private final MaterialCardView enrolledCourseCard;
 
         CourseViewHolder(View itemView) {
             super(itemView);

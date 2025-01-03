@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -101,11 +102,10 @@ public class ChatFragment extends Fragment {
             message.setMessageId(messageId);
             messagesRef.child(messageId).setValue(message)
                     .addOnSuccessListener(aVoid -> {
-                        // Update last message in chat
                         updateChatLastMessage(content);
                     })
                     .addOnFailureListener(e -> {
-                        // Handle error
+                        Toast.makeText(this.getContext(), "Error Fetching Chat Message", Toast.LENGTH_SHORT).show();
                     });
         }
     }

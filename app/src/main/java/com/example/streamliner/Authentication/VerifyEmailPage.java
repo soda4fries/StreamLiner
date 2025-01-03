@@ -52,7 +52,6 @@ public class VerifyEmailPage extends Fragment {
                 if (TextUtils.isEmpty(enteredCode)) {
                     ETCode.setError("Code is required");
                     ETCode.requestFocus();
-                    return;
                 } else if (enteredCode.equals(correctCode)) {
                     // Code is correct, navigate to Reset Password Fragment or Activity
                     ResetPassword resetPasswordFragment = new ResetPassword();

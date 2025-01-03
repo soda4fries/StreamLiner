@@ -3,9 +3,9 @@ package com.example.streamliner.Authentication;
 import java.util.ArrayList;
 import java.util.List;
 public class EmailRequest {
-    private List<Personalization> personalizations;
-    private List<Content> content;
-    private From from;
+    private final List<Personalization> personalizations;
+    private final List<Content> content;
+    private final From from;
 
     public EmailRequest(String to, String subject, String body, String senderEmail) {
         this.personalizations = new ArrayList<>();
@@ -18,8 +18,8 @@ public class EmailRequest {
     }
 
     static class Personalization {
-        private List<To> to;
-        private String subject;
+        private final List<To> to;
+        private final String subject;
 
         public Personalization(String email, String subject) {
             this.to = new ArrayList<>();
@@ -28,7 +28,7 @@ public class EmailRequest {
         }
 
         static class To {
-            private String email;
+            private final String email;
 
             public To(String email) {
                 this.email = email;
@@ -37,8 +37,8 @@ public class EmailRequest {
     }
 
     static class Content {
-        private String type = "text/plain";
-        private String value;
+        private final String type = "text/plain";
+        private final String value;
 
         public Content(String value) {
             this.value = value;
@@ -46,7 +46,7 @@ public class EmailRequest {
     }
 
     static class From {
-        private String email;
+        private final String email;
 
         public From(String email) {
             this.email = email;

@@ -77,7 +77,7 @@ public class QuestionFragment extends Fragment {
     }
 
     private void setupQuestion() {
-        String title = Integer.toString(currentPosition + 1) + ". " + currentQuestion.getTitle();
+        String title = currentPosition + 1 + ". " + currentQuestion.getTitle();
         questionTitleTV.setText(title);
         if (currentQuestion.getTitle() == null) {
             Log.e("questionTitle", "null");

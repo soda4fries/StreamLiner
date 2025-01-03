@@ -16,8 +16,8 @@ import com.example.streamliner.courseEnrollment.CourseDetailsFragment;
 import java.util.List;
 
 public class FilterResultsAdapter extends RecyclerView.Adapter<FilterResultsAdapter.CourseViewHolder> {
-    private List<Course> courses;
-    private Fragment fragment;
+    private final List<Course> courses;
+    private final Fragment fragment;
 
     public FilterResultsAdapter(List<Course> courses, Fragment fragment) {
         this.courses = courses;

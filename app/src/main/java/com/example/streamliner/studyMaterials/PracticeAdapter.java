@@ -14,8 +14,8 @@ import com.example.streamliner.R;
 import java.util.List;
 
 public class PracticeAdapter extends RecyclerView.Adapter<PracticeAdapter.PracticeViewHolder> {
-    private List<Practice> practices;
-    private OnPracticeClickListener listener;
+    private final List<Practice> practices;
+    private final OnPracticeClickListener listener;
 
     public interface OnPracticeClickListener {
         void onPracticeClick(Practice practice, int position);
@@ -37,7 +37,7 @@ public class PracticeAdapter extends RecyclerView.Adapter<PracticeAdapter.Practi
     @Override
     public void onBindViewHolder(@NonNull PracticeViewHolder holder, int position) {
         Practice practice = practices.get(position);
-        holder.practiceTV.setText("Practice " + Integer.toString(position + 1));
+        holder.practiceTV.setText("Practice " + (position + 1));
         holder.titleTV.setText(practice.getTitle());
 
         if (practice.getQuestions() != null) {

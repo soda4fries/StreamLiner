@@ -112,9 +112,9 @@ public class StudyMaterialsFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("TabView", "Child count1: " + ((LinearLayout) tab.view).getChildCount());
+                Log.d("TabView", "Child count1: " + tab.view.getChildCount());
                 // Change color for the selected tab
-                TextView tabTextView = (TextView) ((LinearLayout) tab.view).getChildAt(1);
+                TextView tabTextView = (TextView) tab.view.getChildAt(1);
                 if (tabTextView != null) {
                     tabTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18); // Set text size for selected tab
                     tabTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_others_CS)); // Set text color for selected tab
@@ -123,9 +123,9 @@ public class StudyMaterialsFragment extends Fragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.d("TabView", "Child count2: " + ((LinearLayout) tab.view).getChildCount());
+                Log.d("TabView", "Child count2: " + tab.view.getChildCount());
                 // Change color for unselected tab
-                TextView tabTextView = (TextView) ((LinearLayout) tab.view).getChildAt(1);
+                TextView tabTextView = (TextView) tab.view.getChildAt(1);
                 if (tabTextView != null) {
                     tabTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15); // Reset text size
                     tabTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray)); // Reset text color

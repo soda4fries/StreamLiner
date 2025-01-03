@@ -37,7 +37,7 @@ public class TimerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the fragment layout
-        View view = inflater.inflate(R.layout.activity_timer, container, false);
+        View view = inflater.inflate(R.layout.fragment_timer, container, false);
 
         // Initialize UI elements
         hourPicker = view.findViewById(R.id.hourPicker);
@@ -92,7 +92,7 @@ public class TimerFragment extends Fragment {
             int minutes = minutePicker.getValue();
             int seconds = secondPicker.getValue();
 
-            long totalTime = (hours * 3600 + minutes * 60 + seconds) * 1000L;
+            long totalTime = (hours * 3600L + minutes * 60L + seconds) * 1000L;
             if (timeLeftInMillis == 0) {
                 timeLeftInMillis = totalTime;
             }
