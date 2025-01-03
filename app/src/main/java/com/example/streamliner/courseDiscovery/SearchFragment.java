@@ -31,14 +31,27 @@ public class SearchFragment extends Fragment {
     private FilterAdapter filterAdapter;
     private List<String> subjects;
     private View filtersContainer;
+    private int currentIndex;
 
     public SearchFragment() {
         // Required empty public constructor
     }
 
+    public static SearchFragment newInstance(int currentIndex) {
+        SearchFragment fragment = new SearchFragment();
+        Bundle args = new Bundle();
+        args.putInt("currentIndex", currentIndex);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        if (getArguments() != null) {
+            currentIndex = getArguments().getInt("currentIndex");
+        }
 
         // Initialize views
         searchEditText = view.findViewById(R.id.searchEditText);
@@ -91,7 +104,18 @@ public class SearchFragment extends Fragment {
             return false;
         });
 
+        // Set up Top Courses Fragment
+        setTopCourses();
+
         return view;
+    }
+
+    private void setTopCourses() {
+        TopCoursesFragment fragment = TopCoursesFragment.newInstance(currentIndex);
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.topCoursesContainer, fragment)
+                .commit();
     }
 
     private void performSearch() {
@@ -115,7 +139,6 @@ public class SearchFragment extends Fragment {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, fragment)
-                    .remove(requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragmentContainer2))
                     .addToBackStack(null)
                     .commit();
         }
@@ -129,7 +152,6 @@ public class SearchFragment extends Fragment {
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, fragment)
-                    .remove(requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragmentContainer2))
                     .addToBackStack(null)
                     .commit();
 

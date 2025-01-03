@@ -75,12 +75,11 @@ public class MainActivity extends AppCompatActivity {
             });*/
 
         if (savedInstanceState == null) {
-            TopCoursesFragment fragment = TopCoursesFragment.newInstance(0);
+            SearchFragment fragment = SearchFragment.newInstance(0);
             // Add search fragment and top courses fragment
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer1, new SearchFragment())
-                    .replace(R.id.fragmentContainer2, fragment)
+                    .replace(R.id.fragmentContainer1, fragment)
                     .addToBackStack("SearchAndTopCoursesFragments")
                     .commit();
         }
