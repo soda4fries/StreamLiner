@@ -31,11 +31,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = binding.navView;
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home,
-                R.id.navigation_learn,
-                R.id.navigation_chat,
-                R.id.navigation_quiz,
-                R.id.navigation_me
+                R.id.navigation_time,
+                R.id.chatsFragment,
+                R.id.quizListFragment,
+                R.id.mePage
         ).build();
 
         NavigationUI.setupWithNavController(bottomNav, navController);
@@ -66,15 +65,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateTitle(int destinationId) {
-        if (destinationId == R.id.navigation_home) {
+        if (destinationId == R.id.navigation_time) {
             setTitle("Home");
-        } else if (destinationId == R.id.navigation_learn) {
-            setTitle("Learn");
-        } else if (destinationId == R.id.navigation_chat) {
+        } else if (destinationId == R.id.chatsFragment) {
             setTitle("Chat");
-        } else if (destinationId == R.id.navigation_quiz) {
+        } else if (destinationId == R.id.quizListFragment) {
             setTitle("Quiz");
-        } else if (destinationId == R.id.navigation_me) {
+        } else if (destinationId == R.id.mePage) {
             setTitle("Me");
         }
     }
