@@ -1,5 +1,6 @@
 package com.example.streamliner.courseEnrollment;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.streamliner.R;
@@ -61,6 +64,16 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
             descriptionText.setText(course.getDescription());
 
             enrolledCourseCard.setOnClickListener(v -> {
+                // Get NavController
+                /*NavController navController = Navigation.findNavController(
+                        EnrolledCoursesAdapter.this.fragment.requireActivity(), R.id.nav_host_fragment);
+
+                Bundle args = new Bundle();
+                args.putString("courseId", course.getId());
+                args.putString("courseName", course.getName());
+                args.putString("courseDescription", course.getDescription());
+                navController.navigate(R.id.action_enrolledCoursesFragment_to_studyMaterialsFragment, args);*/
+
                 StudyMaterialsFragment fragment = StudyMaterialsFragment.newInstance(course.getId(), course.getName(), course.getDescription());
 
                 EnrolledCoursesAdapter.this.fragment.requireActivity().getSupportFragmentManager()
@@ -68,13 +81,6 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
                         .replace(R.id.fragmentContainer1, fragment)
                         .addToBackStack(null)
                         .commit();
-
-                /*Context context = itemView.getContext();
-                Intent intent = new Intent(context, VideoLearningActivity.class);
-                intent.putExtra("courseId", course.getId());
-                intent.putExtra("courseName", course.getName());
-                intent.putExtra("courseDescription", course.getDescription());
-                context.startActivity(intent);*/
             });
         }
     }

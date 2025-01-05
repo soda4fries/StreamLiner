@@ -3,6 +3,8 @@ package com.example.streamliner.studyMaterials;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,7 +39,6 @@ public class QuestionFragment extends Fragment {
         void onNextClicked();
         void onAnswerSelected(int answerIndex);
         void onSubmitClicked();
-        void showAnswerFeedback(boolean isCorrect);
     }
 
     public static QuestionFragment newInstance(Question question, int position, int total, String type) {
@@ -94,7 +95,7 @@ public class QuestionFragment extends Fragment {
 
         answersRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (listener != null) {
-                if (type.equals("quiz")) { // QuizActivity
+                if (type.equals("quiz")) { // QuizFragment
                     if (checkedId == answer1RB.getId()) {
                         listener.onAnswerSelected(0);
                     } else if (checkedId == answer2RB.getId()) {
@@ -103,7 +104,7 @@ public class QuestionFragment extends Fragment {
                         listener.onAnswerSelected(2);
                     }
                 }
-                else { // PracticeActivity, type = practice -> show feedback when user clicks an answer
+                else { // PracticeFragment, type = practice -> show feedback when user clicks an answer
                     int selectedAnswer = -1;
                     if (checkedId == answer1RB.getId()) selectedAnswer = 0;
                     else if (checkedId == answer2RB.getId()) selectedAnswer = 1;
@@ -111,10 +112,18 @@ public class QuestionFragment extends Fragment {
 
                     if (selectedAnswer != -1) {
                         listener.onAnswerSelected(selectedAnswer);
-                        boolean isCorrect = selectedAnswer == currentQuestion.getCorrectIndex();
-                        ((PracticeFragment) requireActivity().getSupportFragmentManager()
-                                .findFragmentById(R.id.fragmentContainer1)).showAnswerFeedback(isCorrect);
                     }
+                    /*
+                    if (selectedAnswer != -1) {
+                        listener.onAnswerSelected(selectedAnswer);
+                        boolean isCorrect = selectedAnswer == currentQuestion.getCorrectIndex();
+                        PracticeFragment practiceFragment = (PracticeFragment) getChildFragmentManager()
+                                .findFragmentByTag("PracticeFragment");
+
+                        if (practiceFragment != null) {
+                            practiceFragment.showAnswerFeedback(isCorrect);
+                        }
+                    }*/
                 }
             }
         });

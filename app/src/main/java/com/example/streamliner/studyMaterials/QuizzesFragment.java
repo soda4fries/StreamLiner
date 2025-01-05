@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,6 +65,14 @@ public class QuizzesFragment extends Fragment {
         adapter = new QuizAdapter(quizList, new QuizAdapter.OnQuizClickListener() {
             @Override
             public void onQuizClick(Quiz quiz, int position) {
+                /*Bundle args = new Bundle();
+                args.putString("courseId", courseId);
+                args.putInt("quizId", quizList.indexOf(quiz));
+                args.putString("quizTitle", quiz.getTitle());
+
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_studyMaterialsFragment_to_quizFragment2, args);*/
+
                 QuizFragment fragment = QuizFragment.newInstance(courseId, quizList.indexOf(quiz), quiz.getTitle());
 
                 requireActivity().getSupportFragmentManager()
@@ -70,12 +80,6 @@ public class QuizzesFragment extends Fragment {
                         .replace(R.id.fragmentContainer1, fragment)
                         .addToBackStack(null)
                         .commit();
-
-                /*Intent intent = new Intent(getContext(), QuizActivity.class);
-                intent.putExtra("courseId", courseId);
-                intent.putExtra("quizId", quizList.indexOf(quiz));
-                intent.putExtra("quizTitle", quiz.getTitle());
-                startActivity(intent);*/
             }
         });
 

@@ -187,6 +187,4 @@ public class QuizFragment extends Fragment implements QuestionFragment.OnQuestio
                     });
         });
     }
-
-    public void showAnswerFeedback(boolean isCorrect) {} // Only for practices
 }
