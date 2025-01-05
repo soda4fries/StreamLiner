@@ -12,17 +12,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.example.streamliner.databinding.ActivityScheduleBinding;
+import com.example.streamliner.databinding.FragmentScheduleBinding;
 
 public class ScheduleFragmentWithJava extends Fragment {
-    private ActivityScheduleBinding binding;
+    private FragmentScheduleBinding binding;
     private ScheduleViewModelJava viewModel;
     private ScheduleAdapterWithJava adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = ActivityScheduleBinding.inflate(inflater, container, false);
+        binding = FragmentScheduleBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
