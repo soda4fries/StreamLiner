@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_time,
                 R.id.chatsFragment,
                 R.id.quizListFragment,
+                R.id.blankFragment,
                 R.id.mePage
         ).build();
 
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             setTitle("Quiz");
         } else if (destinationId == R.id.mePage) {
             setTitle("Me");
+        } else if (destinationId == R.id.blankFragment) {
+            setTitle("Learn");
         }
     }
 

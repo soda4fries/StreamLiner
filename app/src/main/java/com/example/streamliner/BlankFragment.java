@@ -32,6 +32,7 @@ public class BlankFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
 
         SearchFragment fragment = SearchFragment.newInstance(0);
+
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentContainer1, fragment)
