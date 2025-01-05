@@ -19,11 +19,6 @@ import com.example.streamliner.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link StudyMaterialsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class StudyMaterialsFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;

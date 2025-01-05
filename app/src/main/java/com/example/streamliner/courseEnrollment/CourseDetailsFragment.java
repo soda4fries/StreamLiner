@@ -26,11 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CourseDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CourseDetailsFragment extends Fragment {
     private TextView courseTitle, courseDescription, courseSubject, courseFields;
     private RecyclerView learningOutcomesRecyclerView;
