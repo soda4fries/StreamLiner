@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,11 +69,14 @@ public class EnrolledCoursesFragment extends Fragment {
         coursesRecyclerView.setAdapter(adapter);
 
         viewMarksButton.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager()
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_enrolledCoursesFragment_to_quizMarksFragment);
+
+            /*requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, new QuizMarksFragment())
                     .addToBackStack(null)
-                    .commit();
+                    .commit();*/
         });
 
         // Setup back button

@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,13 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FilterResultsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FilterResultsFragment extends Fragment {
     private RecyclerView resultsRecyclerView;
     private FilterResultsAdapter adapter;
@@ -47,7 +45,7 @@ public class FilterResultsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static FilterResultsFragment newInstance(String searchQuery, ArrayList<String> selectedSubjects, int currentIndex) {
+    /*public static FilterResultsFragment newInstance(String searchQuery, ArrayList<String> selectedSubjects, int currentIndex) {
         FilterResultsFragment fragment = new FilterResultsFragment();
         Bundle args = new Bundle();
         args.putString("searchQuery", searchQuery);
@@ -55,7 +53,7 @@ public class FilterResultsFragment extends Fragment {
         args.putInt("currentIndex", currentIndex);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,7 +63,8 @@ public class FilterResultsFragment extends Fragment {
         // Get search/filter input from arguments
         if (getArguments() != null) {
             searchQuery = getArguments().getString("searchQuery");
-            selectedSubjects = getArguments().getStringArrayList("selectedSubjects");
+            String[] subjectsArray = getArguments().getStringArray("selectedSubjects");
+            selectedSubjects = new ArrayList<>(Arrays.asList(subjectsArray));
             currentIndex = getArguments().getInt("currentIndex");
         }
 
@@ -111,11 +110,14 @@ public class FilterResultsFragment extends Fragment {
 
         // Setup Go To My Courses button click listener
         goToMyCourses.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager()
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_filterResultsFragment_to_enrolledCoursesFragment);
+
+            /*requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, new EnrolledCoursesFragment())
                     .addToBackStack(null)
-                    .commit();
+                    .commit();*/
         });
 
         return view;

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,13 +39,13 @@ public class SearchFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static SearchFragment newInstance(int currentIndex) {
+    /*public static SearchFragment newInstance(int currentIndex) {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         args.putInt("currentIndex", currentIndex);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -128,40 +130,50 @@ public class SearchFragment extends Fragment {
             // Clear the search text
             searchEditText.setText("");
 
-            // Start FilterResultsActivity
-            /*Intent intent = new Intent(getActivity(), FilterResultsActivity.class);
-            intent.putExtra("searchQuery", searchQuery);
-            startActivity(intent);*/
-
             // Start FilterResultsFragment
-            FilterResultsFragment fragment = FilterResultsFragment.newInstance(searchQuery, new ArrayList<String>(), 0);
+            /*FilterResultsFragment fragment = FilterResultsFragment.newInstance(searchQuery, new ArrayList<String>(), 0);
 
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, fragment)
                     .addToBackStack(null)
-                    .commit();
+                    .commit();*/
+
+            // Navigate to FilterResultsFragment
+            Bundle args = new Bundle();
+            args.putString("searchQuery", searchQuery);
+            args.putStringArray("selectedSubjects", new String[0]);
+            args.putInt("currentIndex", 0);
+
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_searchFragment_to_filterResultsFragment, args);
         }
     }
 
     private void applyFilters() {
         List<String> selectedSubjects = filterAdapter.getSelectedSubjects();
+        String[] selectedSubjectsArray = selectedSubjects.toArray(new String[0]);
+
         if (!selectedSubjects.isEmpty()) {
-            FilterResultsFragment fragment = FilterResultsFragment.newInstance("", new ArrayList<>(selectedSubjects), 0);
+            /*FilterResultsFragment fragment = FilterResultsFragment.newInstance("", new ArrayList<>(selectedSubjects), 0);
 
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, fragment)
                     .addToBackStack(null)
-                    .commit();
+                    .commit();*/
 
-            /*Intent intent = new Intent(getActivity(), FilterResultsActivity.class);
-            intent.putStringArrayListExtra("selectedSubjects", new ArrayList<>(selectedSubjects));
-            startActivity(intent);*/
+            // Navigate to FilterResultsFragment
+            Bundle args = new Bundle();
+            args.putString("searchQuery", "");
+            args.putStringArray("selectedSubjects", selectedSubjectsArray);
+            args.putInt("currentIndex", 0);
+
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_searchFragment_to_filterResultsFragment, args);
         }
         searchEditText.clearFocus();
         hideKeyboard();
-        //Toast.makeText(getContext(), "Applied filters: " + selectedSubjects.toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void clearFilters() {

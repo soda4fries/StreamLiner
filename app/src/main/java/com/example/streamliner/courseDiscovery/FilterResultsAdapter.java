@@ -1,5 +1,6 @@
 package com.example.streamliner.courseDiscovery;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.streamliner.R;
@@ -61,18 +64,28 @@ public class FilterResultsAdapter extends RecyclerView.Adapter<FilterResultsAdap
             descriptionText.setText(course.getDescription());
 
             viewButton.setOnClickListener(v -> {
-                CourseDetailsFragment fragment = CourseDetailsFragment.newInstance(course.getId());
+                // Get NavController
+                NavController navController = Navigation.findNavController(
+                        FilterResultsAdapter.this.fragment.requireActivity(), R.id.nav_host_fragment);
+
+                Bundle args = new Bundle();
+                args.putString("courseId", course.getId());
+
+                // Navigate to CourseDetailsFragment
+                int currentDestination = navController.getCurrentDestination().getId();
+                if (currentDestination == R.id.searchFragment) {
+                    navController.navigate(R.id.action_searchFragment_to_courseDetailsFragment, args);
+                } else if (currentDestination == R.id.filterResultsFragment) {
+                    navController.navigate(R.id.action_filterResultsFragment_to_courseDetailsFragment, args);
+                }
+
+                /*CourseDetailsFragment fragment = CourseDetailsFragment.newInstance(course.getId());
 
                 FilterResultsAdapter.this.fragment.requireActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentContainer1, fragment)
                         .addToBackStack(null)
-                        .commit();
-
-                /*Context context = itemView.getContext();
-                Intent intent = new Intent(context, CourseDetailsActivity.class);
-                intent.putExtra("courseId", course.getId());
-                context.startActivity(intent);*/
+                        .commit();*/
             });
         }
     }

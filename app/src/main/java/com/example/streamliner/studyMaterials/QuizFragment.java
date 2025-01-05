@@ -36,7 +36,7 @@ public class QuizFragment extends Fragment implements QuestionFragment.OnQuestio
         // Required empty public constructor
     }
 
-    public static QuizFragment newInstance(String courseId, int quizId, String quizTitle) {
+    /*public static QuizFragment newInstance(String courseId, int quizId, String quizTitle) {
         QuizFragment fragment = new QuizFragment();
         Bundle args = new Bundle();
         //args.putString("userId", userId);
@@ -45,7 +45,7 @@ public class QuizFragment extends Fragment implements QuestionFragment.OnQuestio
         args.putString("quizTitle", quizTitle);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -187,6 +187,4 @@ public class QuizFragment extends Fragment implements QuestionFragment.OnQuestio
                     });
         });
     }
-
-    public void showAnswerFeedback(boolean isCorrect) {} // Only for practices
 }

@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,19 +95,22 @@ public class PracticesFragment extends Fragment {
         adapter = new PracticeAdapter(practiceList, new PracticeAdapter.OnPracticeClickListener() {
             @Override
             public void onPracticeClick(Practice practice, int position) {
-                PracticeFragment fragment = PracticeFragment.newInstance(courseId, practiceList.indexOf(practice), practice.getTitle());
+                Bundle args = new Bundle();
+                args.putString("courseId", courseId);
+                args.putInt("practiceId", practiceList.indexOf(practice));
+                args.putString("practiceTitle", practice.getTitle());
+
+                // Navigate to PracticeFragment
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_studyMaterialsFragment_to_practiceFragment, args);
+
+                /*PracticeFragment fragment = PracticeFragment.newInstance(courseId, practiceList.indexOf(practice), practice.getTitle());
 
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentContainer1, fragment)
                         .addToBackStack(null)
-                        .commit();
-
-                /*Intent intent = new Intent(getContext(), PracticeActivity.class);
-                intent.putExtra("courseId", courseId);
-                intent.putExtra("practiceId", practiceList.indexOf(practice));
-                intent.putExtra("practiceTitle", practice.getTitle());
-                startActivity(intent);*/
+                        .commit();*/
             }
         });
 
