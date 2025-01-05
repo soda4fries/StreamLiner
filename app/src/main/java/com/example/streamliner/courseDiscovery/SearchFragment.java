@@ -39,13 +39,13 @@ public class SearchFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /*public static SearchFragment newInstance(int currentIndex) {
+    public static SearchFragment newInstance(int currentIndex) {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         args.putInt("currentIndex", currentIndex);
         fragment.setArguments(args);
         return fragment;
-    }*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -131,22 +131,22 @@ public class SearchFragment extends Fragment {
             searchEditText.setText("");
 
             // Start FilterResultsFragment
-            /*FilterResultsFragment fragment = FilterResultsFragment.newInstance(searchQuery, new ArrayList<String>(), 0);
+            FilterResultsFragment fragment = FilterResultsFragment.newInstance(searchQuery, new ArrayList<String>(), 0);
 
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, fragment)
                     .addToBackStack(null)
-                    .commit();*/
+                    .commit();
 
             // Navigate to FilterResultsFragment
-            Bundle args = new Bundle();
+            /*Bundle args = new Bundle();
             args.putString("searchQuery", searchQuery);
             args.putStringArray("selectedSubjects", new String[0]);
             args.putInt("currentIndex", 0);
 
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-            navController.navigate(R.id.action_searchFragment_to_filterResultsFragment, args);
+            navController.navigate(R.id.action_searchFragment_to_filterResultsFragment, args);*/
         }
     }
 
@@ -155,22 +155,22 @@ public class SearchFragment extends Fragment {
         String[] selectedSubjectsArray = selectedSubjects.toArray(new String[0]);
 
         if (!selectedSubjects.isEmpty()) {
-            /*FilterResultsFragment fragment = FilterResultsFragment.newInstance("", new ArrayList<>(selectedSubjects), 0);
+            FilterResultsFragment fragment = FilterResultsFragment.newInstance("", new ArrayList<>(selectedSubjects), 0);
 
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, fragment)
                     .addToBackStack(null)
-                    .commit();*/
+                    .commit();
 
             // Navigate to FilterResultsFragment
-            Bundle args = new Bundle();
+            /*Bundle args = new Bundle();
             args.putString("searchQuery", "");
             args.putStringArray("selectedSubjects", selectedSubjectsArray);
             args.putInt("currentIndex", 0);
 
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-            navController.navigate(R.id.action_searchFragment_to_filterResultsFragment, args);
+            navController.navigate(R.id.action_searchFragment_to_filterResultsFragment, args);*/
         }
         searchEditText.clearFocus();
         hideKeyboard();

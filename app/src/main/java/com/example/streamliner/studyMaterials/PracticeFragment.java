@@ -35,7 +35,7 @@ public class PracticeFragment extends Fragment implements QuestionFragment.OnQue
         // Required empty public constructor
     }
 
-    /*public static PracticeFragment newInstance(String courseId, int practiceId, String practiceTitle) {
+    public static PracticeFragment newInstance(String courseId, int practiceId, String practiceTitle) {
         PracticeFragment fragment = new PracticeFragment();
         Bundle args = new Bundle();
         args.putString("courseId", courseId);
@@ -43,7 +43,7 @@ public class PracticeFragment extends Fragment implements QuestionFragment.OnQue
         args.putString("practiceTitle", practiceTitle);
         fragment.setArguments(args);
         return fragment;
-    }*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

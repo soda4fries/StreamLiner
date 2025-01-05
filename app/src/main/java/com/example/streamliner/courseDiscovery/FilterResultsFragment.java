@@ -45,7 +45,7 @@ public class FilterResultsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /*public static FilterResultsFragment newInstance(String searchQuery, ArrayList<String> selectedSubjects, int currentIndex) {
+    public static FilterResultsFragment newInstance(String searchQuery, ArrayList<String> selectedSubjects, int currentIndex) {
         FilterResultsFragment fragment = new FilterResultsFragment();
         Bundle args = new Bundle();
         args.putString("searchQuery", searchQuery);
@@ -53,7 +53,7 @@ public class FilterResultsFragment extends Fragment {
         args.putInt("currentIndex", currentIndex);
         fragment.setArguments(args);
         return fragment;
-    }*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,8 +63,7 @@ public class FilterResultsFragment extends Fragment {
         // Get search/filter input from arguments
         if (getArguments() != null) {
             searchQuery = getArguments().getString("searchQuery");
-            String[] subjectsArray = getArguments().getStringArray("selectedSubjects");
-            selectedSubjects = new ArrayList<>(Arrays.asList(subjectsArray));
+            selectedSubjects = getArguments().getStringArrayList("selectedSubjects");
             currentIndex = getArguments().getInt("currentIndex");
         }
 
@@ -110,14 +109,14 @@ public class FilterResultsFragment extends Fragment {
 
         // Setup Go To My Courses button click listener
         goToMyCourses.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-            navController.navigate(R.id.action_filterResultsFragment_to_enrolledCoursesFragment);
+            /*NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_filterResultsFragment_to_enrolledCoursesFragment);*/
 
-            /*requireActivity().getSupportFragmentManager()
+            requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, new EnrolledCoursesFragment())
                     .addToBackStack(null)
-                    .commit();*/
+                    .commit();
         });
 
         return view;

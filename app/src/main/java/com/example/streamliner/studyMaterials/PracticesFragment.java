@@ -26,11 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PracticesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PracticesFragment extends Fragment {
     private static final String TAG = "PracticeFragment";
     private RecyclerView practicesRecyclerView;
@@ -70,22 +65,21 @@ public class PracticesFragment extends Fragment {
         adapter = new PracticeAdapter(practiceList, new PracticeAdapter.OnPracticeClickListener() {
             @Override
             public void onPracticeClick(Practice practice, int position) {
-                Bundle args = new Bundle();
+                /*Bundle args = new Bundle();
                 args.putString("courseId", courseId);
                 args.putInt("practiceId", practiceList.indexOf(practice));
                 args.putString("practiceTitle", practice.getTitle());
 
-                // Navigate to PracticeFragment
                 NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.action_studyMaterialsFragment_to_practiceFragment, args);
+                navController.navigate(R.id.action_studyMaterialsFragment_to_practiceFragment, args);*/
 
-                /*PracticeFragment fragment = PracticeFragment.newInstance(courseId, practiceList.indexOf(practice), practice.getTitle());
+                PracticeFragment fragment = PracticeFragment.newInstance(courseId, practiceList.indexOf(practice), practice.getTitle());
 
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentContainer1, fragment)
                         .addToBackStack(null)
-                        .commit();*/
+                        .commit();
             }
         });
 

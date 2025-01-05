@@ -65,7 +65,7 @@ public class FilterResultsAdapter extends RecyclerView.Adapter<FilterResultsAdap
 
             viewButton.setOnClickListener(v -> {
                 // Get NavController
-                NavController navController = Navigation.findNavController(
+                /*NavController navController = Navigation.findNavController(
                         FilterResultsAdapter.this.fragment.requireActivity(), R.id.nav_host_fragment);
 
                 Bundle args = new Bundle();
@@ -77,15 +77,15 @@ public class FilterResultsAdapter extends RecyclerView.Adapter<FilterResultsAdap
                     navController.navigate(R.id.action_searchFragment_to_courseDetailsFragment, args);
                 } else if (currentDestination == R.id.filterResultsFragment) {
                     navController.navigate(R.id.action_filterResultsFragment_to_courseDetailsFragment, args);
-                }
+                }*/
 
-                /*CourseDetailsFragment fragment = CourseDetailsFragment.newInstance(course.getId());
+                CourseDetailsFragment fragment = CourseDetailsFragment.newInstance(course.getId());
 
                 FilterResultsAdapter.this.fragment.requireActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentContainer1, fragment)
                         .addToBackStack(null)
-                        .commit();*/
+                        .commit();
             });
         }
     }

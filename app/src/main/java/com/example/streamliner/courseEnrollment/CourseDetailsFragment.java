@@ -41,13 +41,13 @@ public class CourseDetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /*public static CourseDetailsFragment newInstance(String courseId) {
+    public static CourseDetailsFragment newInstance(String courseId) {
         CourseDetailsFragment fragment = new CourseDetailsFragment();
         Bundle args = new Bundle();
         args.putString("courseId", courseId);
         fragment.setArguments(args);
         return fragment;
-    }*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

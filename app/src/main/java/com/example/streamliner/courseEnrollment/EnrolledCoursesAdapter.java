@@ -65,23 +65,22 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
 
             enrolledCourseCard.setOnClickListener(v -> {
                 // Get NavController
-                NavController navController = Navigation.findNavController(
+                /*NavController navController = Navigation.findNavController(
                         EnrolledCoursesAdapter.this.fragment.requireActivity(), R.id.nav_host_fragment);
 
-                // Navigate using the defined action and pass the arguments
                 Bundle args = new Bundle();
                 args.putString("courseId", course.getId());
                 args.putString("courseName", course.getName());
                 args.putString("courseDescription", course.getDescription());
-                navController.navigate(R.id.action_enrolledCoursesFragment_to_studyMaterialsFragment, args);
+                navController.navigate(R.id.action_enrolledCoursesFragment_to_studyMaterialsFragment, args);*/
 
-                /*StudyMaterialsFragment fragment = StudyMaterialsFragment.newInstance(course.getId(), course.getName(), course.getDescription());
+                StudyMaterialsFragment fragment = StudyMaterialsFragment.newInstance(course.getId(), course.getName(), course.getDescription());
 
                 EnrolledCoursesAdapter.this.fragment.requireActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentContainer1, fragment)
                         .addToBackStack(null)
-                        .commit();*/
+                        .commit();
             });
         }
     }

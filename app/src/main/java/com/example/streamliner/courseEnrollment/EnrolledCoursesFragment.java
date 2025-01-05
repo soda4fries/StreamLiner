@@ -69,14 +69,14 @@ public class EnrolledCoursesFragment extends Fragment {
         coursesRecyclerView.setAdapter(adapter);
 
         viewMarksButton.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-            navController.navigate(R.id.action_enrolledCoursesFragment_to_quizMarksFragment);
+            /*NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.action_enrolledCoursesFragment_to_quizMarksFragment);*/
 
-            /*requireActivity().getSupportFragmentManager()
+            requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, new QuizMarksFragment())
                     .addToBackStack(null)
-                    .commit();*/
+                    .commit();
         });
 
         // Setup back button

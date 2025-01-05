@@ -65,22 +65,21 @@ public class QuizzesFragment extends Fragment {
         adapter = new QuizAdapter(quizList, new QuizAdapter.OnQuizClickListener() {
             @Override
             public void onQuizClick(Quiz quiz, int position) {
-                Bundle args = new Bundle();
+                /*Bundle args = new Bundle();
                 args.putString("courseId", courseId);
                 args.putInt("quizId", quizList.indexOf(quiz));
                 args.putString("quizTitle", quiz.getTitle());
 
-                // Navigate to QuizFragment
                 NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.action_studyMaterialsFragment_to_quizFragment2, args);
+                navController.navigate(R.id.action_studyMaterialsFragment_to_quizFragment2, args);*/
 
-                /*QuizFragment fragment = QuizFragment.newInstance(courseId, quizList.indexOf(quiz), quiz.getTitle());
+                QuizFragment fragment = QuizFragment.newInstance(courseId, quizList.indexOf(quiz), quiz.getTitle());
 
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentContainer1, fragment)
                         .addToBackStack(null)
-                        .commit();*/
+                        .commit();
             }
         });
 

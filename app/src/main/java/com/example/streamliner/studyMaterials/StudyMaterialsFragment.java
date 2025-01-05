@@ -31,7 +31,7 @@ public class StudyMaterialsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /*public static StudyMaterialsFragment newInstance(String courseId, String courseName, String courseDescription) {
+    public static StudyMaterialsFragment newInstance(String courseId, String courseName, String courseDescription) {
         StudyMaterialsFragment fragment = new StudyMaterialsFragment();
         Bundle args = new Bundle();
         args.putString("courseId", courseId);
@@ -40,7 +40,7 @@ public class StudyMaterialsFragment extends Fragment {
         //args.putString("userId", userId);
         fragment.setArguments(args);
         return fragment;
-    }*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
