@@ -28,6 +28,6 @@
     <string name="learn">Learn</string>
     <string name="chat">Chat</string>
     <string name="me">Me</string>
-
+    <string name="quiz">Quizzes</string>
 
 </resources>
