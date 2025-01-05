@@ -141,6 +141,15 @@
         <action
             android:id="@+id/action_mePage_to_loginPage"
             app:destination="@id/loginPage" />
+        <action
+            android:id="@+id/action_mePage_to_quizMarksFragment"
+            app:destination="@id/quizMarksFragment" />
+        <action
+            android:id="@+id/action_mePage_to_enrolledCoursesFragment"
+            app:destination="@id/enrolledCoursesFragment" />
+        <!--<action
+            android:id="@+id/action_mePage_to_blankFragment"
+            app:destination="@id/blankFragment" />-->
     </fragment>
     <fragment
         android:id="@+id/viewProfile"
@@ -226,7 +235,9 @@
             android:id="@+id/action_newChatFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
     </fragment>
+
     <!-- study module nav -->
+    <!--
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.streamliner.courseDiscovery.SearchFragment"
@@ -269,7 +280,7 @@
         android:id="@+id/enrolledCoursesFragment"
         android:name="com.example.streamliner.courseEnrollment.EnrolledCoursesFragment"
         android:label="EnrolledCoursesFragment"
-        android:layout="@layout/fragment_enrolled_courses" >
+        tools:layout="@layout/fragment_enrolled_courses" >
         <action
             android:id="@+id/action_enrolledCoursesFragment_to_quizMarksFragment"
             app:destination="@id/quizMarksFragment" />
@@ -282,7 +293,7 @@
         android:id="@+id/courseDetailsFragment"
         android:name="com.example.streamliner.courseEnrollment.CourseDetailsFragment"
         android:label="fragment_course_details"
-        android:layout="@layout/fragment_course_details">
+        tools:layout="@layout/fragment_course_details">
         <argument
             android:name="courseId"
             app:argType="string" />
@@ -292,13 +303,13 @@
         android:id="@+id/quizMarksFragment"
         android:name="com.example.streamliner.viewMarks.QuizMarksFragment"
         android:label="QuizMarksFragment"
-        android:layout="@layout/fragment_quiz_marks"/>
+        tools:layout="@layout/fragment_quiz_marks"/>
 
     <fragment
         android:id="@+id/studyMaterialsFragment"
         android:name="com.example.streamliner.studyMaterials.StudyMaterialsFragment"
         android:label="StudyMaterialsFragment"
-        android:layout="@layout/fragment_study_materials">
+        tools:layout="@layout/fragment_study_materials">
         <argument
             android:name="courseId"
             app:argType="string" />
@@ -315,6 +326,7 @@
             android:id="@+id/action_studyMaterialsFragment_to_quizFragment2"
             app:destination="@id/quizFragment2" />
     </fragment>
+
     <fragment
         android:id="@+id/practiceFragment"
         android:name="com.example.streamliner.studyMaterials.PracticeFragment"
@@ -345,6 +357,20 @@
         <argument
             android:name="quizTitle"
             app:argType="string" />
-    </fragment>
+    </fragment> -->
+
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.streamliner.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
+    <fragment
+        android:id="@+id/enrolledCoursesFragment"
+        android:name="com.example.streamliner.courseEnrollment.EnrolledCoursesFragment"
+        android:label="EnrolledCoursesFragment" />
+    <fragment
+        android:id="@+id/quizMarksFragment"
+        android:name="com.example.streamliner.viewMarks.QuizMarksFragment"
+        android:label="QuizMarksFragment" />
 
 </navigation>

@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.streamliner.R;
+import com.example.streamliner.courseEnrollment.EnrolledCoursesFragment;
+import com.example.streamliner.viewMarks.QuizMarksFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -40,15 +42,22 @@ public class MePage extends Fragment {
     }
 
     private void navigateToCourses() {
+        /*requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer1, new EnrolledCoursesFragment())
+                .addToBackStack(null)
+                .commit();*/
+
         // Navigate to My Courses screen
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-        //navController.navigate(R.id.action_mePage_to_myCourses);
+        navController.navigate(R.id.action_mePage_to_enrolledCoursesFragment);
     }
 
     private void navigateToMarks() {
+
         // Navigate to My Marks screen
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-        //navController.navigate(R.id.action_mePage_to_myMarks);
+        navController.navigate(R.id.action_mePage_to_quizMarksFragment);
     }
 
     private void navigateToViewProfile() {
