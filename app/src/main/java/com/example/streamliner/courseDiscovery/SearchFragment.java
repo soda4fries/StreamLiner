@@ -33,6 +33,7 @@ public class SearchFragment extends Fragment {
     private View filtersContainer;
     private int currentIndex;
 
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -117,6 +118,7 @@ public class SearchFragment extends Fragment {
                 .replace(R.id.topCoursesContainer, fragment)
                 .commit();
     }
+
 
     private void performSearch() {
         String searchQuery = searchEditText.getText().toString().trim();
