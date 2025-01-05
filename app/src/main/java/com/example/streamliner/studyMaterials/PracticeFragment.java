@@ -3,6 +3,7 @@ package com.example.streamliner.studyMaterials;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -28,13 +29,13 @@ public class PracticeFragment extends Fragment implements QuestionFragment.OnQue
     private List<Question> questions;
     private int currentQuestionIndex = 0;
     private int[] userAnswers;
-    private TextView titleTV;
+    private TextView titleTV, feedBackTV;
 
     public PracticeFragment() {
         // Required empty public constructor
     }
 
-    public static PracticeFragment newInstance(String courseId, int practiceId, String practiceTitle) {
+    /*public static PracticeFragment newInstance(String courseId, int practiceId, String practiceTitle) {
         PracticeFragment fragment = new PracticeFragment();
         Bundle args = new Bundle();
         args.putString("courseId", courseId);
@@ -42,7 +43,7 @@ public class PracticeFragment extends Fragment implements QuestionFragment.OnQue
         args.putString("practiceTitle", practiceTitle);
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +58,7 @@ public class PracticeFragment extends Fragment implements QuestionFragment.OnQue
         }
 
         // Initialize view
+        feedBackTV = view.findViewById(R.id.feedBackTV);
         titleTV = view.findViewById(R.id.titleTV);
         titleTV.setText(practiceTitle);
 
@@ -104,6 +106,8 @@ public class PracticeFragment extends Fragment implements QuestionFragment.OnQue
     }
 
     private void showQuestion(int position) {
+        feedBackTV.setVisibility(View.INVISIBLE); // Set feedBackTV to invisible if it's not already invisible
+
         QuestionFragment fragment = QuestionFragment.newInstance(
                 questions.get(position), position, questions.size(), "practice");
         fragment.setListener(this);
@@ -172,11 +176,19 @@ public class PracticeFragment extends Fragment implements QuestionFragment.OnQue
                 });
     }
 
-    public void showAnswerFeedback(boolean isCorrect) {
-        AnswerFeedbackFragment feedbackFragment = AnswerFeedbackFragment.newInstance(isCorrect);
+    private void showAnswerFeedback(boolean isCorrect) {
+        feedBackTV.setVisibility(View.VISIBLE);
+
+        String feedbackText = "Your answer is " + (isCorrect ? "CORRECT." : "WRONG.");
+        feedBackTV.setText(feedbackText);
+        feedBackTV.setTextColor(ContextCompat.getColor(getContext(),
+                isCorrect ? android.R.color.holo_green_dark : android.R.color.holo_red_dark
+        ));
+
+        /*AnswerFeedbackFragment feedbackFragment = AnswerFeedbackFragment.newInstance(isCorrect);
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.feedbackContainer, feedbackFragment)
-                .commit();
+                .commit();*/
     }
 }
