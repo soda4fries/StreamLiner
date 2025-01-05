@@ -89,8 +89,10 @@ public class RegisterPage extends Fragment {
 
         // Navigate to LoginFragment
         TVGoToSignIn.setOnClickListener(v -> {
+            Log.d("NavController", "Navigating to RegisterPage");
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
             navController.navigate(R.id.action_registerPage_to_loginPage);
+            
         });
 
         return view;
@@ -125,11 +127,15 @@ public class RegisterPage extends Fragment {
                         .addOnCompleteListener(userTask -> {
                             if (userTask.isSuccessful()) {
                                 Toast.makeText(getContext(), "User registered successfully.", Toast.LENGTH_LONG).show();
-                                // Navigate to LoginFragment
-                                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+
+                                // Navigate to chatsFragment
+                                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                                navController.navigate(R.id.action_registerPage_to_chatsFragment);
+
+                                /*FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                                 fragmentManager.beginTransaction()
                                         .replace(R.id.nav_host_fragment, new LoginPage())
-                                        .commit();
+                                        .commit();*/
                             } else {
                                 Toast.makeText(getContext(), "User registration failed. Try again.", Toast.LENGTH_LONG).show();
                             }
