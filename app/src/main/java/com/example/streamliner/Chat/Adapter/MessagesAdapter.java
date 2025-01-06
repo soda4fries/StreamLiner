@@ -1,9 +1,11 @@
 package com.example.streamliner.Chat.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.streamliner.Chat.Model.Message;
@@ -56,17 +58,22 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
             binding.messageText.setText(message.getContent());
             binding.messageTime.setText(timeFormat.format(new Date(message.getTimestamp())));
 
-            // Align messages to right if sent by current user, left if received
-            ViewGroup.LayoutParams params = binding.messageCard.getLayoutParams();
-            if (params instanceof ViewGroup.MarginLayoutParams) {
-                ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) params;
-                if (message.getSenderId().equals(currentUserId)) {
-                    marginParams.setMargins(48, 0, 8, 0);
-                } else {
-                    marginParams.setMargins(8, 0, 48, 0);
-                }
-                binding.messageCard.setLayoutParams(params);
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) binding.messageCard.getLayoutParams();
+
+            Log.d("MessagesAdapter", "Message sender ID: " + message.getSenderId() + ", Current user ID: " + currentUserId);
+
+            if (message.getSenderId().equals(currentUserId)) {
+                // Align to end (right)
+                params.startToStart = ConstraintLayout.LayoutParams.UNSET;
+                params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+            } else {
+                // Align to start (left)
+                params.endToEnd = ConstraintLayout.LayoutParams.UNSET;
+                params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
             }
+
+            binding.messageCard.setLayoutParams(params);
         }
+
     }
 }
