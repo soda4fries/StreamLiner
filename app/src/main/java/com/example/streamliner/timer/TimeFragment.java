@@ -126,7 +126,7 @@ public class TimeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.button_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_productivity_holder, container, false);
 
         // Initialize buttons
         Button btnTimetable = rootView.findViewById(R.id.btnTimetable);

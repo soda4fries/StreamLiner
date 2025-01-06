@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <drawable name="gold_medal">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="#FFD700"/>
+            <corners android:radius="50%"/>
+        </shape>
+    </drawable>
+
+
+    <drawable name="silver_medal">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="#C0C0C0"/>
+            <corners android:radius="50%"/>
+        </shape>
+    </drawable>
+
+
+    <drawable name="bronze_medal">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="#CD7F32"/>
+            <corners android:radius="50%"/>
+        </shape>
+    </drawable>
+</resources>

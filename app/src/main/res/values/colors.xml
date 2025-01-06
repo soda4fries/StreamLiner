@@ -45,4 +45,36 @@
     <color name="darkBlue">#1A4C8E</color>
     <color name="subtitleGrey">#6F7172</color>
     <color name="red">#FE0C0C</color>
+
+
+    <!-- Primary Colors -->
+    <color name="colorPrimary">#2196F3</color> <!-- Blue 500 -->
+    <color name="colorPrimaryVariant">#1976D2</color> <!-- Blue 700 -->
+    <color name="colorOnPrimary">#FFFFFF</color> <!-- White for text/icons on primary background -->
+
+    <!-- Secondary Colors -->
+    <color name="colorSecondary">#03DAC5</color> <!-- Teal 200 -->
+    <color name="colorSecondaryVariant">#018786</color> <!-- Dark Teal -->
+    <color name="colorOnSecondary">#000000</color> <!-- Black for text/icons on secondary background -->
+
+    <!-- Background Colors -->
+    <color name="colorBackground">#FFFFFF</color> <!-- Default background (white) -->
+    <color name="colorOnBackground">#000000</color> <!-- Black text on white background -->
+
+    <!-- Surface Colors -->
+    <color name="colorSurface">#FFFFFF</color> <!-- Surface color (e.g., card background) -->
+    <color name="colorOnSurface">#000000</color> <!-- Text/icons on surface -->
+
+    <!-- Error Colors -->
+    <color name="colorError">#B00020</color> <!-- Red -->
+    <color name="colorOnError">#FFFFFF</color> <!-- White text on error background -->
+
+    <!-- Text Colors -->
+    <color name="primaryText">#212121</color> <!-- Dark primary text -->
+    <color name="secondaryText">#757575</color> <!-- Dark secondary text -->
+    <color name="disabledText">#BDBDBD</color> <!-- Disabled text -->
+
+    <!-- Dividers and Borders -->
+    <color name="dividerColor">#BDBDBD</color> <!-- Light grey divider -->
+    <color name="borderColor">#E0E0E0</color> <!-- Light border color -->
 </resources>
