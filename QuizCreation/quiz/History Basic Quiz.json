@@ -4,27 +4,47 @@
     "topic": "History",
     "timeLimit": 20,
     "questions": [
-        {
-            "text": "Who was the first President of the United States?",
-            "options": [
-                "Abraham Lincoln",
-                "Thomas Jefferson",
-                "George Washington",
-                "John Adams"
-            ],
-            "correctOptionIndex": 2,
-            "points": 10
-        },
-        {
-            "text": "In which year did World War II end?",
-            "options": [
-                "1945",
-                "1939",
-                "1918",
-                "1950"
-            ],
-            "correctOptionIndex": 0,
-            "points": 10
-        }
+      {
+        "text": "Who was the first President of the United States?",
+        "options": ["Abraham Lincoln", "Thomas Jefferson", "George Washington", "John Adams"],
+        "correctOptionIndex": 2,
+        "points": 10
+      },
+      {
+        "text": "In which year did World War II end?",
+        "options": ["1945", "1939", "1918", "1950"],
+        "correctOptionIndex": 0,
+        "points": 10
+      },
+      {
+        "text": "Who was the first Emperor of China?",
+        "options": ["Sun Yat-sen", "Qin Shi Huang", "Kublai Khan", "Emperor Wu"],
+        "correctOptionIndex": 1,
+        "points": 10
+      },
+      {
+        "text": "Which ancient civilization built the pyramids?",
+        "options": ["Greeks", "Romans", "Mayans", "Egyptians"],
+        "correctOptionIndex": 3,
+        "points": 10
+      },
+      {
+        "text": "When did Christopher Columbus first reach the Americas?",
+        "options": ["1492", "1500", "1476", "1510"],
+        "correctOptionIndex": 0,
+        "points": 10
+      },
+      {
+        "text": "Who wrote the Communist Manifesto?",
+        "options": ["Vladimir Lenin", "Joseph Stalin", "Karl Marx", "Friedrich Engels"],
+        "correctOptionIndex": 2,
+        "points": 10
+      },
+      {
+        "text": "Which country was the first to achieve powered flight?",
+        "options": ["France", "United States", "Germany", "United Kingdom"],
+        "correctOptionIndex": 1,
+        "points": 10
+      }
     ]
-}
+  }

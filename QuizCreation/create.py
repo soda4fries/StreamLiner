@@ -6,7 +6,7 @@ import os
 
 
 FIREBASE_DATABASE_URL = "https://streamliner-1-default-rtdb.firebaseio.com/"  
-CRED_FILE = "Cred.json"  
+CRED_FILE = "D:/Cred.json"  
 QUIZ_DIRECTORY = "quiz"  
 
 def init_firebase():

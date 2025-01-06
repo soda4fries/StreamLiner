@@ -1,0 +1,50 @@
+{
+    "title": "Malaysian History Quiz",
+    "description": "Test your knowledge of Malaysian history and heritage",
+    "topic": "History",
+    "timeLimit": 20,
+    "questions": [
+      {
+        "text": "When did Malaysia gain independence from British rule?",
+        "options": ["1957", "1963", "1965", "1948"],
+        "correctOptionIndex": 0,
+        "points": 10
+      },
+      {
+        "text": "Who was the first Prime Minister of Malaysia?",
+        "options": ["Tun Abdul Razak", "Tunku Abdul Rahman", "Tun Hussein Onn", "Tun Dr. Mahathir"],
+        "correctOptionIndex": 1,
+        "points": 10
+      },
+      {
+        "text": "Which city was the first capital of the Malacca Sultanate?",
+        "options": ["Kuala Lumpur", "Malacca", "Johor Bahru", "Penang"],
+        "correctOptionIndex": 1,
+        "points": 10
+      },
+      {
+        "text": "When was the Federation of Malaysia formed?",
+        "options": ["1957", "1961", "1963", "1965"],
+        "correctOptionIndex": 2,
+        "points": 10
+      },
+      {
+        "text": "Who founded modern Singapore, which was once part of Malaysia?",
+        "options": ["Francis Light", "Stamford Raffles", "James Brooke", "Parameswara"],
+        "correctOptionIndex": 1,
+        "points": 10
+      },
+      {
+        "text": "Which dynasty ruled the Malacca Sultanate before Portuguese conquest?",
+        "options": ["Melaka Dynasty", "Johor Dynasty", "Shah Dynasty", "Parameswara Dynasty"],
+        "correctOptionIndex": 0,
+        "points": 10
+      },
+      {
+        "text": "When did Singapore separate from Malaysia?",
+        "options": ["1963", "1964", "1965", "1966"],
+        "correctOptionIndex": 2,
+        "points": 10
+      }
+    ]
+  }
