@@ -31,7 +31,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
@@ -88,23 +90,56 @@ public class DashboardFragment extends Fragment {
     }
 
     private void loadData() {
-        // Load Leaderboard Data
-        db.collection("users")
-                .orderBy("points", Query.Direction.DESCENDING)
-                .limit(5)
-                .addSnapshotListener((value, error) -> {
-                    if (error != null) {
-                        Log.e("DashboardFragment", "Error loading leaderboard", error);
-                        return;
+
+        FirebaseDatabase.getInstance().getReference("quizzes")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Map<String, Integer> userPoints = new HashMap<>();
+
+                        for (DataSnapshot quiz : snapshot.getChildren()) {
+                            DataSnapshot leaderboard = quiz.child("leaderboard");
+                            for (DataSnapshot userScore : leaderboard.getChildren()) {
+                                String userId = userScore.getKey();
+                                int score = userScore.getValue(Integer.class);
+                                userPoints.merge(userId, score, Integer::sum);
+                            }
+                        }
+
+                        List<LeaderboardItem> items = new ArrayList<>();
+
+                        // First, create items with just userId and score
+                        userPoints.entrySet().stream()
+                                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                                .limit(10)
+                                .forEach(entry -> {
+                                    LeaderboardItem item = new LeaderboardItem();
+                                    item.setUserId(entry.getKey());
+                                    item.setUsername(entry.getKey()); // Temporarily show userId
+                                    item.setPoints(entry.getValue());
+                                    items.add(item);
+                                });
+
+                        // Submit initial list with userIds
+                        leaderboardAdapter.submitList(new ArrayList<>(items));
+
+                        // Then load names asynchronously
+                        for (LeaderboardItem item : items) {
+                            db.collection("users")
+                                    .document(item.getUserId())
+                                    .get()
+                                    .addOnSuccessListener(doc -> {
+                                        if (doc.exists()) {
+                                            item.setUsername(doc.getString("name"));
+                                            leaderboardAdapter.notifyDataSetChanged();
+                                        }
+                                    });
+                        }
                     }
 
-                    List<LeaderboardItem> items = new ArrayList<>();
-                    if (value != null) {
-                        for (QueryDocumentSnapshot doc : value) {
-                            LeaderboardItem item = doc.toObject(LeaderboardItem.class);
-                            items.add(item);
-                        }
-                        leaderboardAdapter.submitList(items);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("DashboardFragment", "Error loading leaderboard" + error);
                     }
                 });
 
