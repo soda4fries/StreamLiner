@@ -87,7 +87,6 @@ public class EnrolledCoursesFragment extends Fragment {
 
     private void loadUserCourses() {
         loadingProgressBar.setVisibility(View.VISIBLE);
-
         databaseRef.child("test").child("userCourses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

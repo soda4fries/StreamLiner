@@ -208,7 +208,7 @@
     <!-- Chat -->
     <fragment
         android:id="@+id/chatsFragment"
-        android:name="com.example.streamliner.Chat.Fragment.ChatsFragment"
+        android:name="com.example.streamliner.Chat.Fragment.ChatListFragment"
         android:label="Chats">
         <action
             android:id="@+id/action_chatsFragment_to_chatFragment"

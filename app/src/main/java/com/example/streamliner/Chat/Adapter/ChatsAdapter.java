@@ -2,22 +2,30 @@ package com.example.streamliner.Chat.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.streamliner.Chat.Model.Chat;
 import com.example.streamliner.databinding.ItemChatBinding;
-
+import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHolder> {
+
+    public interface OnChatClickListener {
+        void onChatClick(Chat chat);
+    }
+
     private final List<Chat> chats;
     private final OnChatClickListener listener;
+    private final FirebaseFirestore firestore;
+    private final String currentUserId;
 
-    public ChatsAdapter(List<Chat> chats, OnChatClickListener listener) {
+    public ChatsAdapter(List<Chat> chats, OnChatClickListener listener, String currentUserId) {
         this.chats = chats;
         this.listener = listener;
+        this.currentUserId = currentUserId;
+        this.firestore = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -39,10 +47,6 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
         return chats.size();
     }
 
-    public interface OnChatClickListener {
-        void onChatClick(Chat chat);
-    }
-
     class ChatViewHolder extends RecyclerView.ViewHolder {
         private final ItemChatBinding binding;
 
@@ -52,10 +56,26 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
         }
 
         void bind(Chat chat) {
-            binding.chatTitle.setText(chat.getType().equals("group") ?
-                    chat.getGroupName() : chat.getChatId()); // You'll want to get the other user's name for private chats
-            binding.lastMessage.setText(chat.getLastMessage());
+            if (chat.getType().equals("group")) {
+                binding.chatTitle.setText(chat.getGroupName());
+            } else {
 
+                String otherUserId = chat.getParticipants().keySet().stream()
+                        .filter(id -> !id.equals(currentUserId))
+                        .findFirst()
+                        .orElse("");
+
+
+                firestore.collection("users").document(otherUserId)
+                        .get()
+                        .addOnSuccessListener(doc -> {
+                            if (doc.exists()) {
+                                String username = doc.getString("displayName");
+                                binding.chatTitle.setText(username != null ? username : "Unknown User");
+                            }
+                        });
+            }
+            binding.lastMessage.setText(chat.getLastMessage());
             itemView.setOnClickListener(v -> listener.onChatClick(chat));
         }
     }

@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatsFragment extends Fragment {
+public class ChatListFragment extends Fragment {
     private FragmentChatsBinding binding;
     private FirebaseAuth auth;
     private DatabaseReference database;
@@ -46,13 +46,14 @@ public class ChatsFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
+        String currentUserId = auth.getCurrentUser().getUid();
         adapter = new ChatsAdapter(chatsList, chat -> {
             Bundle args = new Bundle();
             args.putString("chatId", chat.getChatId());
             args.putString("chatType", chat.getType());
             Navigation.findNavController(binding.getRoot())
                     .navigate(R.id.action_chatsFragment_to_chatFragment, args);
-        });
+        }, currentUserId);
 
         binding.chatsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.chatsRecyclerView.setAdapter(adapter);
@@ -100,7 +101,7 @@ public class ChatsFragment extends Fragment {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        // Handle error
+
                     }
                 });
     }
