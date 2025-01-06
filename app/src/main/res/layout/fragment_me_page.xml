@@ -16,53 +16,113 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerInParent="true"
-            android:foreground="@drawable/baseline_account_circle_24" />
+            android:foreground="@drawable/baseline_account_circle_24"/>
 
     </RelativeLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/BtnMyCourses"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/darkBlue"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
         android:text="My Courses"
-        android:textSize="20sp" />
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/darkBlue"
+        android:layout_gravity="center"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        app:icon="@drawable/ic_learn"
+        app:iconSize="26dp"
+        app:iconGravity="textStart"
+        app:iconPadding="10dp"
+        app:iconTint="@color/darkBlue"
+        app:strokeColor="@color/light_blue_others"
+        app:strokeWidth="3dp"
+        app:cardElevation="4dp"
+        android:backgroundTint="@color/white" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/BtnMyMarks"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/darkBlue"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
         android:text="My Marks"
-        android:textSize="20sp"/>
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/darkBlue"
+        android:layout_gravity="center"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        app:icon="@drawable/ic_mymarks"
+        app:iconSize="26dp"
+        app:iconGravity="textStart"
+        app:iconPadding="10dp"
+        app:iconTint="@color/darkBlue"
+        app:strokeColor="@color/light_blue_others"
+        app:strokeWidth="3dp"
+        app:cardElevation="4dp"
+        android:backgroundTint="@color/white" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/BtnViewProfile"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/darkBlue"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
         android:text="View Profile"
-        android:textSize="20sp" />
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/darkBlue"
+        android:layout_gravity="center"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        app:icon="@drawable/ic_account"
+        app:iconSize="26dp"
+        app:iconGravity="textStart"
+        app:iconPadding="10dp"
+        app:iconTint="@color/darkBlue"
+        app:strokeColor="@color/light_blue_others"
+        app:strokeWidth="3dp"
+        app:cardElevation="4dp"
+        android:backgroundTint="@color/white" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/BtnFeedback"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/darkBlue"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
         android:text="Feedback"
-        android:textSize="20sp"/>
-
-    <Button
-        android:id="@+id/BtnLogOut"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/darkBlue"
         android:layout_gravity="center"
-        android:backgroundTint="@color/darkBlue"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        app:icon="@drawable/ic_feedback"
+        app:iconSize="26dp"
+        app:iconGravity="textStart"
+        app:iconPadding="10dp"
+        app:iconTint="@color/darkBlue"
+        app:strokeColor="@color/light_blue_others"
+        app:strokeWidth="3dp"
+        app:cardElevation="4dp"
+        android:backgroundTint="@color/white" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/BtnLogOut"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
         android:text="Log Out"
-        android:textSize="20sp"/>
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/darkBlue"
+        android:layout_gravity="center"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        app:icon="@drawable/ic_logout"
+        app:iconSize="26dp"
+        app:iconGravity="textStart"
+        app:iconPadding="10dp"
+        app:iconTint="@color/darkBlue"
+        app:strokeColor="@color/light_blue_others"
+        app:strokeWidth="3dp"
+        app:cardElevation="4dp"
+        android:backgroundTint="@color/white" />
 
 </LinearLayout>

@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="4dp"
-    app:cardElevation="2dp"
+    app:strokeColor="@color/darkBlue"
+    app:strokeWidth="2dp"
+    app:cardElevation="3dp"
+    android:backgroundTint="@color/white"
     app:cardCornerRadius="8dp">
 
     <LinearLayout
@@ -18,16 +21,16 @@
             android:id="@+id/featureTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/featureDescriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="14sp"/>
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/featureReleaseDateTextView"
