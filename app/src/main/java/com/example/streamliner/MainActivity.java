@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = binding.navView;
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.forgetPassword,
+                R.id.dashboardFragment,
                 R.id.chatsFragment,
                 R.id.navigation_time,
                 R.id.learnHolder,
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private int determineStartDestination() {
         // Check if user is logged in
         if (auth.getCurrentUser() != null) {
-            return R.id.learnHolder; // Or whatever your main screen is
+            return R.id.dashboardFragment; // Or whatever your main screen is
         } else {
             return R.id.splashScreen1; // Or your first onboarding/login screen
         }
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateTitle(int destinationId) {
-        if (destinationId == R.id.forgetPassword) {
+        if (destinationId == R.id.dashboardFragment) {
             setTitle("Home");
         } else if (destinationId == R.id.chatsFragment) {
             setTitle("Chat");
