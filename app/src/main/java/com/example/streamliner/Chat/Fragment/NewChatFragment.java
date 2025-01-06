@@ -13,19 +13,18 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.streamliner.Authentication.Model.User;
 import com.example.streamliner.Chat.Adapter.UsersAdapter;
 import com.example.streamliner.Chat.Model.Chat;
+import com.example.streamliner.Chat.Model.User;
 import com.example.streamliner.R;
 import com.example.streamliner.databinding.FragmentNewChatBinding;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +36,8 @@ import java.util.Set;
 public class NewChatFragment extends Fragment {
     private FragmentNewChatBinding binding;
     private FirebaseAuth auth;
-    private DatabaseReference database;
+    private DatabaseReference realtimeDb;
+    private FirebaseFirestore firestore;
     private UsersAdapter usersAdapter;
     private UsersAdapter groupUsersAdapter;
     private List<User> usersList;
@@ -46,19 +46,26 @@ public class NewChatFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNewChatBinding.inflate(inflater, container, false);
+        initializeFirebase();
+        setupViews();
+        return binding.getRoot();
+    }
+
+    private void initializeFirebase() {
         auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance().getReference();
+        realtimeDb = FirebaseDatabase.getInstance().getReference();
+        firestore = FirebaseFirestore.getInstance();
         usersList = new ArrayList<>();
         selectedUsers = new HashSet<>();
+    }
 
+    private void setupViews() {
         setupToolbar();
         setupTabs();
         setupRecyclerViews();
         setupSearchListeners();
         setupCreateGroupButton();
         loadUsers();
-
-        return binding.getRoot();
     }
 
     private void setupToolbar() {
@@ -91,7 +98,7 @@ public class NewChatFragment extends Fragment {
 
     private void setupRecyclerViews() {
         // Private chat users adapter
-        usersAdapter = new UsersAdapter(usersList, user -> createPrivateChat(user.getUid()));
+        usersAdapter = new UsersAdapter(usersList, this::createPrivateChat);
         binding.usersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.usersRecyclerView.setAdapter(usersAdapter);
 
@@ -106,42 +113,42 @@ public class NewChatFragment extends Fragment {
     }
 
     private void setupSearchListeners() {
-        binding.searchUsersInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        binding.searchUsersInput.addTextChangedListener(new SimpleTextWatcher(text ->
+                filterUsers(text, usersAdapter)));
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterUsers(s.toString(), usersAdapter);
-            }
+        binding.searchGroupUsersInput.addTextChangedListener(new SimpleTextWatcher(text ->
+                filterUsers(text, groupUsersAdapter)));
+    }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+    private static class SimpleTextWatcher implements TextWatcher {
+        private final SearchCallback callback;
 
-        binding.searchGroupUsersInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        SimpleTextWatcher(SearchCallback callback) {
+            this.callback = callback;
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterUsers(s.toString(), groupUsersAdapter);
-            }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            callback.onSearch(s.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {}
+
+        interface SearchCallback {
+            void onSearch(String query);
+        }
     }
 
     private void filterUsers(String query, UsersAdapter adapter) {
         List<User> filteredList = new ArrayList<>();
+        String lowercaseQuery = query.toLowerCase();
         for (User user : usersList) {
-            if (user.getDisplayName().toLowerCase().contains(query.toLowerCase()) ||
-                    user.getEmail().toLowerCase().contains(query.toLowerCase())) {
+            if (user.getDisplayName().toLowerCase().contains(lowercaseQuery) ||
+                    user.getEmail().toLowerCase().contains(lowercaseQuery)) {
                 filteredList.add(user);
             }
         }
@@ -150,53 +157,25 @@ public class NewChatFragment extends Fragment {
 
     private void loadUsers() {
         String currentUserId = auth.getCurrentUser().getUid();
-        database.child("users").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                usersList.clear();
-                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                    User user = userSnapshot.getValue(User.class);
-                    if (user != null && !user.getUid().equals(currentUserId)) {
-                        usersList.add(user);
+        firestore.collection("users")
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        Toast.makeText(getContext(), "Failed to load users", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                }
-                usersAdapter.notifyDataSetChanged();
-                groupUsersAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Failed to load users", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void createPrivateChat(String otherUserId) {
-        String currentUserId = auth.getCurrentUser().getUid();
-        String chatId = getChatId(currentUserId, otherUserId);
-
-        Chat newChat = new Chat("private");
-        newChat.setChatId(chatId);
-        Map<String, Boolean> participants = new HashMap<>();
-        participants.put(currentUserId, true);
-        participants.put(otherUserId, true);
-        newChat.setParticipants(participants);
-
-        database.child("chats").child(chatId).setValue(newChat)
-                .addOnSuccessListener(aVoid -> {
-                    // Add chat reference to both users
-                    database.child("user-chats").child(currentUserId).child(chatId).setValue(true);
-                    database.child("user-chats").child(otherUserId).child(chatId).setValue(true);
-
-                    // Navigate to chat
-                    Bundle args = new Bundle();
-                    args.putString("chatId", chatId);
-                    args.putString("chatType", "private");
-                    Navigation.findNavController(binding.getRoot())
-                            .navigate(R.id.action_newChatFragment_to_chatFragment, args);
-                })
-                .addOnFailureListener(e ->
-                        Toast.makeText(getContext(), "Failed to create chat", Toast.LENGTH_SHORT).show());
+                    if (value != null) {
+                        usersList.clear();
+                        for (DocumentSnapshot document : value.getDocuments()) {
+                            User user = User.fromFirestore(document);
+                            if (user != null && !user.getUid().equals(currentUserId)) {
+                                usersList.add(user);
+                            }
+                        }
+                        usersAdapter.notifyDataSetChanged();
+                        groupUsersAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     private void setupCreateGroupButton() {
@@ -226,8 +205,32 @@ public class NewChatFragment extends Fragment {
         binding.selectedUsersChipGroup.addView(chip);
     }
 
+    private void createPrivateChat(User otherUser) {
+        String currentUserId = auth.getCurrentUser().getUid();
+        String chatId = getChatId(currentUserId, otherUser.getUid());
+
+        Chat newChat = new Chat("private");
+        newChat.setChatId(chatId);
+        Map<String, Boolean> participants = new HashMap<>();
+        participants.put(currentUserId, true);
+        participants.put(otherUser.getUid(), true);
+        newChat.setParticipants(participants);
+
+        realtimeDb.child("chats").child(chatId).setValue(newChat)
+                .addOnSuccessListener(aVoid -> {
+                    // Add chat reference to both users
+                    realtimeDb.child("user-chats").child(currentUserId).child(chatId).setValue(true);
+                    realtimeDb.child("user-chats").child(otherUser.getUid()).child(chatId).setValue(true);
+
+                    // Navigate to chat
+                    navigateToChat(chatId, "private");
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(getContext(), "Failed to create chat", Toast.LENGTH_SHORT).show());
+    }
+
     private void createGroupChat(String groupName) {
-        String chatId = database.child("chats").push().getKey();
+        String chatId = realtimeDb.child("chats").push().getKey();
         if (chatId == null) return;
 
         String currentUserId = auth.getCurrentUser().getUid();
@@ -242,22 +245,26 @@ public class NewChatFragment extends Fragment {
         }
         newChat.setParticipants(participants);
 
-        database.child("chats").child(chatId).setValue(newChat)
+        realtimeDb.child("chats").child(chatId).setValue(newChat)
                 .addOnSuccessListener(aVoid -> {
                     // Add chat reference to all participants
                     for (String userId : participants.keySet()) {
-                        database.child("user-chats").child(userId).child(chatId).setValue(true);
+                        realtimeDb.child("user-chats").child(userId).child(chatId).setValue(true);
                     }
 
                     // Navigate to chat
-                    Bundle args = new Bundle();
-                    args.putString("chatId", chatId);
-                    args.putString("chatType", "group");
-                    Navigation.findNavController(binding.getRoot())
-                            .navigate(R.id.action_newChatFragment_to_chatFragment, args);
+                    navigateToChat(chatId, "group");
                 })
                 .addOnFailureListener(e ->
                         Toast.makeText(getContext(), "Failed to create group", Toast.LENGTH_SHORT).show());
+    }
+
+    private void navigateToChat(String chatId, String chatType) {
+        Bundle args = new Bundle();
+        args.putString("chatId", chatId);
+        args.putString("chatType", chatType);
+        Navigation.findNavController(binding.getRoot())
+                .navigate(R.id.action_newChatFragment_to_chatFragment, args);
     }
 
     private String getChatId(String uid1, String uid2) {

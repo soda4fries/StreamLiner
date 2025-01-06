@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.streamliner.Authentication.Model.User;
+import com.example.streamliner.Chat.Model.User;
 import com.example.streamliner.databinding.ItemUserBinding;
 
 import java.util.ArrayList;
@@ -60,13 +60,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         void bind(User user) {
             binding.userName.setText(user.getDisplayName());
             binding.userEmail.setText(user.getEmail());
-
-            // Load user avatar if available
-            if (user.getPhotoUrl() != null && !user.getPhotoUrl().isEmpty()) {
-                // You can use Glide here to load the image
-                // Glide.with(binding.userAvatar).load(user.getPhotoUrl()).into(binding.userAvatar);
-            }
-
             itemView.setOnClickListener(v -> listener.onUserClick(user));
         }
     }
