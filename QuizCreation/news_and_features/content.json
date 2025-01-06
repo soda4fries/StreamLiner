@@ -1,0 +1,45 @@
+{
+  "news": [
+    {
+      "title": "Interactive Math Games Launch",
+      "description": "New suite of math games covering algebra, geometry, and arithmetic. Perfect for grades 6-8!",
+      "timestamp": "2024-01-15"
+    },
+    {
+      "title": "Science Virtual Labs",
+      "description": "Experience chemistry and physics experiments through our new virtual lab simulations",
+      "timestamp": "2024-01-20"
+    },
+    {
+      "title": "Parent Dashboard Update",
+      "description": "Track your child's progress and get detailed reports on their learning journey",
+      "timestamp": "2024-01-25"
+    }
+  ],
+  "features": [
+    {
+      "title": "AI Writing Assistant",
+      "description": "Smart writing assistant that helps students improve essays and creative writing with real-time feedback",
+      "status": "upcoming",
+      "expectedRelease": "2024-03-01"
+    },
+    {
+      "title": "Personalized Learning Paths",
+      "description": "Adaptive learning system that adjusts difficulty based on student performance across all subjects",
+      "status": "upcoming",
+      "expectedRelease": "2024-04-15"
+    },
+    {
+      "title": "Virtual Study Groups",
+      "description": "Connect with classmates in supervised virtual study rooms with built-in collaboration tools",
+      "status": "upcoming",
+      "expectedRelease": "2024-05-01"
+    },
+    {
+      "title": "AR Science Experiments",
+      "description": "Augmented reality science experiments that bring textbook concepts to life",
+      "status": "upcoming",
+      "expectedRelease": "2024-06-15"
+    }
+  ]
+}

@@ -385,6 +385,19 @@
     </fragment>
 
     <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.streamliner.home.DashboardFragment"
+        android:label="Dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_Quiz_listFragments"
+            app:destination="@id/quizListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
         android:id="@+id/learnHolder"
         android:name="com.example.streamliner.BlankFragment"
         android:label="fragment_blank"
