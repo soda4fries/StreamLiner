@@ -1,6 +1,7 @@
 package com.example.streamliner.Quiz.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +28,13 @@ public class QuizResultFragment extends Fragment {
     private FragmentQuizResultBinding binding;
     private FirebaseDatabase database;
     private LeaderboardAdapter adapter;
+    private FirebaseFirestore firestore;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentQuizResultBinding.inflate(inflater, container, false);
         database = FirebaseDatabase.getInstance();
-
+        firestore = FirebaseFirestore.getInstance();
         int score = getArguments().getInt("score");
         String quizId = getArguments().getString("quizId");
 
@@ -63,21 +66,19 @@ public class QuizResultFragment extends Fragment {
                             String userId = userScore.getKey();
                             int score = userScore.getValue(Integer.class);
 
-                            // Load user details
-                            database.getReference("users")
-                                    .child(userId)
+                            // Load user details from Firestore
+                            firestore.collection("users")
+                                    .document(userId)
                                     .get()
-                                    .addOnSuccessListener(userSnapshot -> {
-                                        User user = userSnapshot.getValue(User.class);
-                                        assert user != null;
-                                        entries.add(new LeaderboardEntry(
-                                                user.getDisplayName(),
-                                                score
-                                        ));
+                                    .addOnSuccessListener(userDoc -> {
+                                        if (userDoc.exists()) {
+                                            String name = userDoc.getString("name");
+                                            entries.add(new LeaderboardEntry(name, score));
 
-                                        if (entries.size() == snapshot.getChildrenCount()) {
-                                            entries.sort((a, b) -> Integer.compare(b.getScore(), a.getScore()));
-                                            adapter.submitList(entries);
+                                            if (entries.size() == snapshot.getChildrenCount()) {
+                                                entries.sort((a, b) -> Integer.compare(b.getScore(), a.getScore()));
+                                                adapter.submitList(entries);
+                                            }
                                         }
                                     });
                         }
@@ -85,8 +86,7 @@ public class QuizResultFragment extends Fragment {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(getContext(), "Failed to load leaderboard",
-                                Toast.LENGTH_SHORT).show();
+                        Log.e("DATABASE", "Database error", error.toException());
                     }
                 });
     }
