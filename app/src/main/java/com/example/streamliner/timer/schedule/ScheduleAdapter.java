@@ -10,7 +10,7 @@ import com.example.streamliner.databinding.ItemScheduleCellBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-public class ScheduleAdapterWithJava extends RecyclerView.Adapter<ScheduleAdapterWithJava.CellViewHolder> {
+public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.CellViewHolder> {
 
     private final CellClickListener cellClickListener;
     private List<CourseJava> courses = new ArrayList<>();
@@ -38,7 +38,7 @@ public class ScheduleAdapterWithJava extends RecyclerView.Adapter<ScheduleAdapte
         void onCellClick(int row, int col);
     }
 
-    public ScheduleAdapterWithJava(CellClickListener listener) {
+    public ScheduleAdapter(CellClickListener listener) {
         this.cellClickListener = listener;
     }
 

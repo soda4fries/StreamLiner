@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +42,42 @@ public class ChatFragment extends Fragment {
 
         assert getArguments() != null;
         chatId = getArguments().getString("chatId");
-
+        setupToolbar();
         setupRecyclerView();
         setupMessageInput();
         loadMessages();
 
         return binding.getRoot();
+    }
+
+    private void setupToolbar() {
+        String chatType = getArguments().getString("chatType");
+        if (chatType.equals("group")) {
+            database.child("chats").child(chatId).get()
+                    .addOnSuccessListener(snapshot -> {
+                        String groupName = snapshot.child("groupName").getValue(String.class);
+                        binding.toolbar.setTitle(groupName);
+                    });
+        } else {
+            // Get other user's ID from participants
+            database.child("chats").child(chatId).child("participants")
+                    .get().addOnSuccessListener(snapshot -> {
+                        String currentUserId = auth.getCurrentUser().getUid();
+                        for (DataSnapshot participant : snapshot.getChildren()) {
+                            String userId = participant.getKey();
+                            if (!userId.equals(currentUserId)) {
+                                // Get username from Firestore
+                                FirebaseFirestore.getInstance().collection("users")
+                                        .document(userId).get()
+                                        .addOnSuccessListener(doc -> {
+                                            String username = doc.getString("name");
+                                            binding.toolbar.setTitle(username);
+                                        });
+                                break;
+                            }
+                        }
+                    });
+        }
     }
 
     private void setupRecyclerView() {

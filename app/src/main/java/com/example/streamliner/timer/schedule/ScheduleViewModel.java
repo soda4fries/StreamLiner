@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ScheduleViewModelJava extends AndroidViewModel {
+public class ScheduleViewModel extends AndroidViewModel {
     private final CourseDatabaseJava database;
    private final CourseDaoJava courseDao;
     private final ExecutorService executorService;
     private final LiveData<List<CourseJava>> courses;
 
-    public ScheduleViewModelJava(@NonNull Application application) {
+    public ScheduleViewModel(@NonNull Application application) {
         super(application);
         database = CourseDatabaseJava.getDatabase(application);
         courseDao = database.courseDao();

@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.streamliner.databinding.FragmentScheduleBinding;
 
-public class ScheduleFragmentWithJava extends Fragment {
+public class ScheduleFragment extends Fragment {
     private FragmentScheduleBinding binding;
-    private ScheduleViewModelJava viewModel;
-    private ScheduleAdapterWithJava adapter;
+    private ScheduleViewModel viewModel;
+    private ScheduleAdapter adapter;
 
     @Nullable
     @Override
@@ -36,11 +36,11 @@ public class ScheduleFragmentWithJava extends Fragment {
     }
 
     private void setupViewModel() {
-        viewModel = new ViewModelProvider(requireActivity()).get(ScheduleViewModelJava.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ScheduleViewModel.class);
     }
 
     private void setupRecyclerView() {
-        adapter = new ScheduleAdapterWithJava(this::showCourseDialog);
+        adapter = new ScheduleAdapter(this::showCourseDialog);
 
         GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 6);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {

@@ -21,6 +21,7 @@
     <color name="blue_me_sections_smallText">#234F9B</color>
     <color name="dark_blue_feedback_sections">#354270</color>
     <color name="blue_others_CS">#215DAC</color> //blue for CS subject too. Most elements use this blue
+    <color name="blue_others_CS2">#215DAC</color>
     <color name="blue_tabs">#0A3E81</color>
     <color name="blue_quiz_submit_button">#007AFF</color>
 

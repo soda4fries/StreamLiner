@@ -69,7 +69,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                         .get()
                         .addOnSuccessListener(doc -> {
                             if (doc.exists()) {
-                                String username = doc.getString("displayName");
+                                String username = doc.getString("name");
                                 if (username != null) {
                                     usernameCache.put(senderId, username);
                                     binding.senderName.setText(username);
@@ -78,15 +78,28 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                         });
             }
 
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) binding.messageCard.getLayoutParams();
+            ConstraintLayout.LayoutParams messageParams = (ConstraintLayout.LayoutParams) binding.messageCard.getLayoutParams();
+            ConstraintLayout.LayoutParams nameParams = (ConstraintLayout.LayoutParams) binding.senderName.getLayoutParams();
+
             if (message.getSenderId().equals(currentUserId)) {
-                params.startToStart = ConstraintLayout.LayoutParams.UNSET;
-                params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+                // For sent messages (align to the right)
+                messageParams.startToStart = ConstraintLayout.LayoutParams.UNSET;
+                messageParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+
+                nameParams.startToStart = ConstraintLayout.LayoutParams.UNSET;
+                nameParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
             } else {
-                params.endToEnd = ConstraintLayout.LayoutParams.UNSET;
-                params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+                // For received messages (align to the left)
+                messageParams.endToEnd = ConstraintLayout.LayoutParams.UNSET;
+                messageParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+
+                nameParams.endToEnd = ConstraintLayout.LayoutParams.UNSET;
+                nameParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
             }
-            binding.messageCard.setLayoutParams(params);
+            
+            binding.messageCard.setLayoutParams(messageParams);
+            binding.senderName.setLayoutParams(nameParams);
+
         }
     }
 }

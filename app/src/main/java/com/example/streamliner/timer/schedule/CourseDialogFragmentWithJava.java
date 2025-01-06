@@ -21,7 +21,7 @@ public class CourseDialogFragmentWithJava extends DialogFragment {
     private static final String ARG_COL = "col";
 
         private FragmentCourseDialogBinding binding;
-    private ScheduleViewModelJava viewModel;
+    private ScheduleViewModel viewModel;
     private int selectedColor = Color.YELLOW;
 
     public static CourseDialogFragmentWithJava newInstance(int row, int col) {
@@ -53,7 +53,7 @@ public class CourseDialogFragmentWithJava extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ScheduleViewModelJava.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ScheduleViewModel.class);
         setupDurationSpinner();
         setupColorPicker();
 

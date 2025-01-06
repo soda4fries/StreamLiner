@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.streamliner.Chat.Adapter.ChatsAdapter;
+import com.example.streamliner.Chat.Adapter.ChatListAdapter;
 import com.example.streamliner.Chat.Model.Chat;
 import com.example.streamliner.R;
 import com.example.streamliner.databinding.FragmentChatsBinding;
@@ -28,7 +29,7 @@ public class ChatListFragment extends Fragment {
     private FragmentChatsBinding binding;
     private FirebaseAuth auth;
     private DatabaseReference database;
-    private ChatsAdapter adapter;
+    private ChatListAdapter adapter;
     private List<Chat> chatsList;
 
     @Override
@@ -45,9 +46,11 @@ public class ChatListFragment extends Fragment {
         return binding.getRoot();
     }
 
+
+
     private void setupRecyclerView() {
         String currentUserId = auth.getCurrentUser().getUid();
-        adapter = new ChatsAdapter(chatsList, chat -> {
+        adapter = new ChatListAdapter(chatsList, chat -> {
             Bundle args = new Bundle();
             args.putString("chatId", chat.getChatId());
             args.putString("chatType", chat.getType());
@@ -55,9 +58,18 @@ public class ChatListFragment extends Fragment {
                     .navigate(R.id.action_chatsFragment_to_chatFragment, args);
         }, currentUserId);
 
-        binding.chatsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        binding.chatsRecyclerView.setLayoutManager(layoutManager);
         binding.chatsRecyclerView.setAdapter(adapter);
+
+        // Add divider
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                binding.chatsRecyclerView.getContext(),
+                layoutManager.getOrientation()
+        );
+        binding.chatsRecyclerView.addItemDecoration(dividerItemDecoration);
     }
+
 
     private void setupFab() {
         binding.newChatFab.setOnClickListener(v -> {

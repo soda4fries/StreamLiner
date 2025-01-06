@@ -3,14 +3,13 @@ package com.example.streamliner.Chat.Adapter;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.streamliner.Chat.Model.Chat;
 import com.example.streamliner.databinding.ItemChatBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
-public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHolder> {
+public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatViewHolder> {
 
     public interface OnChatClickListener {
         void onChatClick(Chat chat);
@@ -21,7 +20,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
     private final FirebaseFirestore firestore;
     private final String currentUserId;
 
-    public ChatsAdapter(List<Chat> chats, OnChatClickListener listener, String currentUserId) {
+    public ChatListAdapter(List<Chat> chats, OnChatClickListener listener, String currentUserId) {
         this.chats = chats;
         this.listener = listener;
         this.currentUserId = currentUserId;
@@ -59,18 +58,18 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             if (chat.getType().equals("group")) {
                 binding.chatTitle.setText(chat.getGroupName());
             } else {
-
+                // Find the other user's ID
                 String otherUserId = chat.getParticipants().keySet().stream()
                         .filter(id -> !id.equals(currentUserId))
                         .findFirst()
                         .orElse("");
 
-
+                // Fetch and set username
                 firestore.collection("users").document(otherUserId)
                         .get()
                         .addOnSuccessListener(doc -> {
                             if (doc.exists()) {
-                                String username = doc.getString("displayName");
+                                String username = doc.getString("name");
                                 binding.chatTitle.setText(username != null ? username : "Unknown User");
                             }
                         });
