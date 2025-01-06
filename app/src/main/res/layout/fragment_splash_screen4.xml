@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".splashScreen.SplashScreen4" >
-
+    tools:context=".splashScreen.SplashScreen4">
 
     <ImageView
         android:id="@+id/screen4frame"
@@ -31,9 +31,9 @@
 
     <Button
         android:id="@+id/BtnGetStarted"
-        android:layout_width="212dp"
-        android:layout_height="66dp"
-        android:layout_marginBottom="140dp"
+        android:layout_width="187dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/darkBlue"
         android:gravity="center"
         android:text="Get Started"
@@ -43,7 +43,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.562"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -51,13 +51,14 @@
         android:layout_width="352dp"
         android:layout_height="137dp"
         android:layout_marginTop="20dp"
-        android:text="Since 2023, our core team of educators and developers has been committed to making quality education accessible to all. With diverse expertise and a shared vision, we’re building a learning app that empowers users to grow, learn, and thrive in a supportive digital environment."
+        android:text="Since 2024, our core team of educators and developers has been committed to making quality education accessible to all. With diverse expertise and a shared vision, we’re building a learning app that empowers users to grow, learn, and thrive in a supportive digital environment."
         android:textColor="@color/darkBlue"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/screen4Title"
         app:layout_constraintStart_toStartOf="@+id/screen4Title"
         app:layout_constraintTop_toBottomOf="@+id/screen4Title" />
 
+    <!-- Picture 1 (Top Center) -->
     <TextView
         android:id="@+id/screen4TitleOurTeam"
         android:layout_width="wrap_content"
@@ -71,56 +72,111 @@
         app:layout_constraintStart_toStartOf="@+id/screen4Subtitle"
         app:layout_constraintTop_toBottomOf="@+id/screen4Subtitle" />
 
-    <ImageView
-        android:id="@+id/profilePic1"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/baseline_account_circle_24"
-        app:layout_constraintEnd_toEndOf="@+id/screen4TitleOurTeam"
-        app:layout_constraintStart_toStartOf="@+id/screen4TitleOurTeam"
-        app:layout_constraintTop_toBottomOf="@+id/screen4TitleOurTeam" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imageViewCard1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/screen4TitleOurTeam"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <ImageView
-        android:id="@+id/profilePic2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/Yilin" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Picture 2 (Left of Picture 1) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imageViewCard2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="4dp"
+
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCard3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewCard1"
+        app:layout_constraintBottom_toTopOf="@id/imageViewCard4">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/Mahdinur" />
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- Picture 3 (Right of Picture 1) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imageViewCard3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/imageViewCard1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewCard2">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/Aisyah" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Picture 4 (Below Picture 2) -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imageViewCard4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/baseline_account_circle_24"
-        app:layout_constraintEnd_toStartOf="@+id/profilePic1"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/screen4TitleOurTeam"
-        app:layout_constraintTop_toBottomOf="@+id/profilePic1" />
+        app:cardCornerRadius="40dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.314"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewCard2">
 
-    <ImageView
-        android:id="@+id/profilePic3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/baseline_account_circle_24"
-        app:layout_constraintEnd_toEndOf="@+id/screen4TitleOurTeam"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/profilePic1"
-        app:layout_constraintTop_toBottomOf="@+id/profilePic1" />
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/Neha" />
+    </androidx.cardview.widget.CardView>
 
-    <ImageView
-        android:id="@+id/profilePic4"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/baseline_account_circle_24"
-        app:layout_constraintEnd_toEndOf="@+id/profilePic2"
-        app:layout_constraintStart_toStartOf="@+id/profilePic2"
-        app:layout_constraintTop_toBottomOf="@+id/profilePic2" />
+    <!-- Picture 5 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imageViewCard5"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCard3"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCard4"
+        app:layout_constraintBottom_toTopOf="@+id/BtnGetStarted"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/profilePic5"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/baseline_account_circle_24"
-        app:layout_constraintEnd_toEndOf="@+id/profilePic3"
-        app:layout_constraintStart_toStartOf="@+id/profilePic3"
-        app:layout_constraintTop_toBottomOf="@+id/profilePic3" />
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/JingQin" />
+    </androidx.cardview.widget.CardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
