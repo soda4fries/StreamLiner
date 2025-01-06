@@ -67,7 +67,8 @@
         tools:layout="@layout/fragment_register_page">
         <action
             android:id="@+id/action_registerPage_to_loginPage"
-            app:destination="@id/loginPage" />
+            app:destination="@id/loginPage"
+            />
         <action
             android:id="@+id/action_registerPage_to_chatsFragment"
             app:destination="@id/chatsFragment"

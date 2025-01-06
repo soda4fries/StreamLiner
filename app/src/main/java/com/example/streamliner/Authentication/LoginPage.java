@@ -86,10 +86,19 @@ public class LoginPage extends Fragment {
 
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-                    binding.BTSignIn.setEnabled(true);
-                    if (task.isSuccessful()) {
-                        navigateToChats();
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        // Get fresh token to ensure persistence
+                        task.getResult().getUser().getIdToken(true)
+                                .addOnCompleteListener(tokenTask -> {
+                                    binding.BTSignIn.setEnabled(true);
+                                    if (tokenTask.isSuccessful()) {
+                                        navigateToChats();
+                                    } else {
+                                        handleLoginError(tokenTask.getException());
+                                    }
+                                });
                     } else {
+                        binding.BTSignIn.setEnabled(true);
                         handleLoginError(task.getException());
                     }
                 });

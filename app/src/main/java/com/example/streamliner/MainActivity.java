@@ -1,32 +1,54 @@
 package com.example.streamliner;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.streamliner.databinding.ActivityMainBinding;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
     private NavController navController;
     private BottomNavigationView bottomNav;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Initialize Firebase if needed
+        FirebaseApp.initializeApp(this);
+        auth = FirebaseAuth.getInstance();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setupNavigation(savedInstanceState);
+    }
+
+    private void setupNavigation(Bundle savedInstanceState) {
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        if (navHostFragment == null) {
+            Log.e(TAG, "NavHostFragment is null");
+            return;
+        }
+
         navController = navHostFragment.getNavController();
+        NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.nav_graph);
+        int startDestination = determineStartDestination();
+        navGraph.setStartDestination(startDestination);
+        navController.setGraph(navGraph);
 
         bottomNav = binding.navView;
 
@@ -48,6 +70,16 @@ public class MainActivity extends AppCompatActivity {
                 updateTitle(destination.getId());
             }
         });
+    }
+
+
+    private int determineStartDestination() {
+        // Check if user is logged in
+        if (auth.getCurrentUser() != null) {
+            return R.id.navigation_time; // Or whatever your main screen is
+        } else {
+            return R.id.splashScreen1; // Or your first onboarding/login screen
+        }
     }
 
     private boolean isAuthenticationScreen(int destinationId) {
@@ -82,5 +114,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }
