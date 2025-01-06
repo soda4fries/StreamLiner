@@ -161,13 +161,13 @@
         android:id="@+id/imageViewCard5"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="40dp"
         app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCard3"
-        app:layout_constraintStart_toEndOf="@+id/imageViewCard4"
-        app:layout_constraintBottom_toTopOf="@+id/BtnGetStarted"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.724"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewCard3">
 
         <ImageView
             android:id="@+id/imageView5"

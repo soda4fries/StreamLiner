@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.streamliner.viewMarks.QuizMarksFragment;
 import com.example.streamliner.R;
 import com.example.streamliner.courseDiscovery.Course;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ public class EnrolledCoursesFragment extends Fragment {
     private EnrolledCoursesAdapter adapter;
     private List<Course> userCourses;
     private DatabaseReference databaseRef;
+    private FirebaseAuth auth;
     private Button viewMarksButton;
     private ProgressBar loadingProgressBar;
 
@@ -53,6 +55,7 @@ public class EnrolledCoursesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_enrolled_courses, container, false);
 
         // Initialize Firebase
+        auth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference();
 
         // Initialize views
@@ -87,7 +90,9 @@ public class EnrolledCoursesFragment extends Fragment {
 
     private void loadUserCourses() {
         loadingProgressBar.setVisibility(View.VISIBLE);
-        databaseRef.child("test").child("userCourses").addValueEventListener(new ValueEventListener() {
+        String userId = auth.getCurrentUser().getUid();
+
+        databaseRef.child("enrolledCourses").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userCourses.clear();
