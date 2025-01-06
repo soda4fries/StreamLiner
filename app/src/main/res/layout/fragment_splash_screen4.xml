@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/Yilin" />
+            android:src="@drawable/yilin" />
     </androidx.cardview.widget.CardView>
 
     <!-- Picture 2 (Left of Picture 1) -->
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/Mahdinur" />
+            android:src="@drawable/mahdinur" />
     </androidx.cardview.widget.CardView>
 
 
@@ -131,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/Aisyah" />
+            android:src="@drawable/aisyah" />
     </androidx.cardview.widget.CardView>
 
     <!-- Picture 4 (Below Picture 2) -->
@@ -153,7 +153,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/Neha" />
+            android:src="@drawable/neha" />
     </androidx.cardview.widget.CardView>
 
     <!-- Picture 5 -->
@@ -174,7 +174,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/Jingqin" />
+            android:src="@drawable/jingqin" />
     </androidx.cardview.widget.CardView>
 
 
