@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_time"
+        android:id="@+id/forgetPassword"
         android:icon="@drawable/ic_home"
         android:title="@string/title_home" />
-    <item
-        android:id="@+id/blankFragment"
-        android:icon="@drawable/ic_learn"
-        android:title="@string/learn" />
     <item
         android:id="@+id/chatsFragment"
         android:icon="@drawable/ic_chat"
         android:title="@string/chat" />
     <item
-        android:id="@+id/quizListFragment"
-        android:icon="@drawable/ic_quiz"
-        android:title="@string/quiz" />
+        android:id="@+id/learnHolder"
+        android:icon="@drawable/ic_learn"
+        android:title="@string/learn" />
+    <item
+        android:id="@+id/navigation_time"
+        android:icon="@drawable/ic_time"
+        android:title="@string/title_time" />
     <item
         android:id="@+id/mePage"
         android:icon="@drawable/ic_account"

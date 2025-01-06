@@ -13,7 +13,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.streamliner.databinding.ActivityMainBinding;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -53,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = binding.navView;
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_time,
+                R.id.forgetPassword,
                 R.id.chatsFragment,
-                R.id.quizListFragment,
-                R.id.blankFragment,
+                R.id.navigation_time,
+                R.id.learnHolder,
                 R.id.mePage
         ).build();
 
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private int determineStartDestination() {
         // Check if user is logged in
         if (auth.getCurrentUser() != null) {
-            return R.id.navigation_time; // Or whatever your main screen is
+            return R.id.learnHolder; // Or whatever your main screen is
         } else {
             return R.id.splashScreen1; // Or your first onboarding/login screen
         }
@@ -98,15 +97,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateTitle(int destinationId) {
-        if (destinationId == R.id.navigation_time) {
+        if (destinationId == R.id.forgetPassword) {
             setTitle("Home");
         } else if (destinationId == R.id.chatsFragment) {
             setTitle("Chat");
-        } else if (destinationId == R.id.quizListFragment) {
-            setTitle("Quiz");
+        } else if (destinationId == R.id.navigation_time) {
+            setTitle("Time");
         } else if (destinationId == R.id.mePage) {
             setTitle("Me");
-        } else if (destinationId == R.id.blankFragment) {
+        } else if (destinationId == R.id.learnHolder) {
             setTitle("Learn");
         }
     }
