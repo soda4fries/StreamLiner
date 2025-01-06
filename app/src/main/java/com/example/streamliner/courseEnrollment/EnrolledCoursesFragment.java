@@ -61,7 +61,7 @@ public class EnrolledCoursesFragment extends Fragment {
         // Initialize views
         coursesRecyclerView = view.findViewById(R.id.coursesRecyclerView);
         loadingProgressBar = view.findViewById(R.id.loadingProgressBar);
-        viewMarksButton = view.findViewById(R.id.viewMarksButton);
+        //viewMarksButton = view.findViewById(R.id.viewMarksButton);
 
         // Initialize RecyclerView
         userCourses = new ArrayList<>();
@@ -69,15 +69,14 @@ public class EnrolledCoursesFragment extends Fragment {
         coursesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         coursesRecyclerView.setAdapter(adapter);
 
-        viewMarksButton.setOnClickListener(v -> {
-
+        /*viewMarksButton.setOnClickListener(v -> {
 
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer1, new QuizMarksFragment())
                     .addToBackStack(null)
                     .commit();
-        });
+        });*/
 
 
         view.findViewById(R.id.backButton).setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
