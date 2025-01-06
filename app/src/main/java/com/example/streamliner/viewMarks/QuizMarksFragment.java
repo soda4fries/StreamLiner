@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.streamliner.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ public class QuizMarksFragment extends Fragment {
     private TextView totalMarksTV;
     private List<QuizMark> marksList;
     private DatabaseReference databaseRef;
+    private FirebaseAuth auth;
     private ProgressBar loadingProgressBar;
 
 
@@ -53,6 +55,7 @@ public class QuizMarksFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_quiz_marks, container, false);
 
         // Initialize Firebase
+        auth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference();
 
         // Initialize views
@@ -76,8 +79,9 @@ public class QuizMarksFragment extends Fragment {
 
     private void loadMarks() {
         loadingProgressBar.setVisibility(View.VISIBLE);
+        String userId = auth.getCurrentUser().getUid();
 
-        databaseRef.child("test").child("userQuizzes").addValueEventListener(new ValueEventListener() {
+        databaseRef.child("userQuizzes").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 marksList.clear();

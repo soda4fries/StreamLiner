@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.streamliner.R;
 import com.example.streamliner.courseDiscovery.Course;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ public class CourseDetailsFragment extends Fragment {
     private RecyclerView learningOutcomesRecyclerView;
     private Button addToMyCourseButton;
     private DatabaseReference databaseRef;
+    private FirebaseAuth auth;
     private LearningOutcomesAdapter learningOutcomesAdapter;
     private List<String> learningOutcomesList;
     private ProgressBar loadingProgressBar;
@@ -68,6 +70,7 @@ public class CourseDetailsFragment extends Fragment {
         }
 
         // Initialize Firebase
+        auth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference("Courses");
 
         // Initialize views
@@ -153,8 +156,9 @@ public class CourseDetailsFragment extends Fragment {
     }
 
     private void addCourseToUserList() {
+        String userId = auth.getCurrentUser().getUid();
         DatabaseReference userCoursesRef = FirebaseDatabase.getInstance().getReference()
-                .child("test").child("userCourses");
+                .child("enrolledCourses").child(userId);
 
         // Check if course already exists in user's list
         userCoursesRef.orderByChild("id").equalTo(courseId)

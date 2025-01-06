@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.streamliner.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -160,12 +161,13 @@ public class QuizFragment extends Fragment implements QuestionFragment.OnQuestio
 
         submitAllButton.setOnClickListener(v -> {
             // Save completion status and score
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            String userId = auth.getCurrentUser().getUid();
+
             DatabaseReference userQuizRef = FirebaseDatabase.getInstance().getReference()
-                    .child("test")
-                    .child("userQuizzes");
-                /*.child(courseId)
-                .child("quizzes")
-                .child(String.valueOf(quizId));*/
+                    .child("userQuizzes")
+                    .child(userId);
+
 
             DatabaseReference quizMarkEntryRef = userQuizRef.push();
 
