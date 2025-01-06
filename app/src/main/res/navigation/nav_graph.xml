@@ -399,7 +399,7 @@
 
     <fragment
         android:id="@+id/learnHolder"
-        android:name="com.example.streamliner.BlankFragment"
+        android:name="com.example.streamliner.courseDiscovery.BlankFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_blank" />
 

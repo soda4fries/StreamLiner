@@ -1,4 +1,4 @@
-package com.example.streamliner;
+package com.example.streamliner.courseDiscovery;
 
 import android.os.Bundle;
 
@@ -8,23 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.streamliner.courseDiscovery.SearchFragment;
-import com.example.streamliner.courseDiscovery.TopCoursesFragment;
+import com.example.streamliner.R;
+
 
 public class BlankFragment extends Fragment {
 
     public BlankFragment() {
-        // Required empty public constructor
+
     }
 
-    /*public static BlankFragment newInstance(String param1, String param2) {
-        BlankFragment fragment = new BlankFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

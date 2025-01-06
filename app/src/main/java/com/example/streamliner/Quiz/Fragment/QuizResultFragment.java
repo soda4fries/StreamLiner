@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class QuizResultFragment extends Fragment {
@@ -57,28 +58,31 @@ public class QuizResultFragment extends Fragment {
                 .child(quizId)
                 .child("leaderboard")
                 .orderByValue()
-                .limitToLast(10)
-                .addValueEventListener(new ValueEventListener() {
+                .limitToFirst(10)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         List<LeaderboardEntry> entries = new ArrayList<>();
+
                         for (DataSnapshot userScore : snapshot.getChildren()) {
                             String userId = userScore.getKey();
                             int score = userScore.getValue(Integer.class);
+                            entries.add(new LeaderboardEntry(userId, score)); // Use userId temporarily
+                        }
 
-                            // Load user details from Firestore
+                        // Sort first to show scores quickly
+                        entries.sort((a, b) -> Integer.compare(b.getScore(), a.getScore()));
+                        adapter.submitList(new ArrayList<>(entries));
+
+                        // Then load names asynchronously
+                        for (LeaderboardEntry entry : entries) {
                             firestore.collection("users")
-                                    .document(userId)
+                                    .document(entry.getUserName()) // userId is temporarily in userName
                                     .get()
-                                    .addOnSuccessListener(userDoc -> {
-                                        if (userDoc.exists()) {
-                                            String name = userDoc.getString("name");
-                                            entries.add(new LeaderboardEntry(name, score));
-
-                                            if (entries.size() == snapshot.getChildrenCount()) {
-                                                entries.sort((a, b) -> Integer.compare(b.getScore(), a.getScore()));
-                                                adapter.submitList(entries);
-                                            }
+                                    .addOnSuccessListener(doc -> {
+                                        if (doc.exists()) {
+                                            entry.setUserName(doc.getString("name"));
+                                            adapter.notifyDataSetChanged();
                                         }
                                     });
                         }
@@ -86,7 +90,7 @@ public class QuizResultFragment extends Fragment {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("DATABASE", "Database error", error.toException());
+                        Log.e("DATABASE", "Error loading leaderboard", error.toException());
                     }
                 });
     }
