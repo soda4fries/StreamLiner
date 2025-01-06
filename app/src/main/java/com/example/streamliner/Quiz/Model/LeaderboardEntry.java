@@ -1,7 +1,7 @@
 package com.example.streamliner.Quiz.Model;
 
 public class LeaderboardEntry {
-    private final String userName;
+    private String userName;
     private final int score;
 
     public LeaderboardEntry(String userName, int score) {
@@ -15,5 +15,9 @@ public class LeaderboardEntry {
 
     public int getScore() {
         return score;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

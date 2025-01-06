@@ -20,6 +20,7 @@ import com.example.streamliner.databinding.FragmentQuizBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.util.concurrent.TimeUnit;
 
@@ -122,19 +123,17 @@ public class QuizFragment extends Fragment {
         attempt.setEndTime(System.currentTimeMillis());
         calculateScore();
 
-        // Update Firebase
         DatabaseReference attemptsRef = database.getReference("quiz_attempts")
                 .child(currentQuiz.getId())
                 .child(auth.getCurrentUser().getUid());
 
         attemptsRef.setValue(attempt)
                 .addOnSuccessListener(aVoid -> {
-                    // Update leaderboard
                     database.getReference("quizzes")
                             .child(currentQuiz.getId())
                             .child("leaderboard")
                             .child(auth.getCurrentUser().getUid())
-                            .setValue(attempt.getScore())
+                            .setValue(attempt.getScore(), ServerValue.TIMESTAMP)  // Add timestamp
                             .addOnSuccessListener(aVoid2 -> {
                                 Bundle args = new Bundle();
                                 args.putString("quizId", currentQuiz.getId());
@@ -142,9 +141,7 @@ public class QuizFragment extends Fragment {
                                 Navigation.findNavController(binding.getRoot())
                                         .navigate(R.id.action_quizFragment_to_quizResultFragment, args);
                             });
-                })
-                .addOnFailureListener(e -> Toast.makeText(getContext(),
-                        "Failed to save results", Toast.LENGTH_SHORT).show());
+                });
     }
 
     private void calculateScore() {
