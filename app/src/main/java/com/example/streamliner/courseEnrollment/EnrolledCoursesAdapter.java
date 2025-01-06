@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -13,10 +12,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.streamliner.R;
-import com.example.streamliner.studyMaterials.StudyMaterialsFragment;
 import com.example.streamliner.courseDiscovery.Course;
 import com.google.android.material.card.MaterialCardView;
-
 import java.util.List;
 
 public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCoursesAdapter.CourseViewHolder> {
@@ -64,23 +61,20 @@ public class EnrolledCoursesAdapter extends RecyclerView.Adapter<EnrolledCourses
             descriptionText.setText(course.getDescription());
 
             enrolledCourseCard.setOnClickListener(v -> {
-                // Get NavController
-                /*NavController navController = Navigation.findNavController(
-                        EnrolledCoursesAdapter.this.fragment.requireActivity(), R.id.nav_host_fragment);
+                // Get NavController from the Fragment
+                NavController navController = Navigation.findNavController(fragment.requireView());
 
+                // Create Bundle for navigation arguments
                 Bundle args = new Bundle();
                 args.putString("courseId", course.getId());
                 args.putString("courseName", course.getName());
                 args.putString("courseDescription", course.getDescription());
-                navController.navigate(R.id.action_enrolledCoursesFragment_to_studyMaterialsFragment, args);*/
 
-                StudyMaterialsFragment fragment = StudyMaterialsFragment.newInstance(course.getId(), course.getName(), course.getDescription());
-
-                EnrolledCoursesAdapter.this.fragment.requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragmentContainer1, fragment)
-                        .addToBackStack(null)
-                        .commit();
+                // Navigate using NavController
+                navController.navigate(
+                        R.id.action_enrolledCoursesFragment_to_studyMaterialsFragment,
+                        args
+                );
             });
         }
     }

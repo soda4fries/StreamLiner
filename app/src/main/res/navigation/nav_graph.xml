@@ -361,14 +361,35 @@
     </fragment> -->
 
     <fragment
+        android:id="@+id/enrolledCoursesFragment"
+        android:name="com.example.streamliner.courseEnrollment.EnrolledCoursesFragment"
+        android:label="EnrolledCoursesFragment">
+        <action
+            android:id="@+id/action_enrolledCoursesFragment_to_studyMaterialsFragment"
+            app:destination="@id/studyMaterialsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/studyMaterialsFragment"
+        android:name="com.example.streamliner.studyMaterials.StudyMaterialsFragment"
+        android:label="StudyMaterialsFragment">
+        <argument
+            android:name="courseId"
+            app:argType="string" />
+        <argument
+            android:name="courseName"
+            app:argType="string" />
+        <argument
+            android:name="courseDescription"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
         android:id="@+id/learnHolder"
         android:name="com.example.streamliner.BlankFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_blank" />
-    <fragment
-        android:id="@+id/enrolledCoursesFragment"
-        android:name="com.example.streamliner.courseEnrollment.EnrolledCoursesFragment"
-        android:label="EnrolledCoursesFragment" />
+
     <fragment
         android:id="@+id/quizMarksFragment"
         android:name="com.example.streamliner.viewMarks.QuizMarksFragment"
