@@ -61,6 +61,10 @@ public class TimerService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager manager = getSystemService(NotificationManager.class);
 
+            // Remove existing channels first to ensure settings are updated
+            manager.deleteNotificationChannel(CHANNEL_ID);
+            manager.deleteNotificationChannel(COMPLETE_CHANNEL_ID);
+
             // Timer progress channel
             NotificationChannel serviceChannel = new NotificationChannel(
                     CHANNEL_ID,
@@ -70,23 +74,25 @@ public class TimerService extends Service {
             serviceChannel.enableVibration(false);
             serviceChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
 
-            // Timer completion channel
+            // Timer completion channel with maximum importance
             NotificationChannel completeChannel = new NotificationChannel(
                     COMPLETE_CHANNEL_ID,
                     "Timer Complete Channel",
-                    NotificationManager.IMPORTANCE_HIGH);
+                    NotificationManager.IMPORTANCE_MAX);  // Changed to MAX importance
 
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .setUsage(AudioAttributes.USAGE_ALARM)
                     .build();
 
+            completeChannel.setImportance(NotificationManager.IMPORTANCE_HIGH);  // Explicitly set MAX importance
             completeChannel.enableLights(true);
             completeChannel.setLightColor(0xFF0000); // Red
             completeChannel.enableVibration(true);
             completeChannel.setVibrationPattern(VIBRATION_PATTERN);
             completeChannel.setBypassDnd(true);
             completeChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            completeChannel.setShowBadge(true);  // Show badge on app icon
             completeChannel.setSound(null, audioAttributes); // We handle sound separately
 
             manager.createNotificationChannel(serviceChannel);
@@ -147,41 +153,54 @@ public class TimerService extends Service {
     private void showTimerCompleteNotification() {
         // Intent to open app
         Intent notificationIntent = new Intent(this, MainActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, notificationIntent,
-                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
         // Dismiss intent
         Intent dismissIntent = new Intent(this, TimerService.class);
         dismissIntent.setAction(ACTION_DISMISS_COMPLETION);
         PendingIntent dismissPendingIntent = PendingIntent.getService(
                 this, 1, dismissIntent,
-                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
+        // Create a high-priority notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, COMPLETE_CHANNEL_ID)
-                .setContentTitle("Timer Complete!")
-                .setContentText("Your timer has finished")
+                .setContentTitle("⏰ Timer Complete!")
+                .setContentText("Timer finished! Tap to open")
                 .setTicker("Timer Complete!")
                 .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
                 .setContentIntent(pendingIntent)
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel, "Dismiss", dismissPendingIntent)
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setAutoCancel(false)  // Changed to false to make it persistent
+                .setPriority(NotificationCompat.PRIORITY_HIGH)  // Set to HIGH instead of MAX
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setOngoing(true)
-                .setFullScreenIntent(pendingIntent, true);
+                .setOngoing(true)  // Make it persistent
+                .setFullScreenIntent(pendingIntent, true)  // Force heads-up
+                .setVibrate(new long[]{0, 500, 1000})  // Add vibration pattern
+                .setLights(0xFF0000, 1000, 1000);  // Red LED flash
 
+        // For pre-Oreo devices
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+            builder.setDefaults(Notification.DEFAULT_ALL);
         }
 
+        // Build and set flags
         Notification notification = builder.build();
-        notification.flags |= Notification.FLAG_INSISTENT;
+        notification.flags |= Notification.FLAG_INSISTENT |
+                Notification.FLAG_NO_CLEAR |
+                Notification.FLAG_SHOW_LIGHTS;
 
+        // Show the notification
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Cancel any existing notifications first
+        notificationManager.cancel(COMPLETE_NOTIFICATION_ID);
+
+        // Post the new notification
         notificationManager.notify(COMPLETE_NOTIFICATION_ID, notification);
     }
 

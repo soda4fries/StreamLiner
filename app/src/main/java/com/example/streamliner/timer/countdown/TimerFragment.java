@@ -1,11 +1,14 @@
 package com.example.streamliner.timer.countdown;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.LayoutInflater;
@@ -17,6 +20,10 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -32,6 +39,21 @@ public class TimerFragment extends Fragment {
     private ImageView iconImageView;
     private TimerService timerService;
     private boolean bound = false;
+    private boolean hasNotificationPermission = false;
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                hasNotificationPermission = isGranted;
+                if (isGranted) {
+                    // Permission granted, start the timer
+                    startTimerIfValid();
+                } else {
+                    // Permission denied, show a message
+                    Toast.makeText(getContext(),
+                            "Notification permission is required for timer alerts",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
 
     private final ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -64,10 +86,31 @@ public class TimerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Check notification permission on creation
+        checkNotificationPermission();
+
         // Start and bind to TimerService
         Intent intent = new Intent(getActivity(), TimerService.class);
         requireActivity().startService(intent);
         requireActivity().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    private void checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            hasNotificationPermission = ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+        } else {
+            hasNotificationPermission = true;
+        }
+    }
+
+    private void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+        } else {
+            hasNotificationPermission = true;
+        }
     }
 
     @Override
@@ -97,25 +140,37 @@ public class TimerFragment extends Fragment {
 
             if (timerService.isRunning()) {
                 pauseTimer();
-            } else {
-                if (timerService.getTimeLeftInMillis() > 0) {
+            } else if (timerService.getTimeLeftInMillis() > 0) {
+                if (hasNotificationPermission) {
                     timerService.resumeTimer();
                     updateStartButton(true);
                 } else {
-                    if (isTimeValid()) {
-                        long totalTimeMillis = (hourPicker.getValue() * 3600L +
-                                minutePicker.getValue() * 60L +
-                                secondPicker.getValue()) * 1000L;
-                        timerService.startTimer(totalTimeMillis);
-                        updateStartButton(true);
-                    } else {
-                        Toast.makeText(getContext(), "Please set a valid time", Toast.LENGTH_SHORT).show();
-                    }
+                    requestNotificationPermission();
+                }
+            } else {
+                if (hasNotificationPermission) {
+                    startTimerIfValid();
+                } else {
+                    requestNotificationPermission();
                 }
             }
         });
 
         return view;
+    }
+
+    private void startTimerIfValid() {
+        if (isTimeValid()) {
+            long totalTimeMillis = (hourPicker.getValue() * 3600L +
+                    minutePicker.getValue() * 60L +
+                    secondPicker.getValue()) * 1000L;
+            timerService.startTimer(totalTimeMillis);
+            updateStartButton(true);
+        } else {
+            Toast.makeText(getContext(),
+                    "Please set a valid time",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setupNumberPickers() {
