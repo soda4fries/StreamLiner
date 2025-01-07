@@ -2,6 +2,12 @@ package com.example.streamliner;
 
 import android.app.Application;
 import android.util.Log;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.security.ProviderInstaller;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -16,7 +22,26 @@ public class StreamLinerApp extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        initializeGooglePlayServices();
         initializeFirebase();
+    }
+
+    private void initializeGooglePlayServices() {
+        try {
+            // Initialize security provider
+            ProviderInstaller.installIfNeeded(this);
+
+            // Initialize Google Play Services
+            GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
+            int result = googleAPI.isGooglePlayServicesAvailable(this);
+            if (result != ConnectionResult.SUCCESS) {
+                Log.e(TAG, "Google Play Services not available: " + result);
+            }
+        } catch (GooglePlayServicesRepairableException e) {
+            Log.e(TAG, "Google Play Services repairable error", e);
+        } catch (GooglePlayServicesNotAvailableException e) {
+            Log.e(TAG, "Google Play Services not available", e);
+        }
     }
 
     private void initializeFirebase() {

@@ -1,8 +1,13 @@
 package com.example.streamliner.timer.countdown;
 
-import android.media.MediaPlayer;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.streamliner.R;
 
@@ -24,19 +30,49 @@ public class TimerFragment extends Fragment {
     private TextView timerTextView;
     private Button startButton;
     private ImageView iconImageView;
-    private CountDownTimer countDownTimer;
-    private boolean isRunning = false;
-    private long timeLeftInMillis = 0;
-    private MediaPlayer alarmSound;
+    private TimerService timerService;
+    private boolean bound = false;
 
-    public TimerFragment() {
-        // Required empty public constructor
+    private final ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            TimerService.LocalBinder binder = (TimerService.LocalBinder) service;
+            timerService = binder.getService();
+            bound = true;
+            updateUIFromService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            bound = false;
+        }
+    };
+
+    private final BroadcastReceiver timerUpdateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (TimerService.TIMER_TICK.equals(intent.getAction())) {
+                long timeLeft = intent.getLongExtra(TimerService.TIME_LEFT, 0);
+                updateTimerText(timeLeft);
+                if (timeLeft == 0) {
+                    updateStartButton(false);
+                }
+            }
+        }
+    };
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Start and bind to TimerService
+        Intent intent = new Intent(getActivity(), TimerService.class);
+        requireActivity().startService(intent);
+        requireActivity().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the fragment layout
         View view = inflater.inflate(R.layout.fragment_timer, container, false);
 
         // Initialize UI elements
@@ -47,28 +83,34 @@ public class TimerFragment extends Fragment {
         startButton = view.findViewById(R.id.startButton);
         iconImageView = view.findViewById(R.id.iconImageView);
 
-        // Initialize alarm sound
-        alarmSound = MediaPlayer.create(getContext(), R.raw.alarm);
-
         // Configure NumberPickers
-        hourPicker.setMinValue(0);
-        hourPicker.setMaxValue(23);
-        minutePicker.setMinValue(0);
-        minutePicker.setMaxValue(59);
-        secondPicker.setMinValue(0);
-        secondPicker.setMaxValue(59);
+        setupNumberPickers();
+
+        // Setup broadcast receiver
+        IntentFilter filter = new IntentFilter(TimerService.TIMER_TICK);
+        LocalBroadcastManager.getInstance(requireContext())
+                .registerReceiver(timerUpdateReceiver, filter);
 
         // Start/Pause Timer functionality
         startButton.setOnClickListener(v -> {
-            if (isRunning) {
+            if (!bound) return;
+
+            if (timerService.isRunning()) {
                 pauseTimer();
             } else {
-                // Validate if time is selected
-                if (isTimeValid()) {
-                    startTimer();
+                if (timerService.getTimeLeftInMillis() > 0) {
+                    timerService.resumeTimer();
+                    updateStartButton(true);
                 } else {
-                    // Show toast notification for invalid time selection
-                    Toast.makeText(getContext(), "Invalid! Please enter a time.", Toast.LENGTH_SHORT).show();
+                    if (isTimeValid()) {
+                        long totalTimeMillis = (hourPicker.getValue() * 3600L +
+                                minutePicker.getValue() * 60L +
+                                secondPicker.getValue()) * 1000L;
+                        timerService.startTimer(totalTimeMillis);
+                        updateStartButton(true);
+                    } else {
+                        Toast.makeText(getContext(), "Please set a valid time", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -76,92 +118,84 @@ public class TimerFragment extends Fragment {
         return view;
     }
 
-    private boolean isTimeValid() {
-        // Check if at least one picker has a value greater than 0
-        int hours = hourPicker.getValue();
-        int minutes = minutePicker.getValue();
-        int seconds = secondPicker.getValue();
-
-        return hours > 0 || minutes > 0 || seconds > 0; // Time is valid if any picker has a non-zero value
+    private void setupNumberPickers() {
+        hourPicker.setMinValue(0);
+        hourPicker.setMaxValue(23);
+        minutePicker.setMinValue(0);
+        minutePicker.setMaxValue(59);
+        secondPicker.setMinValue(0);
+        secondPicker.setMaxValue(59);
     }
 
-    private void startTimer() {
-        if (!isRunning) {
-            // Calculate total time in milliseconds
-            int hours = hourPicker.getValue();
-            int minutes = minutePicker.getValue();
-            int seconds = secondPicker.getValue();
-
-            long totalTime = (hours * 3600L + minutes * 60L + seconds) * 1000L;
-            if (timeLeftInMillis == 0) {
-                timeLeftInMillis = totalTime;
+    private void updateUIFromService() {
+        if (bound && timerService != null) {
+            if (timerService.isRunning()) {
+                updateTimerText(timerService.getTimeLeftInMillis());
+                updateStartButton(true);
+            } else if (timerService.getTimeLeftInMillis() > 0) {
+                updateTimerText(timerService.getTimeLeftInMillis());
+                updateStartButton(false);
             }
 
-            countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    timeLeftInMillis = millisUntilFinished;
-                    updateTimerText();
-                }
-
-                @Override
-                public void onFinish() {
-                    timeLeftInMillis = 0;
-                    isRunning = false;
-                    startButton.setText("Start");
-
-                    // Play alarm sound
-                    playAlarm();
-                }
-            }.start();
-
-            isRunning = true;
-            startButton.setText("Pause");
+            // Restore number picker values from initial time if timer is running
+            if (timerService.getInitialTimeInMillis() > 0) {
+                long totalSeconds = timerService.getInitialTimeInMillis() / 1000;
+                hourPicker.setValue((int) (totalSeconds / 3600));
+                minutePicker.setValue((int) ((totalSeconds % 3600) / 60));
+                secondPicker.setValue((int) (totalSeconds % 60));
+            }
         }
+    }
+
+    private boolean isTimeValid() {
+        return hourPicker.getValue() > 0 ||
+                minutePicker.getValue() > 0 ||
+                secondPicker.getValue() > 0;
     }
 
     private void pauseTimer() {
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
+        if (bound) {
+            timerService.pauseTimer();
+            updateStartButton(false);
         }
-        isRunning = false;
-        startButton.setText("Resume");
     }
 
-    private void updateTimerText() {
-        int hours = (int) (timeLeftInMillis / 1000) / 3600;
-        int minutes = (int) ((timeLeftInMillis / 1000) % 3600) / 60;
-        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+    private void updateTimerText(long millisUntilFinished) {
+        int hours = (int) (millisUntilFinished / 1000) / 3600;
+        int minutes = (int) ((millisUntilFinished / 1000) % 3600) / 60;
+        int seconds = (int) (millisUntilFinished / 1000) % 60;
 
-        String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+        String timeFormatted = String.format(Locale.getDefault(),
+                "%02d:%02d:%02d",
+                hours,
+                minutes,
+                seconds);
         timerTextView.setText(timeFormatted);
     }
 
-    private void playAlarm() {
-        alarmSound.start();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
+    private void updateStartButton(boolean isRunning) {
         if (isRunning) {
-            pauseTimer();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!isRunning && timeLeftInMillis > 0) {
-            startTimer();
+            startButton.setText("Pause");
+        } else if (timerService != null && timerService.getTimeLeftInMillis() > 0) {
+            startButton.setText("Resume");
+        } else {
+            startButton.setText("Start");
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (alarmSound != null) {
-            alarmSound.release();
+        LocalBroadcastManager.getInstance(requireContext())
+                .unregisterReceiver(timerUpdateReceiver);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (bound) {
+            requireActivity().unbindService(serviceConnection);
+            bound = false;
         }
     }
 }
