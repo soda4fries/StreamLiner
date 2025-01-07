@@ -6,23 +6,31 @@
     android:gravity="center"
     android:padding="16dp">
 
+
     <!-- Title: Pomodoro Timer -->
+
+    <!-- New ImageView for Icon (Always Visible) -->
+
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pomodoro Timer"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:layout_marginBottom="16dp"/>
+        android:text="Pomodoro Timer"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:shadowColor="#66000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4" />
 
-    <!-- New ImageView for Icon (Always Visible) -->
     <ImageView
         android:id="@+id/iconImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/clock"  />
+        android:src="@drawable/baseline_access_time_24"  />
 
     <!-- NumberPickers for selecting Hours, Minutes, and Seconds -->
     <LinearLayout
