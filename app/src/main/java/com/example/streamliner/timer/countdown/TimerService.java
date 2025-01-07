@@ -1,5 +1,6 @@
 package com.example.streamliner.timer.countdown;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -61,11 +62,11 @@ public class TimerService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager manager = getSystemService(NotificationManager.class);
 
-            // Remove existing channels first to ensure settings are updated
+
             manager.deleteNotificationChannel(CHANNEL_ID);
             manager.deleteNotificationChannel(COMPLETE_CHANNEL_ID);
 
-            // Timer progress channel
+
             NotificationChannel serviceChannel = new NotificationChannel(
                     CHANNEL_ID,
                     "Timer Service Channel",
@@ -74,11 +75,11 @@ public class TimerService extends Service {
             serviceChannel.enableVibration(false);
             serviceChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
 
-            // Timer completion channel with maximum importance
+
             NotificationChannel completeChannel = new NotificationChannel(
                     COMPLETE_CHANNEL_ID,
                     "Timer Complete Channel",
-                    NotificationManager.IMPORTANCE_MAX);  // Changed to MAX importance
+                    NotificationManager.IMPORTANCE_HIGH);
 
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -87,13 +88,13 @@ public class TimerService extends Service {
 
             completeChannel.setImportance(NotificationManager.IMPORTANCE_HIGH);  // Explicitly set MAX importance
             completeChannel.enableLights(true);
-            completeChannel.setLightColor(0xFF0000); // Red
+            completeChannel.setLightColor(0xFF0000);
             completeChannel.enableVibration(true);
             completeChannel.setVibrationPattern(VIBRATION_PATTERN);
             completeChannel.setBypassDnd(true);
             completeChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-            completeChannel.setShowBadge(true);  // Show badge on app icon
-            completeChannel.setSound(null, audioAttributes); // We handle sound separately
+            completeChannel.setShowBadge(true);
+            completeChannel.setSound(null, audioAttributes);
 
             manager.createNotificationChannel(serviceChannel);
             manager.createNotificationChannel(completeChannel);
@@ -151,21 +152,21 @@ public class TimerService extends Service {
     }
 
     private void showTimerCompleteNotification() {
-        // Intent to open app
+
         Intent notificationIntent = new Intent(this, MainActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, notificationIntent,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
-        // Dismiss intent
+
         Intent dismissIntent = new Intent(this, TimerService.class);
         dismissIntent.setAction(ACTION_DISMISS_COMPLETION);
         PendingIntent dismissPendingIntent = PendingIntent.getService(
                 this, 1, dismissIntent,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
-        // Create a high-priority notification
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, COMPLETE_CHANNEL_ID)
                 .setContentTitle("⏰ Timer Complete!")
                 .setContentText("Timer finished! Tap to open")
@@ -182,25 +183,25 @@ public class TimerService extends Service {
                 .setVibrate(new long[]{0, 500, 1000})  // Add vibration pattern
                 .setLights(0xFF0000, 1000, 1000);  // Red LED flash
 
-        // For pre-Oreo devices
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             builder.setDefaults(Notification.DEFAULT_ALL);
         }
 
-        // Build and set flags
+
         Notification notification = builder.build();
         notification.flags |= Notification.FLAG_INSISTENT |
                 Notification.FLAG_NO_CLEAR |
                 Notification.FLAG_SHOW_LIGHTS;
 
-        // Show the notification
+
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Cancel any existing notifications first
+
         notificationManager.cancel(COMPLETE_NOTIFICATION_ID);
 
-        // Post the new notification
+
         notificationManager.notify(COMPLETE_NOTIFICATION_ID, notification);
     }
 
@@ -316,6 +317,7 @@ public class TimerService extends Service {
         }
     }
 
+    @SuppressLint("DefaultLocale")
     private String formatTime(long millis) {
         long seconds = millis / 1000;
         long hours = seconds / 3600;
