@@ -40,6 +40,7 @@ public class LoginPage extends Fragment {
         super.onStart();
         if (auth.getCurrentUser() != null) {
             navigateToChats();
+
         }
     }
 
@@ -106,7 +107,8 @@ public class LoginPage extends Fragment {
 
     private void handleLoginError(Exception exception) {
         if (exception instanceof FirebaseAuthInvalidUserException) {
-            showError(binding.ETEmailLogin, "User does not exist or is no longer valid. Please register again.");
+            showError(binding.ETEmailLogin, "User does not exist or is no longer valid. " +
+                    "Please register again.");
         } else if (exception instanceof FirebaseAuthInvalidCredentialsException) {
             showError(binding.ETEmailLogin, "Invalid credentials. Kindly check and re-enter.");
         } else {

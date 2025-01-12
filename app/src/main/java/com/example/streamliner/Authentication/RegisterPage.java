@@ -97,42 +97,34 @@ public class RegisterPage extends Fragment {
             showError(binding.ETName, "Name is required");
             return false;
         }
-
         if (TextUtils.isEmpty(phone)) {
             showError(binding.ETPhone, "Phone number is required");
             return false;
         }
-
         if (phone.length() != 10 && phone.length() != 11) {
             showError(binding.ETPhone, "Phone number should be 10 or 11 digits");
             return false;
         }
-
         if (TextUtils.isEmpty(email)) {
             showError(binding.ETEmail, "Email is required");
             return false;
         }
-
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             showError(binding.ETEmail, "Valid email is required");
             return false;
         }
-
         if (TextUtils.isEmpty(password)) {
             showError(binding.ETPwd, "Password is required");
             return false;
         }
-
         if (TextUtils.isEmpty(confirmPassword)) {
             showError(binding.ETConfirmPwd, "Password confirmation is required");
             return false;
         }
-
         if (!password.equals(confirmPassword)) {
             showError(binding.ETConfirmPwd, "Passwords do not match");
             return false;
         }
-
         return true;
     }
 
@@ -216,7 +208,7 @@ public class RegisterPage extends Fragment {
         if (!isAdded()) return;
 
         if (exception instanceof FirebaseAuthInvalidCredentialsException) {
-            showError(binding.ETEmail, "Your email is invalid or already in use.");
+            showError(binding.ETPwd, "Password must be at least 6 characters long.");
         } else if (exception instanceof FirebaseAuthUserCollisionException) {
             showError(binding.ETEmail, "User is already registered with this email.");
         } else {

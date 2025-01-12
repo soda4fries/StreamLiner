@@ -89,7 +89,6 @@ public class Feedback extends Fragment {
                     .addOnFailureListener(e -> {
                         Toast.makeText(getContext(), "Error submitting feedback: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     });
-
         }
     }
 }
